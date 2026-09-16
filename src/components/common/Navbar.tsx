@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useAuth } from '../../context/AuthContext';
-import { useModal } from '../../context/ModalContext';
 import type { UserRole } from '../../types';
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { role, setRole, user } = useAuth();
-  const { openModal } = useModal();
   const [searchQuery, setSearchQuery] = useState('');
   const [isRoleMenuOpen, setIsRoleMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -97,24 +95,8 @@ export const Navbar: React.FC = () => {
                 className="w-full pl-9 py-1.5 text-xs bg-[#F5F8F6] border border-[#E5E9E6] rounded-xl focus:outline-none focus:border-[#F28C28] focus:bg-white text-[#1F2937] placeholder-gray-400 transition-all"
               />
               <Icon icon="solar:magnifer-linear" className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-              {/* <button
-                type="button"
-                onClick={() => openModal('ask-ecosystem')}
-                title="Ask AI Ecosystem Assistant"
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 text-[#F28C28] hover:scale-110 transition-transform"
-              >
-                <Icon icon="solar:stars-minimalistic-bold" className="w-4 h-4" />
-              </button> */}
             </form>
 
-            {/* AI Assistant Quick Trigger */}
-            <button
-              onClick={() => openModal('ask-ecosystem')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#F28C28]/10 to-[#FF9F43]/20 border border-[#F28C28]/30 text-[#F28C28] text-xs font-semibold hover:bg-[#F28C28] hover:text-white transition-all shadow-sm"
-            >
-              <Icon icon="solar:stars-minimalistic-bold" className="w-4 h-4 animate-pulse" />
-              <span className="hidden sm:inline">Ask AI</span>
-            </button>
 
             {/* Notifications Dropdown */}
             <div className="relative">
@@ -274,9 +256,6 @@ export const Navbar: React.FC = () => {
 
           <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
             <span>Nagpur Civic-Tech Portal</span>
-            <button onClick={() => openModal('ask-ecosystem')} className="text-[#F28C28] font-bold">
-              Ask AI Assistant
-            </button>
           </div>
         </div>
       )}

@@ -9,6 +9,7 @@ import { CompanyCard, IndustryCard, JobCard, KPICard, NewsCard } from '../../com
 import { MapboxMap } from '../../components/map/MapboxMap';
 import { AIInsightsCard } from '../../components/ai/AIInsightsCard';
 import { useModal } from '../../context/ModalContext';
+import { StatCounter } from '../../components/ui/StatCounter';
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -60,11 +61,11 @@ export const Home: React.FC = () => {
                 </Link>
 
                 <button
-                  onClick={() => openModal('ask-ecosystem')}
+                onClick={()=> navigate("/jobs")}
                   className="px-4 py-3.5 rounded-2xl bg-white hover:bg-gray-50 border border-[#E5E9E6] text-gray-800 text-sm font-semibold flex items-center gap-2 transition-colors shadow-sm"
                 >
-                  <Icon icon="solar:stars-minimalistic-bold" className="w-5 h-5 text-[#F28C28]" />
-                  <span>Ask AI Assistant</span>
+                  <Icon icon="fluent:briefcase-search-24-filled" className="w-5 h-5 text-[#F28C28]" />
+                  <span>Quick Apply</span>
                 </button>
               </div>
 
@@ -121,7 +122,7 @@ export const Home: React.FC = () => {
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1F2937] font-display">Fastest Growing Nagpur Companies</h2>
           </div>
           <Link to="/companies" className="text-xs font-bold text-[#0B5D3B] hover:underline flex items-center gap-1">
-            <span>View All 820+ Companies</span>
+            <span>View All <StatCounter value="820+" /> Companies</span>
             <Icon icon="solar:alt-arrow-right-linear" className="w-4 h-4" />
           </Link>
         </div>
@@ -141,7 +142,7 @@ export const Home: React.FC = () => {
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1F2937] font-display">Latest Opportunities in Nagpur</h2>
           </div>
           <Link to="/jobs" className="text-xs font-bold text-[#F28C28] hover:underline flex items-center gap-1">
-            <span>Explore All 3,690 Jobs</span>
+            <span>Explore All <StatCounter value="3,690" /> Jobs</span>
             <Icon icon="solar:alt-arrow-right-linear" className="w-4 h-4" />
           </Link>
         </div>

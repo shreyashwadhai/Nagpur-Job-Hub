@@ -16,7 +16,7 @@ export const Sidebar: React.FC = () => {
 
   const companyNav = [
     { label: 'Company Overview', path: '/company/dashboard', icon: 'solar:widget-bold-duotone' },
-    { label: 'Nagpur Profile Edit', path: '/company/profile', icon: 'solar:buildings-bold-duotone' },
+    { label: 'Company Profile', path: '/company/profile', icon: 'solar:buildings-bold-duotone' },
     { label: 'Manage Job Listings', path: '/company/jobs', icon: 'solar:case-round-bold-duotone' },
     { label: 'Candidate Analytics', path: '/company/analytics', icon: 'solar:chart-2-bold-duotone' },
     { label: 'Domain Verification', path: '/company/verification', icon: 'solar:verified-check-bold-duotone' },

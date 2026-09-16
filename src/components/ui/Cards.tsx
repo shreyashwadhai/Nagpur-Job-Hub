@@ -1,11 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Icon } from '@iconify/react';
-import type { Company, Industry, Job, NewsArticle } from '../../types';
-import { ImpactBadge, VerificationBadge } from './Badges';
-import { useAuth } from '../../context/AuthContext';
-import { useModal } from '../../context/ModalContext';
-import { useToast } from '../../context/ToastContext';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Icon } from "@iconify/react";
+import type { Company, Industry, Job, NewsArticle } from "../../types";
+import { ImpactBadge, VerificationBadge } from "./Badges";
+import { useAuth } from "../../context/AuthContext";
+import { useModal } from "../../context/ModalContext";
+import { useToast } from "../../context/ToastContext";
+import { StatCounter } from "./StatCounter";
 
 export const KPICard: React.FC<{
   title: string;
@@ -18,19 +19,28 @@ export const KPICard: React.FC<{
   <div className="bg-white p-5 rounded-2xl border border-[#E5E9E6] shadow-soft hover:shadow-md transition-shadow relative overflow-hidden group">
     <div className="flex items-center justify-between">
       <div>
-        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{title}</p>
+        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+          {title}
+        </p>
         <h3 className="text-2xl sm:text-3xl font-extrabold text-[#1F2937] font-tech mt-1">
-          {value}
+          <StatCounter value={value} />
         </h3>
         {change && (
           <div className="flex items-center gap-1 mt-2 text-xs font-semibold">
             <span
               className={`flex items-center gap-0.5 px-2 py-0.5 rounded-full ${
-                isPositive ? 'bg-[#0B5D3B]/10 text-[#0B5D3B]' : 'bg-red-500/10 text-red-600'
+                isPositive
+                  ? "bg-[#0B5D3B]/10 text-[#0B5D3B]"
+                  : "bg-red-500/10 text-red-600"
               }`}
             >
-              <Icon icon={isPositive ? 'solar:graph-up-bold' : 'solar:graph-down-bold'} className="w-3.5 h-3.5" />
-              {change}
+              <Icon
+                icon={
+                  isPositive ? "solar:graph-up-bold" : "solar:graph-down-bold"
+                }
+                className="w-3.5 h-3.5"
+              />
+              <StatCounter value={change} />
             </span>
             <span className="text-gray-400 font-normal">vs last period</span>
           </div>
@@ -64,7 +74,9 @@ export const CompanyCard: React.FC<{ company: Company }> = ({ company }) => {
               >
                 {company.name}
               </Link>
-              <p className="text-xs text-gray-500 font-medium">{company.industry}</p>
+              <p className="text-xs text-gray-500 font-medium">
+                {company.industry}
+              </p>
             </div>
           </div>
           <VerificationBadge status={company.verificationStatus} />
@@ -76,18 +88,27 @@ export const CompanyCard: React.FC<{ company: Company }> = ({ company }) => {
 
         <div className="grid grid-cols-2 gap-2 text-xs bg-[#F5F8F6] p-3 rounded-xl mb-4 border border-gray-100">
           <div className="flex items-center gap-1.5 text-gray-700">
-            <Icon icon="solar:map-point-bold-duotone" className="w-4 h-4 text-[#F28C28]" />
+            <Icon
+              icon="solar:map-point-bold-duotone"
+              className="w-4 h-4 text-[#F28C28]"
+            />
             <span className="truncate">{company.sezZone}</span>
           </div>
           <div className="flex items-center gap-1.5 text-gray-700">
-            <Icon icon="solar:users-group-two-rounded-bold-duotone" className="w-4 h-4 text-[#0B5D3B]" />
+            <Icon
+              icon="solar:users-group-two-rounded-bold-duotone"
+              className="w-4 h-4 text-[#0B5D3B]"
+            />
             <span>{company.employeeBand}</span>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-1.5 mb-4">
           {company.tags.slice(0, 3).map((tag) => (
-            <span key={tag} className="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 text-gray-600">
+            <span
+              key={tag}
+              className="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 text-gray-600"
+            >
               {tag}
             </span>
           ))}
@@ -96,7 +117,7 @@ export const CompanyCard: React.FC<{ company: Company }> = ({ company }) => {
 
       <div className="pt-3 border-t border-gray-100 flex items-center justify-between gap-2">
         <button
-          onClick={() => openModal('claim-company', company)}
+          onClick={() => openModal("claim-company", company)}
           className="text-[11px] font-semibold text-[#F28C28] hover:text-[#FF9F43] flex items-center gap-1 transition-colors"
         >
           <Icon icon="solar:shield-check-bold" className="w-3.5 h-3.5" />
@@ -125,10 +146,10 @@ export const JobCard: React.FC<{ job: Job }> = ({ job }) => {
     e.stopPropagation();
     if (saved) {
       unsaveJob(job.id);
-      showToast('Job removed from saved items', 'info');
+      showToast("Job removed from saved items", "info");
     } else {
       saveJob(job.id);
-      showToast('Job saved successfully!', 'success');
+      showToast("Job saved successfully!", "success");
     }
   };
 
@@ -149,7 +170,10 @@ export const JobCard: React.FC<{ job: Job }> = ({ job }) => {
               >
                 {job.title}
               </Link>
-              <Link to={`/companies/${job.companyId}`} className="text-xs text-[#0B5D3B] font-semibold hover:underline">
+              <Link
+                to={`/companies/${job.companyId}`}
+                className="text-xs text-[#0B5D3B] font-semibold hover:underline"
+              >
                 {job.companyName}
               </Link>
             </div>
@@ -159,21 +183,30 @@ export const JobCard: React.FC<{ job: Job }> = ({ job }) => {
             aria-label={saved ? "Unsave opportunity" : "Save opportunity"}
             className={`p-2 rounded-xl border transition-colors ${
               saved
-                ? 'bg-[#F28C28] text-white border-[#F28C28]'
-                : 'bg-gray-50 text-gray-400 border-gray-200 hover:text-[#F28C28] hover:border-[#F28C28]'
+                ? "bg-[#F28C28] text-white border-[#F28C28]"
+                : "bg-gray-50 text-gray-400 border-gray-200 hover:text-[#F28C28] hover:border-[#F28C28]"
             }`}
           >
-            <Icon icon={saved ? 'solar:bookmark-bold' : 'solar:bookmark-linear'} className="w-4 h-4" />
+            <Icon
+              icon={saved ? "solar:bookmark-bold" : "solar:bookmark-linear"}
+              className="w-4 h-4"
+            />
           </button>
         </div>
 
         <div className="flex flex-wrap gap-2 text-xs text-gray-600 mb-3">
           <span className="flex items-center gap-1 bg-[#F5F8F6] px-2.5 py-1 rounded-lg border border-gray-200/60">
-            <Icon icon="solar:map-point-bold" className="w-3.5 h-3.5 text-[#F28C28]" />
+            <Icon
+              icon="solar:map-point-bold"
+              className="w-3.5 h-3.5 text-[#F28C28]"
+            />
             {job.sezZone}
           </span>
           <span className="flex items-center gap-1 bg-[#F5F8F6] px-2.5 py-1 rounded-lg border border-gray-200/60">
-            <Icon icon="solar:case-minimalistic-bold" className="w-3.5 h-3.5 text-[#0B5D3B]" />
+            <Icon
+              icon="solar:case-minimalistic-bold"
+              className="w-3.5 h-3.5 text-[#0B5D3B]"
+            />
             {job.experience}
           </span>
           <span className="flex items-center gap-1 bg-[#F5F8F6] px-2.5 py-1 rounded-lg border border-gray-200/60 font-semibold text-[#0B5D3B]">
@@ -183,7 +216,10 @@ export const JobCard: React.FC<{ job: Job }> = ({ job }) => {
 
         <div className="flex flex-wrap gap-1.5 mb-4">
           {job.skills.slice(0, 4).map((skill) => (
-            <span key={skill} className="text-[10px] font-semibold px-2 py-0.5 rounded bg-gray-100 text-gray-700">
+            <span
+              key={skill}
+              className="text-[10px] font-semibold px-2 py-0.5 rounded bg-gray-100 text-gray-700"
+            >
               {skill}
             </span>
           ))}
@@ -196,10 +232,12 @@ export const JobCard: React.FC<{ job: Job }> = ({ job }) => {
       </div>
 
       <div className="pt-3 border-t border-gray-100 flex items-center justify-between gap-2 text-xs">
-        <span className="text-gray-400 text-[11px]">Posted {job.postedDate}</span>
+        <span className="text-gray-400 text-[11px]">
+          Posted {job.postedDate}
+        </span>
         <div className="flex items-center gap-2">
           <button
-            onClick={() => openModal('apply-job', job)}
+            onClick={() => openModal("apply-job", job)}
             className="px-3.5 py-1.5 rounded-xl bg-[#F28C28] hover:bg-[#FF9F43] text-white font-bold transition-all shadow-sm"
           >
             Quick Apply
@@ -262,7 +300,9 @@ export const NewsCard: React.FC<{ news: NewsArticle }> = ({ news }) => (
   </div>
 );
 
-export const IndustryCard: React.FC<{ industry: Industry }> = ({ industry }) => (
+export const IndustryCard: React.FC<{ industry: Industry }> = ({
+  industry,
+}) => (
   <Link
     to={`/industries/${industry.id}`}
     className="bg-white rounded-2xl border border-[#E5E9E6] p-6 shadow-soft hover:shadow-xl hover:border-[#F28C28] transition-all group"
@@ -272,7 +312,7 @@ export const IndustryCard: React.FC<{ industry: Industry }> = ({ industry }) => 
         <Icon icon={industry.icon} className="w-6 h-6" />
       </div>
       <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-[#0B5D3B]/10 text-[#0B5D3B]">
-        {industry.growthRate}
+        <StatCounter value={industry.growthRate} />
       </span>
     </div>
 
@@ -285,15 +325,21 @@ export const IndustryCard: React.FC<{ industry: Industry }> = ({ industry }) => 
 
     <div className="grid grid-cols-3 gap-2 py-3 border-t border-b border-gray-100 text-center text-xs">
       <div>
-        <span className="block font-bold text-[#1F2937] font-tech">{industry.totalCompanies}</span>
+        <span className="block font-bold text-[#1F2937] font-tech">
+          <StatCounter value={industry.totalCompanies} />
+        </span>
         <span className="text-[10px] text-gray-400">Companies</span>
       </div>
       <div>
-        <span className="block font-bold text-[#0B5D3B] font-tech">{industry.totalJobs}</span>
+        <span className="block font-bold text-[#0B5D3B] font-tech">
+          <StatCounter value={industry.totalJobs} />
+        </span>
         <span className="text-[10px] text-gray-400">Open Jobs</span>
       </div>
       <div>
-        <span className="block font-bold text-[#F28C28] font-tech">{(industry.totalEmployment / 1000).toFixed(1)}k</span>
+        <span className="block font-bold text-[#F28C28] font-tech">
+          <StatCounter value={`${(industry.totalEmployment / 1000).toFixed(1)}k`} />
+        </span>
         <span className="text-[10px] text-gray-400">Workforce</span>
       </div>
     </div>

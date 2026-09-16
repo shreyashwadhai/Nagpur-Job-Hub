@@ -125,7 +125,7 @@ export const Jobs: React.FC = () => {
           <div className="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10 space-y-2">
             <span className="text-xs font-bold text-[#FF9F43] uppercase font-tech">Top Hiring Skill</span>
             <h4 className="font-extrabold text-lg text-white">Snowflake & PySpark</h4>
-            <p className="text-xs text-gray-200">Data engineering demand up 52% YoY in MIHAN SEZ campus hubs.</p>
+            <p className="text-xs text-gray-200">Data engineering demand up 52% Year on year in MIHAN SEZ campus hubs.</p>
           </div>
 
           <div className="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10 space-y-2">

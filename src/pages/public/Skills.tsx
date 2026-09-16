@@ -53,7 +53,7 @@ export const Skills: React.FC = () => {
               <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-[#0B5D3B]/10 text-[#0B5D3B]">
                 {skill.category}
               </span>
-              <span className="text-xs font-bold text-[#F28C28]">{skill.growthYoY} YoY</span>
+              <span className="text-xs font-bold text-[#F28C28]">{skill.growthYoY} Year on year</span>
             </div>
             <h4 className="font-bold text-base text-[#1F2937]">{skill.skillName}</h4>
             <div className="space-y-1 text-xs text-gray-600">

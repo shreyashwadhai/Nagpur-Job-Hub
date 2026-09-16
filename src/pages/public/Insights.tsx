@@ -89,7 +89,7 @@ export const Insights: React.FC = () => {
               <h3 className="font-bold text-lg text-[#1F2937] font-display">Year-wise Company & Hiring Trajectory</h3>
               <p className="text-xs text-gray-500">Growth momentum across Nagpur industrial nodes</p>
             </div>
-            <span className="text-xs font-bold text-[#0B5D3B] bg-[#0B5D3B]/10 px-2.5 py-1 rounded-md font-tech">+24.8% YoY</span>
+            <span className="text-xs font-bold text-[#0B5D3B] bg-[#0B5D3B]/10 px-2.5 py-1 rounded-md font-tech">+24.8% Year on year</span>
           </div>
 
           <div className="h-72 w-full pt-4">

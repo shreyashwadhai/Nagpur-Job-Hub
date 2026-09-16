@@ -5,7 +5,7 @@ export const AIInsightsCard: React.FC = () => {
   const insights = [
     {
       title: 'MIHAN SEZ Cloud Acceleration',
-      text: 'MIHAN SEZ recorded a 45% YoY increase in datacenter capacity allocations, driving high demand for Snowflake, PySpark, and AWS cloud security engineers.',
+      text: 'MIHAN SEZ recorded a 45% Year on year increase in datacenter capacity allocations, driving high demand for Snowflake, PySpark, and AWS cloud security engineers.',
       tag: 'Tech Growth'
     },
     {
