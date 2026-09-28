@@ -146,47 +146,7 @@ export const Navbar: React.FC = () => {
               />
             </form>
 
-            {/* Vitric IQ AI Button */}
-            <a
-              href="https://ai-interview.vitric.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative group flex items-center justify-center focus:outline-none"
-              title="Vitric IQ - AI Ecosystem Intelligence"
-            >
-              {/* Outer Glowing Pulsing Aura */}
-              <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-[#6CBDDE] via-[#6CBDDE] to-[#6366F1] opacity-70 blur-[3px] group-hover:opacity-100 transition duration-300 group-hover:duration-200 animate-pulse" />
-
-              {/* Glassmorphic Button Surface */}
-              <div className="relative flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0b1d46] text-white border border-white/20 shadow-md backdrop-blur-md overflow-hidden transition-transform duration-300 group-hover:scale-105">
-                {/* Animated Light Sweep Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none" />
-
-                {/* AI Brain Icon Container */}
-                <div className="relative flex items-center justify-center w-5 h-5 rounded-lg bg-gradient-to-tr from-[#174885] to-[#6CBDDE] text-white shadow-inner">
-                  <Icon
-                    icon="hugeicons:brain-circuit"
-                    className="w-3.5 h-3.5 text-white transition-transform duration-300 group-hover:scale-110"
-                  />
-                  {/* Active AI Status Pulse */}
-                  <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 border border-slate-900" />
-                  </span>
-                </div>
-
-                {/* Brand Typography & Badge */}
-                <div className="flex items-center gap-1.5">
-                  <span className="text-xs font-extrabold tracking-tight font-display bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
-                    VITRIC
-                  </span>
-                  <span className="px-1.5 py-0.5 text-[9px] font-tech font-black tracking-wider uppercase rounded-md bg-gradient-to-r from-[#1675ea] to-[#6CBDDE] text-slate-950 shadow-sm">
-                    IQ
-                  </span>
-                 
-                </div>
-              </div>
-            </a>
+          
 
             {/* Notifications Dropdown */}
             <div className="relative">
