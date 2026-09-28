@@ -24,7 +24,7 @@ export const CompanyProfileEdit: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm">
-        <h1 className="text-2xl font-bold text-[#1F2937] font-display">Edit Nagpur Corporate Profile</h1>
+        <h1 className="text-2xl font-bold text-[#1F2937] font-display">Edit Company Profile</h1>
         <p className="text-xs text-gray-500 mt-1">Update operational information displayed in the public directory.</p>
       </div>
 

@@ -16,10 +16,17 @@ export const Sidebar: React.FC = () => {
 
   const companyNav = [
     { label: 'Company Overview', path: '/company/dashboard', icon: 'solar:widget-bold-duotone' },
-    { label: 'Nagpur Profile Edit', path: '/company/profile', icon: 'solar:buildings-bold-duotone' },
+    { label: 'Company Profile', path: '/company/profile', icon: 'solar:buildings-bold-duotone' },
     { label: 'Manage Job Listings', path: '/company/jobs', icon: 'solar:case-round-bold-duotone' },
     { label: 'Candidate Analytics', path: '/company/analytics', icon: 'solar:chart-2-bold-duotone' },
     { label: 'Domain Verification', path: '/company/verification', icon: 'solar:verified-check-bold-duotone' },
+  ];
+
+  const instituteNav = [
+    { label: 'Institute Overview', path: '/institute/dashboard', icon: 'solar:widget-bold-duotone' },
+    { label: 'Courses & Programs', path: '/institute/courses', icon: 'solar:ruler-cross-pen-bold-duotone' },
+    { label: 'Internships & Drives', path: '/institute/internships', icon: 'solar:case-round-bold-duotone' },
+    { label: 'Industry & Campus MoUs', path: '/institute/mous', icon: 'solar:document-text-bold-duotone' },
   ];
 
   const adminNav = [
@@ -33,8 +40,8 @@ export const Sidebar: React.FC = () => {
     { label: 'System Audit Logs', path: '/admin/audit-logs', icon: 'solar:history-bold-duotone' },
   ];
 
-  const navItems = role === 'admin' ? adminNav : role === 'company' ? companyNav : userNav;
-  const panelTitle = role === 'admin' ? 'Admin Intelligence' : role === 'company' ? 'Company Enterprise' : 'Job Seeker Portal';
+  const navItems = role === 'admin' ? adminNav : role === 'company' ? companyNav : role === 'institute' ? instituteNav : userNav;
+  const panelTitle = role === 'admin' ? 'Admin Intelligence' : role === 'company' ? 'Company Enterprise' : role === 'institute' ? 'Institute Academy' : 'Job Seeker Portal';
 
   return (
     <aside className="w-64 bg-white border-r border-[#E5E9E6] hidden md:flex flex-col min-h-[calc(100vh-4rem)]">

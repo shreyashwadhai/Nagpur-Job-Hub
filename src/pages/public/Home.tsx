@@ -9,6 +9,8 @@ import { CompanyCard, IndustryCard, JobCard, KPICard, NewsCard } from '../../com
 import { MapboxMap } from '../../components/map/MapboxMap';
 import { AIInsightsCard } from '../../components/ai/AIInsightsCard';
 import { useModal } from '../../context/ModalContext';
+import { StatCounter } from '../../components/ui/StatCounter';
+import { HorizontalScroller } from '../../components/ui/HorizontalScroller';
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -60,11 +62,11 @@ export const Home: React.FC = () => {
                 </Link>
 
                 <button
-                  onClick={() => openModal('ask-ecosystem')}
+                  onClick={() => openModal('quick-apply')}
                   className="px-4 py-3.5 rounded-2xl bg-white hover:bg-gray-50 border border-[#E5E9E6] text-gray-800 text-sm font-semibold flex items-center gap-2 transition-colors shadow-sm"
                 >
-                  <Icon icon="solar:stars-minimalistic-bold" className="w-5 h-5 text-[#F28C28]" />
-                  <span>Ask AI Assistant</span>
+                  <Icon icon="fluent:briefcase-search-24-filled" className="w-5 h-5 text-[#F28C28]" />
+                  <span>Quick Apply</span>
                 </button>
               </div>
 
@@ -114,43 +116,43 @@ export const Home: React.FC = () => {
       </section>
 
       {/* GROWING COMPANIES */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 overflow-hidden">
         <div className="flex items-end justify-between">
           <div>
             <span className="text-xs font-tech font-bold uppercase text-[#F28C28]">Curated Directory</span>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1F2937] font-display">Fastest Growing Nagpur Companies</h2>
           </div>
           <Link to="/companies" className="text-xs font-bold text-[#0B5D3B] hover:underline flex items-center gap-1">
-            <span>View All 820+ Companies</span>
+            <span>View All <StatCounter value="820+" /> Companies</span>
             <Icon icon="solar:alt-arrow-right-linear" className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockCompanies.slice(0, 6).map((c) => (
+        <HorizontalScroller>
+          {mockCompanies.map((c) => (
             <CompanyCard key={c.id} company={c} />
           ))}
-        </div>
+        </HorizontalScroller>
       </section>
 
       {/* LATEST CAREER OPPORTUNITIES */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 bg-white p-8 rounded-3xl border border-[#E5E9E6] shadow-sm">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 p-8 overflow-hidden">
         <div className="flex items-end justify-between">
           <div>
             <span className="text-xs font-tech font-bold uppercase text-[#0B5D3B]">Talent & Recruitment</span>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1F2937] font-display">Latest Opportunities in Nagpur</h2>
           </div>
           <Link to="/jobs" className="text-xs font-bold text-[#F28C28] hover:underline flex items-center gap-1">
-            <span>Explore All 3,690 Jobs</span>
+            <span>Explore All <StatCounter value="3,690" /> Jobs</span>
             <Icon icon="solar:alt-arrow-right-linear" className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockJobs.slice(0, 6).map((j) => (
+        <HorizontalScroller>
+          {mockJobs.map((j) => (
             <JobCard key={j.id} job={j} />
           ))}
-        </div>
+        </HorizontalScroller>
       </section>
 
       {/* KEY SECTOR DIRECTORY */}
