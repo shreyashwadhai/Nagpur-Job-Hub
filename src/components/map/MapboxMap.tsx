@@ -59,41 +59,60 @@ export const MapboxMap: React.FC<MapboxMapProps> = ({
     // Clear old markers
     markersGroup.clearLayers();
 
-    // Custom Icon Generator
-    const createCustomIcon = (isVerified: boolean, isSelected: boolean) => {
+    // Custom Icon Generator with visible location pin name
+    const createCustomIcon = (name: string, isVerified: boolean, isSelected: boolean) => {
       const color = isSelected ? '#F28C28' : isVerified ? '#0B5D3B' : '#6B7280';
       const html = `
-        <div style="
-          width: 36px;
-          height: 36px;
-          background: ${color};
-          border: 3px solid white;
-          border-radius: 50%;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          transform: ${isSelected ? 'scale(1.25)' : 'scale(1)'};
-          transition: transform 0.2s ease;
-        ">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-          </svg>
+        <div style="display: flex; flex-direction: column; align-items: center; pointer-events: auto; cursor: pointer; transform: translate(-50%, -100%);">
+          <div style="
+            background: rgba(255, 255, 255, 0.95);
+            color: #1F2937;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.22);
+            border: 1.5px solid ${color};
+            margin-bottom: 2px;
+            white-space: nowrap;
+            max-width: 140px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          ">
+            ${name}
+          </div>
+          <div style="
+            width: 32px;
+            height: 32px;
+            background: ${color};
+            border: 2.5px solid white;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transform: ${isSelected ? 'scale(1.2)' : 'scale(1)'};
+            transition: transform 0.2s ease;
+          ">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
         </div>
       `;
       return L.divIcon({
         html,
         className: 'custom-map-pin',
-        iconSize: [36, 36],
-        iconAnchor: [18, 36]
+        iconSize: [0, 0],
+        iconAnchor: [0, 0]
       });
     };
 
     // Render company markers
     companies.forEach((comp) => {
       const isSelected = comp.id === selectedCompanyId;
-      const icon = createCustomIcon(comp.verified, isSelected);
+      const icon = createCustomIcon(comp.name, comp.verified, isSelected);
 
       const marker = L.marker([comp.coordinates.lat, comp.coordinates.lng], { icon });
       marker.on('click', () => {

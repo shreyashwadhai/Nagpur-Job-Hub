@@ -33,6 +33,7 @@ export const Navbar: React.FC = () => {
   const roleOptions: { label: string; value: UserRole; icon: string; path: string }[] = [
     { label: 'Job Seeker View', value: 'jobseeker', icon: 'solar:user-bold', path: '/user/dashboard' },
     { label: 'Company Portal', value: 'company', icon: 'solar:buildings-bold', path: '/company/dashboard' },
+    { label: 'Institute Portal', value: 'institute', icon: 'solar:ruler-cross-pen-bold', path: '/institute/dashboard' },
     { label: 'Admin Intelligence', value: 'admin', icon: 'solar:shield-check-bold', path: '/admin/dashboard' },
   ];
 
@@ -75,7 +76,7 @@ export const Navbar: React.FC = () => {
                       : 'text-[#1F2937] hover:bg-gray-100 hover:text-[#0B5D3B]'
                   }`}
                 >
-                  <Icon icon={link.icon} className={`w-4 h-4 ${isActive ? 'text-[#0B5D3B]' : 'text-[#6B7280]'}`} />
+                  {/* <Icon icon={link.icon} className={`w-4 h-4 ${isActive ? 'text-[#0B5D3B]' : 'text-[#6B7280]'}`} /> */}
                   {link.label}
                 </Link>
               );
@@ -197,7 +198,7 @@ export const Navbar: React.FC = () => {
 
                   <div className="border-t border-gray-100 mt-2 pt-1">
                     <Link
-                      to={role === 'admin' ? '/admin/dashboard' : role === 'company' ? '/company/dashboard' : '/user/dashboard'}
+                      to={role === 'admin' ? '/admin/dashboard' : role === 'company' ? '/company/dashboard' : role === 'institute' ? '/institute/dashboard' : '/user/dashboard'}
                       onClick={() => setIsRoleMenuOpen(false)}
                       className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-[#F28C28] hover:bg-[#F28C28]/10 transition-colors"
                     >

@@ -35,6 +35,10 @@ import { CompanyJobs } from './pages/company/CompanyJobs';
 import { CompanyAnalytics } from './pages/company/CompanyAnalytics';
 import { CompanyVerification } from './pages/company/CompanyVerification';
 
+// Institute Panel Pages
+import { InstituteDashboard } from './pages/institute/InstituteDashboard';
+import { InstituteCourses } from './pages/institute/InstituteCourses';
+
 // Admin Panel Pages
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { AdminCompanies } from './pages/admin/AdminCompanies';
@@ -85,6 +89,14 @@ export const App: React.FC = () => {
                 <Route path="jobs" element={<CompanyJobs />} />
                 <Route path="analytics" element={<CompanyAnalytics />} />
                 <Route path="verification" element={<CompanyVerification />} />
+              </Route>
+
+              {/* Institute Panel Layout */}
+              <Route path="/institute" element={<DashboardLayout />}>
+                <Route path="dashboard" element={<InstituteDashboard />} />
+                <Route path="courses" element={<InstituteCourses />} />
+                <Route path="internships" element={<InstituteCourses />} />
+                <Route path="mous" element={<InstituteDashboard />} />
               </Route>
 
               {/* Admin Panel Layout */}

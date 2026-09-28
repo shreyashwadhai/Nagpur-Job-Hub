@@ -10,6 +10,7 @@ import { MapboxMap } from '../../components/map/MapboxMap';
 import { AIInsightsCard } from '../../components/ai/AIInsightsCard';
 import { useModal } from '../../context/ModalContext';
 import { StatCounter } from '../../components/ui/StatCounter';
+import { HorizontalScroller } from '../../components/ui/HorizontalScroller';
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ export const Home: React.FC = () => {
                 </Link>
 
                 <button
-                onClick={()=> navigate("/jobs")}
+                  onClick={() => openModal('quick-apply')}
                   className="px-4 py-3.5 rounded-2xl bg-white hover:bg-gray-50 border border-[#E5E9E6] text-gray-800 text-sm font-semibold flex items-center gap-2 transition-colors shadow-sm"
                 >
                   <Icon icon="fluent:briefcase-search-24-filled" className="w-5 h-5 text-[#F28C28]" />
@@ -115,7 +116,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* GROWING COMPANIES */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 overflow-hidden">
         <div className="flex items-end justify-between">
           <div>
             <span className="text-xs font-tech font-bold uppercase text-[#F28C28]">Curated Directory</span>
@@ -127,15 +128,15 @@ export const Home: React.FC = () => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockCompanies.slice(0, 6).map((c) => (
+        <HorizontalScroller>
+          {mockCompanies.map((c) => (
             <CompanyCard key={c.id} company={c} />
           ))}
-        </div>
+        </HorizontalScroller>
       </section>
 
       {/* LATEST CAREER OPPORTUNITIES */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 bg-white p-8 rounded-3xl border border-[#E5E9E6] shadow-sm">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 p-8 overflow-hidden">
         <div className="flex items-end justify-between">
           <div>
             <span className="text-xs font-tech font-bold uppercase text-[#0B5D3B]">Talent & Recruitment</span>
@@ -147,11 +148,11 @@ export const Home: React.FC = () => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockJobs.slice(0, 6).map((j) => (
+        <HorizontalScroller>
+          {mockJobs.map((j) => (
             <JobCard key={j.id} job={j} />
           ))}
-        </div>
+        </HorizontalScroller>
       </section>
 
       {/* KEY SECTOR DIRECTORY */}

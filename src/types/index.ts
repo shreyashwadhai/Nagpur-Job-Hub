@@ -1,7 +1,22 @@
 export type VerificationStatus = 'verified' | 'estimated' | 'public' | 'pending';
 export type WorkMode = 'On-site' | 'Hybrid' | 'Remote';
 export type ImpactLevel = 'High' | 'Medium' | 'Low';
-export type UserRole = 'jobseeker' | 'company' | 'admin';
+export type UserRole = 'jobseeker' | 'company' | 'admin' | 'institute';
+
+export interface CoursePost {
+  id: string;
+  instituteId: string;
+  instituteName: string;
+  title: string;
+  category: 'Degree Program' | 'Diploma' | 'Certification' | 'Skill Workshop' | 'Internship Drive';
+  duration: string;
+  eligibility: string;
+  feesOrStipend: string;
+  description: string;
+  postedDate: string;
+  applyLink?: string;
+  status: 'Active' | 'Draft';
+}
 
 export interface Company {
   id: string;

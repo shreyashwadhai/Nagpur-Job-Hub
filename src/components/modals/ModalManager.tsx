@@ -5,6 +5,7 @@ import { SubmitUpdateModal } from './SubmitUpdateModal';
 import { ExportModal } from './ExportModal';
 import { AskEcosystemDrawer } from '../ai/AskEcosystemDrawer';
 import { FloatingAIAgent } from '../ai/FloatingAIAgent';
+import { QuickApplyModal } from './QuickApplyModal';
 
 export const ModalManager: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ export const ModalManager: React.FC = () => {
       <ExportModal />
       <AskEcosystemDrawer />
       <FloatingAIAgent />
+      <QuickApplyModal />
     </>
   );
 };

@@ -4,7 +4,7 @@ import { useModal } from '../../context/ModalContext';
 
 export const FloatingAIAgent: React.FC = () => {
   const { openModal, isOpen, modalType } = useModal();
-  const [isHovered, setIsHovered] = useState(false);
+  const [_isHovered, setIsHovered] = useState(false);
   const [showGreeting, setShowGreeting] = useState(false);
 
   // Show a friendly pop-up greeting bubble after 3 seconds on first load

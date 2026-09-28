@@ -11,7 +11,9 @@ export type ModalType =
   | 'confirm-action'
   | 'view-verification'
   | 'user-details'
-  | 'filter-modal';
+  | 'filter-modal'
+  | 'quick-apply'
+  | 'post-course';
 
 interface ModalContextType {
   modalType: ModalType | null;
