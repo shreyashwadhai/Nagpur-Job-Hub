@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useModal } from '../../context/ModalContext';
+import AppLogo from "../../assets/app_logo.webp";
 
 export const Footer: React.FC = () => {
   const { openModal } = useModal();
@@ -14,8 +15,9 @@ export const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-[#F28C28] flex items-center justify-center text-white shadow-md">
-                <Icon icon="solar:city-bold" className="w-6 h-6" />
+              <div className="bg-white rounded-xl  flex items-center justify-center text-white shadow-md">
+                {/* <Icon icon="solar:city-bold" className="w-6 h-6" /> */}
+                <img src={AppLogo} alt="" className="w-20 h-16" />
               </div>
               <div>
                 <span className="font-display font-bold text-xl text-white tracking-wide">

@@ -51,7 +51,7 @@ export const FloatingAIAgent: React.FC = () => {
         onClick={() => openModal('ask-ecosystem')}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        aria-label="Ask AI Assistant"
+        aria-label="Ask Vitrio"
         className={`relative group flex items-center justify-center p-1 rounded-full transition-all duration-300 focus:outline-none ${
           isModalOpen ? 'scale-95 ring-4 ring-[#F28C28]/40' : 'hover:scale-105 active:scale-95'
         }`}
@@ -90,7 +90,7 @@ export const FloatingAIAgent: React.FC = () => {
           <div className="flex flex-col text-left pr-1">
             <div className="flex items-center gap-1">
               <span className="text-xs font-bold tracking-wide leading-none text-white drop-shadow-sm">
-                Ask AI Agent
+                Ask Vitrio
               </span>
               <Icon icon="solar:stars-minimalistic-bold" className="w-3.5 h-3.5 text-[#FFD166] animate-pulse" />
             </div>

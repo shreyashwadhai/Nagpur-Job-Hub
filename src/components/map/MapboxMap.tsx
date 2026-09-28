@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { Icon } from '@iconify/react';
 import type { Company } from '../../types';
 import { VerificationBadge } from '../ui/Badges';
@@ -13,127 +13,183 @@ interface MapboxMapProps {
   height?: string;
 }
 
+type MapboxStyle = 'streets-v12' | 'light-v11' | 'satellite-streets-v12';
+
 export const MapboxMap: React.FC<MapboxMapProps> = ({
   companies,
   selectedCompanyId,
   onSelectCompany,
   height = '500px'
 }) => {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const leafletInstance = useRef<L.Map | null>(null);
-  const markersLayerGroup = useRef<L.LayerGroup | null>(null);
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapInstance = useRef<mapboxgl.Map | null>(null);
+  const markersRef = useRef<mapboxgl.Marker[]>([]);
   const [activeCompany, setActiveCompany] = useState<Company | null>(null);
+  const [currentStyle, setCurrentStyle] = useState<MapboxStyle>('streets-v12');
 
-  // Default Center: Nagpur MIHAN & Industrial Center (21.08, 79.03)
-  const NAGPUR_CENTER: [number, number] = [21.08, 79.03];
+  const mapboxToken = import.meta.env.VITE_MAPBOX || '';
 
+  // Default Center: Nagpur MIHAN & Industrial Center [Longitude, Latitude]
+  const NAGPUR_CENTER: [number, number] = [79.03, 21.08];
+
+  // Initialize Native Mapbox GL JS Map
   useEffect(() => {
-    if (!mapRef.current) return;
+    if (!mapContainerRef.current) return;
 
-    if (!leafletInstance.current) {
-      // Initialize Leaflet Map with Mapbox styled tiles
-      const map = L.map(mapRef.current, {
-        center: NAGPUR_CENTER,
-        zoom: 11,
-        zoomControl: false,
-        attributionControl: false
-      });
+    mapboxgl.accessToken = mapboxToken;
 
-      // Mapbox Carto Light Tile Layer
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
-        subdomains: 'abcd'
-      }).addTo(map);
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: `mapbox://styles/mapbox/${currentStyle}`,
+      center: NAGPUR_CENTER,
+      zoom: 11,
+      attributionControl: false
+    });
 
-      // Add Zoom control top-right
-      L.control.zoom({ position: 'topright' }).addTo(map);
+    // Navigation control (Zoom in/out)
+    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
 
-      leafletInstance.current = map;
-      markersLayerGroup.current = L.layerGroup().addTo(map);
-    }
+    mapInstance.current = map;
 
-    const map = leafletInstance.current;
-    const markersGroup = markersLayerGroup.current;
-    if (!map || !markersGroup) return;
-
-    // Clear old markers
-    markersGroup.clearLayers();
-
-    // Custom Icon Generator with visible location pin name
-    const createCustomIcon = (name: string, isVerified: boolean, isSelected: boolean) => {
-      const color = isSelected ? '#F28C28' : isVerified ? '#0B5D3B' : '#6B7280';
-      const html = `
-        <div style="display: flex; flex-direction: column; align-items: center; pointer-events: auto; cursor: pointer; transform: translate(-50%, -100%);">
-          <div style="
-            background: rgba(255, 255, 255, 0.95);
-            color: #1F2937;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.22);
-            border: 1.5px solid ${color};
-            margin-bottom: 2px;
-            white-space: nowrap;
-            max-width: 140px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          ">
-            ${name}
-          </div>
-          <div style="
-            width: 32px;
-            height: 32px;
-            background: ${color};
-            border: 2.5px solid white;
-            border-radius: 50%;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            transform: ${isSelected ? 'scale(1.2)' : 'scale(1)'};
-            transition: transform 0.2s ease;
-          ">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-            </svg>
-          </div>
-        </div>
-      `;
-      return L.divIcon({
-        html,
-        className: 'custom-map-pin',
-        iconSize: [0, 0],
-        iconAnchor: [0, 0]
-      });
+    return () => {
+      map.remove();
+      mapInstance.current = null;
     };
+  }, []);
 
-    // Render company markers
+  // Update map style when style toggle is clicked
+  useEffect(() => {
+    if (mapInstance.current) {
+      mapInstance.current.setStyle(`mapbox://styles/mapbox/${currentStyle}`);
+    }
+  }, [currentStyle]);
+
+  // Update Mapbox Markers
+  useEffect(() => {
+    const map = mapInstance.current;
+    if (!map) return;
+
+    // Remove previous markers
+    markersRef.current.forEach((m) => m.remove());
+    markersRef.current = [];
+
     companies.forEach((comp) => {
       const isSelected = comp.id === selectedCompanyId;
-      const icon = createCustomIcon(comp.name, comp.verified, isSelected);
+      const color = isSelected ? '#F28C28' : comp.verified ? '#0B5D3B' : '#6B7280';
 
-      const marker = L.marker([comp.coordinates.lat, comp.coordinates.lng], { icon });
-      marker.on('click', () => {
+      // Create Custom HTML Pin Element for Mapbox GL JS
+      const el = document.createElement('div');
+      el.className = 'custom-mapbox-pin';
+      el.style.cursor = 'pointer';
+      el.style.display = 'flex';
+      el.style.flexDirection = 'column';
+      el.style.alignItems = 'center';
+
+      el.innerHTML = `
+        <div style="
+          background: rgba(255, 255, 255, 0.95);
+          color: #1F2937;
+          font-size: 10px;
+          font-weight: 700;
+          padding: 2px 8px;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.22);
+          border: 1.5px solid ${color};
+          margin-bottom: 2px;
+          white-space: nowrap;
+          max-width: 140px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        ">
+          ${comp.name}
+        </div>
+        <div style="
+          width: 32px;
+          height: 32px;
+          background: ${color};
+          border: 2.5px solid white;
+          border-radius: 50%;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          transform: ${isSelected ? 'scale(1.2)' : 'scale(1)'};
+          transition: transform 0.2s ease;
+        ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+        </div>
+      `;
+
+      el.addEventListener('click', () => {
         setActiveCompany(comp);
         if (onSelectCompany) onSelectCompany(comp);
-        map.flyTo([comp.coordinates.lat, comp.coordinates.lng], 13, { duration: 1 });
+        map.flyTo({
+          center: [comp.coordinates.lng, comp.coordinates.lat],
+          zoom: 13,
+          duration: 1000
+        });
       });
 
-      markersGroup.addLayer(marker);
+      const marker = new mapboxgl.Marker({ element: el })
+        .setLngLat([comp.coordinates.lng, comp.coordinates.lat])
+        .addTo(map);
+
+      markersRef.current.push(marker);
     });
   }, [companies, selectedCompanyId, onSelectCompany]);
 
   return (
     <div className="relative rounded-2xl overflow-hidden border border-[#E5E9E6] shadow-soft bg-gray-100">
-      {/* Map Canvas */}
-      <div ref={mapRef} style={{ height }} className="w-full z-10" />
+      {/* Native Mapbox GL Container */}
+      <div ref={mapContainerRef} style={{ height }} className="w-full z-10" />
 
-      {/* Map Control Overlay */}
-      <div className="absolute top-4 left-4 z-20 flex items-center gap-2 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-[#E5E9E6] shadow-sm text-xs font-semibold text-[#1F2937]">
-        <Icon icon="solar:map-point-wave-bold" className="w-4 h-4 text-[#F28C28]" />
-        <span>Nagpur Industrial Nodes: {companies.length} Active Pins</span>
+      {/* Map Overlay Badge & Controls */}
+      <div className="absolute top-4 left-4 z-20 flex flex-wrap items-center gap-2">
+        <div className="flex items-center gap-2 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl border border-[#E5E9E6] shadow-md text-xs font-semibold text-[#1F2937]">
+          <Icon icon="solar:map-point-wave-bold" className="w-4 h-4 text-[#F28C28]" />
+          <span>Nagpur Industrial Nodes: {companies.length} Pins</span>
+          {/* <span className="px-1.5 py-0.5 rounded text-[10px] font-tech font-bold uppercase bg-[#0B5D3B]/10 text-[#0B5D3B] border border-[#0B5D3B]/20 flex items-center gap-1">
+            <Icon icon="solar:verified-check-bold" className="w-3 h-3 text-[#0B5D3B]" />
+            Mapbox GL JS
+          </span> */}
+        </div>
+
+        {/* Mapbox Style Switcher */}
+        <div className="flex items-center gap-1 bg-white/95 backdrop-blur-md p-1 rounded-xl border border-[#E5E9E6] shadow-md text-[11px]">
+          <button
+            onClick={() => setCurrentStyle('streets-v12')}
+            className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+              currentStyle === 'streets-v12'
+                ? 'bg-[#0B5D3B] text-white shadow-sm font-semibold'
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            Streets
+          </button>
+          <button
+            onClick={() => setCurrentStyle('light-v11')}
+            className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+              currentStyle === 'light-v11'
+                ? 'bg-[#0B5D3B] text-white shadow-sm font-semibold'
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            Light
+          </button>
+          <button
+            onClick={() => setCurrentStyle('satellite-streets-v12')}
+            className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+              currentStyle === 'satellite-streets-v12'
+                ? 'bg-[#0B5D3B] text-white shadow-sm font-semibold'
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            Satellite
+          </button>
+        </div>
       </div>
 
       {/* Selected Company Popup Drawer */}

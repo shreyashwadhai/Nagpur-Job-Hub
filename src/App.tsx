@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ModalProvider } from './context/ModalContext';
 import { ToastProvider } from './context/ToastContext';
@@ -22,6 +22,7 @@ import { Skills } from './pages/public/Skills';
 import { EcosystemMap } from './pages/public/EcosystemMap';
 import { About } from './pages/public/About';
 import { SearchResults } from './pages/public/SearchResults';
+import { NotFound } from './pages/public/NotFound';
 
 // User Panel Pages
 import { UserDashboard } from './pages/user/UserDashboard';
@@ -73,6 +74,7 @@ export const App: React.FC = () => {
                 <Route path="/ecosystem-map" element={<EcosystemMap />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/search" element={<SearchResults />} />
+                <Route path="*" element={<NotFound />} />
               </Route>
 
               {/* User Panel Layout */}
@@ -111,8 +113,8 @@ export const App: React.FC = () => {
                 <Route path="audit-logs" element={<AuditLogs />} />
               </Route>
 
-              {/* Catch-all redirect to Home */}
-              <Route path="*" element={<Navigate to="/" replace />} />
+              {/* Catch-all 404 handler */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
         </ToastProvider>
