@@ -1,5 +1,5 @@
-import React from 'react';
-import { Breadcrumb } from './Breadcrumb';
+import React from "react";
+import { Breadcrumb } from "./Breadcrumb";
 
 interface PageHeaderProps {
   title: string;
@@ -8,7 +8,12 @@ interface PageHeaderProps {
   actions?: React.ReactNode;
 }
 
-export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle, badge, actions }) => {
+export const PageHeader: React.FC<PageHeaderProps> = ({
+  title,
+  subtitle,
+  badge,
+  actions,
+}) => {
   return (
     <div className="mb-8">
       <Breadcrumb />
@@ -19,7 +24,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle, badge, 
               {badge}
             </span>
           )}
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#1F2937] tracking-tight font-display">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#1F2937] tracking-tight font-sans">
             {title}
           </h1>
           {subtitle && (
@@ -28,7 +33,9 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle, badge, 
             </p>
           )}
         </div>
-        {actions && <div className="flex items-center gap-3 flex-shrink-0">{actions}</div>}
+        {actions && (
+          <div className="flex items-center gap-3 flex-shrink-0">{actions}</div>
+        )}
       </div>
     </div>
   );

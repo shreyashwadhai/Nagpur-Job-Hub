@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useAuth } from "../../context/AuthContext";
+import { useModal } from "../../context/ModalContext";
 import type { UserRole } from "../../types";
 import AppLogo from "../../assets/app_logo.webp";
 
@@ -9,6 +10,7 @@ export const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { role, setRole, user } = useAuth();
+  const { openModal } = useModal();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [isRoleMenuOpen, setIsRoleMenuOpen] = useState(false);
@@ -16,29 +18,14 @@ export const Navbar: React.FC = () => {
   const [isNotifOpen, setIsNotifOpen] = useState(false);
 
   const navLinks = [
-    {
-      label: "Explore Companies",
-      path: "/companies",
-      icon: "solar:buildings-bold-duotone",
-    },
+    { label: "Home", path: "/", icon: "solar:home-2-bold-duotone" },
+    { label: "Companies", path: "/companies", icon: "solar:buildings-bold-duotone" },
     { label: "Jobs", path: "/jobs", icon: "solar:case-round-bold-duotone" },
     { label: "News", path: "/news", icon: "solar:document-text-bold-duotone" },
-    // { label: 'Insights', path: '/insights', icon: 'solar:chart-2-bold-duotone' },
-    {
-      label: "Industries",
-      path: "/industries",
-      icon: "solar:box-minimalistic-bold-duotone",
-    },
-    {
-      label: "Ecosystem Map",
-      path: "/map",
-      icon: "solar:map-point-bold-duotone",
-    },
-    {
-      label: "Skills & Academia",
-      path: "/skills",
-      icon: "solar:ruler-cross-pen-bold-duotone",
-    },
+    { label: "Insights", path: "/insights", icon: "solar:chart-2-bold-duotone" },
+    { label: "Industries", path: "/industries", icon: "solar:box-minimalistic-bold-duotone" },
+    { label: "Skills", path: "/skills", icon: "solar:ruler-cross-pen-bold-duotone" },
+    { label: "Map", path: "/map", icon: "solar:map-point-bold-duotone" },
   ];
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -81,7 +68,7 @@ export const Navbar: React.FC = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E5E9E6] shadow-sm">
+    <header className="sticky top-0 z-40 bg-white/75 backdrop-blur-md border-b border-[#E5E9E6] shadow-sm">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           {/* Logo Branding */}
@@ -90,19 +77,16 @@ export const Navbar: React.FC = () => {
             className="flex items-center gap-2.5 flex-shrink-0 group"
           >
             <img src={AppLogo} alt="" className="w-20 h-16" />
-            {/* <div>
+            <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-display font-bold text-lg text-[#0B5D3B] tracking-tight leading-none">
+                <span className="font-sans font-extrabold text-[1.6rem] text-[#094e31] tracking-tight leading-none">
                   NAGPUR
                 </span>
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-tech font-bold uppercase bg-[#F28C28]/10 text-[#F28C28] border border-[#F28C28]/20">
-                  ECOSYSTEM
-                </span>
               </div>
-              <span className="text-[11px] text-[#6B7280] font-medium block leading-tight">
-                Digital Source of Truth
+              <span className="text-[11px] text-[#115338] font-medium block leading-tight">
+                Industrial Ecosystem
               </span>
-            </div> */}
+            </div>
           </Link>
 
           {/* Desktop Nav Links */}
@@ -113,7 +97,7 @@ export const Navbar: React.FC = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-xs px-2 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
+                  className={`text-sm px-2 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
                     isActive
                       ? "bg-[#0B5D3B]/10 text-[#0B5D3B] font-semibold"
                       : "text-[#1F2937] hover:bg-gray-100 hover:text-[#0B5D3B]"
@@ -126,8 +110,24 @@ export const Navbar: React.FC = () => {
             })}
           </nav>
 
-          {/* Global Search & Actions */}
-          <div className="flex items-center gap-3">
+          {/* Global Search & Header CTA Buttons */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Header Action Buttons matching Reference Design */}
+            {/* <div className="hidden lg:flex items-center gap-2">
+              <button
+                onClick={() => openModal("submit-update")}
+                className="px-3 py-1.5 rounded-xl border border-gray-300 bg-white hover:bg-gray-50 text-[#1F2937] text-xs font-semibold transition-all shadow-2xs whitespace-nowrap"
+              >
+                Submit Company / News Update
+              </button>
+              <button
+                onClick={() => openModal("claim-company")}
+                className="px-3.5 py-1.5 rounded-xl bg-[#0B5D3B] hover:bg-[#07472d] text-white text-xs font-bold transition-all shadow-xs whitespace-nowrap"
+              >
+                Claim Your Company Profile
+              </button>
+            </div> */}
+
             {/* Global Search Bar */}
             <form
               onSubmit={handleSearchSubmit}
@@ -145,8 +145,6 @@ export const Navbar: React.FC = () => {
                 className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
               />
             </form>
-
-          
 
             {/* Notifications Dropdown */}
             <div className="relative">

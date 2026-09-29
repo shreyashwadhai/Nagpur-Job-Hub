@@ -23,7 +23,7 @@ export const DashboardLayout: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#F5F8F6]">
       <Navbar />
-      <div className="flex flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6">
+      <div className="flex flex-1 max-w-8xl w-full mx-auto px-4 sm:px-6 lg:px-2 py-6 gap-6">
         <Sidebar />
         <main className="flex-1 overflow-x-hidden">
           <Breadcrumb />

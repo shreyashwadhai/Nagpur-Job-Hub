@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Icon } from '@iconify/react';
+import React, { useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Icon } from "@iconify/react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -8,7 +8,7 @@ interface ModalProps {
   title?: string;
   subtitle?: string;
   children: React.ReactNode;
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'fullscreen';
+  size?: "sm" | "md" | "lg" | "xl" | "fullscreen";
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -17,28 +17,28 @@ export const Modal: React.FC<ModalProps> = ({
   title,
   subtitle,
   children,
-  size = 'md'
+  size = "md",
 }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
     }
     return () => {
-      document.body.style.overflow = 'unset';
-      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, onClose]);
 
   const sizeClasses = {
-    sm: 'max-w-md',
-    md: 'max-w-lg',
-    lg: 'max-w-2xl',
-    xl: 'max-w-4xl',
-    fullscreen: 'max-w-full h-full rounded-none m-0'
+    sm: "max-w-md",
+    md: "max-w-lg",
+    lg: "max-w-2xl",
+    xl: "max-w-4xl",
+    fullscreen: "max-w-full h-full rounded-none m-0",
   };
 
   return (
@@ -59,15 +59,19 @@ export const Modal: React.FC<ModalProps> = ({
             initial={{ opacity: 0, scale: 0.95, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             className={`relative w-full bg-white rounded-3xl shadow-2xl border border-[#E5E9E6] overflow-hidden z-10 my-auto ${sizeClasses[size]}`}
           >
             {/* Header */}
             {title && (
               <div className="px-6 py-4 border-b border-[#E5E9E6] flex items-center justify-between bg-[#F5F8F6]">
                 <div>
-                  <h3 className="font-bold text-lg text-[#1F2937] font-display">{title}</h3>
-                  {subtitle && <p className="text-xs text-gray-500 mt-0.5">{subtitle}</p>}
+                  <h3 className="font-bold text-lg text-[#1F2937] font-sans">
+                    {title}
+                  </h3>
+                  {subtitle && (
+                    <p className="text-xs text-gray-500 mt-0.5">{subtitle}</p>
+                  )}
                 </div>
                 <button
                   onClick={onClose}
