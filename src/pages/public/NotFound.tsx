@@ -28,7 +28,7 @@ export const NotFound: React.FC = () => {
               icon="solar:ghost-bold-duotone"
               className="w-6 h-6 text-[#F28C28]"
             />
-            <span className="text-xs font-bold text-gray-700 font-tech">
+            <span className="text-xs font-bold text-gray-700 font-sans">
               NOT FOUND
             </span>
           </div>

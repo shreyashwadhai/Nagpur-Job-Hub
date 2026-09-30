@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 interface StatCounterProps {
   value: string | number;
@@ -8,7 +8,7 @@ interface StatCounterProps {
 
 export const StatCounter: React.FC<StatCounterProps> = ({
   value,
-  className = '',
+  className = "",
   duration = 1200,
 }) => {
   const [displayValue, setDisplayValue] = useState<string>(String(value));
@@ -26,7 +26,7 @@ export const StatCounter: React.FC<StatCounterProps> = ({
     }
 
     const [, prefix, numStr, suffix] = match;
-    const cleanNumStr = numStr.replace(/,/g, '');
+    const cleanNumStr = numStr.replace(/,/g, "");
     const targetNum = parseFloat(cleanNumStr);
 
     if (isNaN(targetNum)) {
@@ -35,9 +35,9 @@ export const StatCounter: React.FC<StatCounterProps> = ({
     }
 
     // Determine decimal places
-    const decimalParts = cleanNumStr.split('.');
+    const decimalParts = cleanNumStr.split(".");
     const decimals = decimalParts.length > 1 ? decimalParts[1].length : 0;
-    const hasCommas = numStr.includes(',');
+    const hasCommas = numStr.includes(",");
 
     let startTimestamp: number | null = null;
     let animationFrameId: number;
@@ -53,9 +53,9 @@ export const StatCounter: React.FC<StatCounterProps> = ({
       let formattedNum = currentNum.toFixed(decimals);
 
       if (hasCommas) {
-        const parts = formattedNum.split('.');
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        formattedNum = parts.join('.');
+        const parts = formattedNum.split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        formattedNum = parts.join(".");
       }
 
       setDisplayValue(`${prefix}${formattedNum}${suffix}`);
@@ -77,5 +77,9 @@ export const StatCounter: React.FC<StatCounterProps> = ({
     };
   }, [value, duration]);
 
-  return <span className={`inline-block font-tech ${className}`}>{displayValue}</span>;
+  return (
+    <span className={`inline-block font-sans ${className}`}>
+      {displayValue}
+    </span>
+  );
 };

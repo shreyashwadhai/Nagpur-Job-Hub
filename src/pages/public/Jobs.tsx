@@ -134,14 +134,14 @@ export const Jobs: React.FC = () => {
               Real-time skill demand & hiring momentum analysis
             </p>
           </div>
-          <span className="px-3 py-1 rounded-full bg-white/10 text-xs font-tech font-bold">
+          <span className="px-3 py-1 rounded-full bg-white/10 text-xs font-sans font-bold">
             LIVE TELEMETRY
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10 space-y-2">
-            <span className="text-xs font-bold text-[#FF9F43] uppercase font-tech">
+            <span className="text-xs font-bold text-[#FF9F43] uppercase font-sans">
               Top Hiring Skill
             </span>
             <h4 className="font-extrabold text-lg text-white">
@@ -154,7 +154,7 @@ export const Jobs: React.FC = () => {
           </div>
 
           <div className="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10 space-y-2">
-            <span className="text-xs font-bold text-[#FF9F43] uppercase font-tech">
+            <span className="text-xs font-bold text-[#FF9F43] uppercase font-sans">
               Fresher Retention
             </span>
             <h4 className="font-extrabold text-lg text-white">
@@ -167,7 +167,7 @@ export const Jobs: React.FC = () => {
           </div>
 
           <div className="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10 space-y-2">
-            <span className="text-xs font-bold text-[#FF9F43] uppercase font-tech">
+            <span className="text-xs font-bold text-[#FF9F43] uppercase font-sans">
               Defence Aerospace
             </span>
             <h4 className="font-extrabold text-lg text-white">

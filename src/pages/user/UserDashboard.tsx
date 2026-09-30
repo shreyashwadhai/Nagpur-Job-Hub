@@ -22,7 +22,7 @@ export const UserDashboard: React.FC = () => {
             className="w-14 h-14 rounded-2xl object-cover ring-2 ring-[#0B5D3B]"
           />
           <div>
-            <span className="text-[10px] font-tech font-bold uppercase text-[#0B5D3B] bg-[#0B5D3B]/10 px-2.5 py-0.5 rounded">
+            <span className="text-[10px] font-sans font-bold uppercase text-[#0B5D3B] bg-[#0B5D3B]/10 px-2.5 py-0.5 rounded">
               Job Seeker Portal
             </span>
             <h1 className="text-2xl font-bold text-[#1F2937] font-sans mt-0.5">

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { UserProfile, UserRole } from '../types';
 
 export const DEMO_USERS: Record<UserRole, UserProfile> = {
@@ -48,6 +48,9 @@ export const DEMO_USERS: Record<UserRole, UserProfile> = {
   }
 };
 
+const STORAGE_KEY_USER = 'nagpur_portal_user';
+const STORAGE_KEY_AUTH = 'nagpur_portal_is_authenticated';
+
 interface AuthContextType {
   user: UserProfile;
   role: UserRole;
@@ -67,11 +70,41 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<UserProfile>(DEMO_USERS.jobseeker);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+  const [user, setUser] = useState<UserProfile>(() => {
+    try {
+      const savedUser = localStorage.getItem(STORAGE_KEY_USER);
+      if (savedUser) {
+        return JSON.parse(savedUser);
+      }
+    } catch (e) {
+      console.error('Failed to load user from localStorage:', e);
+    }
+    return DEMO_USERS.jobseeker;
+  });
+
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    try {
+      const savedAuth = localStorage.getItem(STORAGE_KEY_AUTH);
+      if (savedAuth !== null) {
+        return JSON.parse(savedAuth);
+      }
+    } catch (e) {
+      console.error('Failed to load auth state from localStorage:', e);
+    }
+    return true;
+  });
+
+  // Sync state changes to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(user));
+      localStorage.setItem(STORAGE_KEY_AUTH, JSON.stringify(isAuthenticated));
+    } catch (e) {
+      console.error('Failed to save auth state to localStorage:', e);
+    }
+  }, [user, isAuthenticated]);
 
   const login = (email: string, _password?: string, targetRole?: UserRole): UserProfile => {
-    // Determine user profile based on targetRole or email
     let matchedUser = DEMO_USERS.jobseeker;
     if (targetRole && DEMO_USERS[targetRole]) {
       matchedUser = DEMO_USERS[targetRole];

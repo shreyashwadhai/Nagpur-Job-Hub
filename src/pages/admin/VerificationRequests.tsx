@@ -1,29 +1,39 @@
-import React, { useState } from 'react';
-import { useVerification } from '../../context/VerificationContext';
-import { useToast } from '../../context/ToastContext';
-import { Icon } from '@iconify/react';
-import type { VerificationRequest } from '../../types';
+import React, { useState } from "react";
+import { useVerification } from "../../context/VerificationContext";
+import { useToast } from "../../context/ToastContext";
+import { Icon } from "@iconify/react";
+import type { VerificationRequest } from "../../types";
 
 export const VerificationRequests: React.FC = () => {
-  const { verificationRequests, approveVerificationRequest, rejectVerificationRequest } = useVerification();
+  const {
+    verificationRequests,
+    approveVerificationRequest,
+    rejectVerificationRequest,
+  } = useVerification();
   const { showToast } = useToast();
 
-  const [activeTab, setActiveTab] = useState<'All' | 'Pending' | 'Approved' | 'Rejected'>('All');
-  const [selectedRequest, setSelectedRequest] = useState<VerificationRequest | null>(null);
+  const [activeTab, setActiveTab] = useState<
+    "All" | "Pending" | "Approved" | "Rejected"
+  >("All");
+  const [selectedRequest, setSelectedRequest] =
+    useState<VerificationRequest | null>(null);
 
   const filteredRequests = verificationRequests.filter((req) => {
-    if (activeTab === 'All') return true;
+    if (activeTab === "All") return true;
     return req.status === activeTab;
   });
 
   const handleApprove = (req: VerificationRequest) => {
     approveVerificationRequest(req.id);
-    showToast(`Claim for "${req.companyName}" has been APPROVED! Official badge assigned.`, 'success');
+    showToast(
+      `Claim for "${req.companyName}" has been APPROVED! Official badge assigned.`,
+      "success",
+    );
   };
 
   const handleReject = (req: VerificationRequest) => {
     rejectVerificationRequest(req.id);
-    showToast(`Claim for "${req.companyName}" has been REJECTED.`, 'error');
+    showToast(`Claim for "${req.companyName}" has been REJECTED.`, "error");
   };
 
   return (
@@ -31,21 +41,24 @@ export const VerificationRequests: React.FC = () => {
       {/* Header */}
       <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-tech font-bold uppercase text-[#0B5D3B] bg-[#0B5D3B]/10 px-2.5 py-0.5 rounded">
+          <span className="text-[10px] font-sans font-bold uppercase text-[#0B5D3B] bg-[#0B5D3B]/10 px-2.5 py-0.5 rounded">
             Admin Governance & Moderation
           </span>
           <h1 className="text-2xl font-bold text-[#1F2937] font-sans mt-0.5">
             Claim Verification Queue
           </h1>
           <p className="text-xs text-gray-500 mt-1">
-            Review submitted company registration forms, legal GSTIN/CIN IDs, and MIDC allotment proof documents.
+            Review submitted company registration forms, legal GSTIN/CIN IDs,
+            and MIDC allotment proof documents.
           </p>
         </div>
 
         {/* Filter Tabs */}
         <div className="flex items-center gap-1.5 bg-[#F5F8F6] p-1 rounded-2xl border border-gray-200 self-start md:self-auto">
-          {(['All', 'Pending', 'Approved', 'Rejected'] as const).map((tab) => {
-            const count = verificationRequests.filter(r => tab === 'All' ? true : r.status === tab).length;
+          {(["All", "Pending", "Approved", "Rejected"] as const).map((tab) => {
+            const count = verificationRequests.filter((r) =>
+              tab === "All" ? true : r.status === tab,
+            ).length;
             const isActive = activeTab === tab;
             return (
               <button
@@ -53,14 +66,18 @@ export const VerificationRequests: React.FC = () => {
                 onClick={() => setActiveTab(tab)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
                   isActive
-                    ? 'bg-[#0B5D3B] text-white shadow-xs'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/60'
+                    ? "bg-[#0B5D3B] text-white shadow-xs"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-200/60"
                 }`}
               >
                 <span>{tab}</span>
-                <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
-                  isActive ? 'bg-white/20 text-white' : 'bg-gray-200 text-gray-700'
-                }`}>
+                <span
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
+                    isActive
+                      ? "bg-white/20 text-white"
+                      : "bg-gray-200 text-gray-700"
+                  }`}
+                >
                   {count}
                 </span>
               </button>
@@ -73,14 +90,24 @@ export const VerificationRequests: React.FC = () => {
       <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm space-y-4">
         <h3 className="font-bold text-sm text-[#1F2937] uppercase tracking-wider flex items-center justify-between">
           <span>Verification Queue Requests ({filteredRequests.length})</span>
-          <span className="text-xs font-normal text-gray-400">Click company name to review full details</span>
+          <span className="text-xs font-normal text-gray-400">
+            Click company name to review full details
+          </span>
         </h3>
 
         {filteredRequests.length === 0 ? (
           <div className="text-center py-12 bg-[#F5F8F6] rounded-2xl border border-dashed border-gray-200">
-            <Icon icon="solar:document-text-bold-duotone" className="w-12 h-12 text-gray-300 mx-auto mb-2" />
-            <p className="text-sm font-semibold text-gray-600">No {activeTab.toLowerCase()} verification requests found.</p>
-            <p className="text-xs text-gray-400 mt-1">Submitted claim forms will automatically display here in real-time.</p>
+            <Icon
+              icon="solar:document-text-bold-duotone"
+              className="w-12 h-12 text-gray-300 mx-auto mb-2"
+            />
+            <p className="text-sm font-semibold text-gray-600">
+              No {activeTab.toLowerCase()} verification requests found.
+            </p>
+            <p className="text-xs text-gray-400 mt-1">
+              Submitted claim forms will automatically display here in
+              real-time.
+            </p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -97,19 +124,27 @@ export const VerificationRequests: React.FC = () => {
                       className="font-bold text-base text-[#0B5D3B] hover:text-[#07472d] hover:underline flex items-center gap-1.5 transition-colors cursor-pointer text-left"
                       title="Click to view company full details"
                     >
-                      <Icon icon="solar:buildings-bold" className="w-4 h-4 text-[#0B5D3B]" />
+                      <Icon
+                        icon="solar:buildings-bold"
+                        className="w-4 h-4 text-[#0B5D3B]"
+                      />
                       <span>{v.companyName}</span>
-                      <Icon icon="solar:square-arrow-out-up-right-bold" className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 text-[#0B5D3B]" />
+                      <Icon
+                        icon="solar:square-arrow-out-up-right-bold"
+                        className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 text-[#0B5D3B]"
+                      />
                     </button>
 
                     {/* Status Pill */}
-                    <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase ${
-                      v.status === 'Approved'
-                        ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                        : v.status === 'Rejected'
-                          ? 'bg-rose-100 text-rose-800 border border-rose-300'
-                          : 'bg-amber-100 text-amber-800 border border-amber-300'
-                    }`}>
+                    <span
+                      className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase ${
+                        v.status === "Approved"
+                          ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
+                          : v.status === "Rejected"
+                            ? "bg-rose-100 text-rose-800 border border-rose-300"
+                            : "bg-amber-100 text-amber-800 border border-amber-300"
+                      }`}
+                    >
                       {v.status}
                     </span>
 
@@ -128,19 +163,39 @@ export const VerificationRequests: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-xs text-gray-600">
                     <p>
-                      <span className="font-semibold text-gray-700">Requester:</span> {v.requesterName} {v.designation ? `(${v.designation})` : ''}
+                      <span className="font-semibold text-gray-700">
+                        Requester:
+                      </span>{" "}
+                      {v.requesterName}{" "}
+                      {v.designation ? `(${v.designation})` : ""}
                     </p>
                     <p>
-                      <span className="font-semibold text-gray-700">Email:</span> <a href={`mailto:${v.requesterEmail}`} className="text-blue-600 hover:underline">{v.requesterEmail}</a>
+                      <span className="font-semibold text-gray-700">
+                        Email:
+                      </span>{" "}
+                      <a
+                        href={`mailto:${v.requesterEmail}`}
+                        className="text-blue-600 hover:underline"
+                      >
+                        {v.requesterEmail}
+                      </a>
                     </p>
                     <p className="sm:col-span-2">
-                      <span className="font-semibold text-gray-700">GSTIN / CIN:</span> <span className="font-mono text-gray-800">{v.gstCin}</span>
+                      <span className="font-semibold text-gray-700">
+                        GSTIN / CIN:
+                      </span>{" "}
+                      <span className="font-mono text-gray-800">
+                        {v.gstCin}
+                      </span>
                     </p>
                   </div>
 
                   <div className="flex items-center gap-4 text-[11px] text-gray-500 pt-1">
                     <span className="flex items-center gap-1 font-medium text-[#0B5D3B]">
-                      <Icon icon="solar:document-bold" className="w-3.5 h-3.5 text-[#0B5D3B]" />
+                      <Icon
+                        icon="solar:document-bold"
+                        className="w-3.5 h-3.5 text-[#0B5D3B]"
+                      />
                       Proof Doc: {v.documentName}
                     </span>
                     <span>Submitted on {v.submittedDate}</span>
@@ -153,26 +208,35 @@ export const VerificationRequests: React.FC = () => {
                     onClick={() => setSelectedRequest(v)}
                     className="px-3 py-2 bg-white hover:bg-gray-100 text-gray-800 text-xs font-bold rounded-xl border border-gray-200 shadow-2xs transition-all flex items-center gap-1 cursor-pointer"
                   >
-                    <Icon icon="solar:eye-bold" className="w-3.5 h-3.5 text-gray-600" />
+                    <Icon
+                      icon="solar:eye-bold"
+                      className="w-3.5 h-3.5 text-gray-600"
+                    />
                     <span>View Details</span>
                   </button>
 
-                  {v.status !== 'Approved' && (
+                  {v.status !== "Approved" && (
                     <button
                       onClick={() => handleApprove(v)}
                       className="px-3.5 py-2 bg-[#0B5D3B] hover:bg-[#07472d] text-white text-xs font-bold rounded-xl shadow-xs transition-all flex items-center gap-1 cursor-pointer"
                     >
-                      <Icon icon="solar:check-circle-bold" className="w-3.5 h-3.5" />
+                      <Icon
+                        icon="solar:check-circle-bold"
+                        className="w-3.5 h-3.5"
+                      />
                       <span>Approve</span>
                     </button>
                   )}
 
-                  {v.status !== 'Rejected' && (
+                  {v.status !== "Rejected" && (
                     <button
                       onClick={() => handleReject(v)}
                       className="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold rounded-xl border border-rose-200 transition-all flex items-center gap-1 cursor-pointer"
                     >
-                      <Icon icon="solar:close-circle-bold" className="w-3.5 h-3.5 text-rose-600" />
+                      <Icon
+                        icon="solar:close-circle-bold"
+                        className="w-3.5 h-3.5 text-rose-600"
+                      />
                       <span>Reject</span>
                     </button>
                   )}
@@ -205,13 +269,15 @@ export const VerificationRequests: React.FC = () => {
                     <h3 className="font-bold text-xl font-display leading-tight">
                       {selectedRequest.companyName}
                     </h3>
-                    <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase ${
-                      selectedRequest.status === 'Approved'
-                        ? 'bg-emerald-200 text-emerald-900'
-                        : selectedRequest.status === 'Rejected'
-                          ? 'bg-rose-200 text-rose-900'
-                          : 'bg-amber-200 text-amber-900'
-                    }`}>
+                    <span
+                      className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase ${
+                        selectedRequest.status === "Approved"
+                          ? "bg-emerald-200 text-emerald-900"
+                          : selectedRequest.status === "Rejected"
+                            ? "bg-rose-200 text-rose-900"
+                            : "bg-amber-200 text-amber-900"
+                      }`}
+                    >
                       {selectedRequest.status}
                     </span>
                   </div>
@@ -233,48 +299,75 @@ export const VerificationRequests: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <span className="text-gray-500 block font-medium">Industry Sector:</span>
-                    <span className="font-semibold text-gray-800">{selectedRequest.industry || 'IT & Industrial Services'}</span>
+                    <span className="text-gray-500 block font-medium">
+                      Industry Sector:
+                    </span>
+                    <span className="font-semibold text-gray-800">
+                      {selectedRequest.industry || "IT & Industrial Services"}
+                    </span>
                   </div>
                   <div>
-                    <span className="text-gray-500 block font-medium">Nagpur SEZ / Zone:</span>
-                    <span className="font-semibold text-gray-800">{selectedRequest.sezZone || 'MIHAN SEZ'}</span>
+                    <span className="text-gray-500 block font-medium">
+                      Nagpur SEZ / Zone:
+                    </span>
+                    <span className="font-semibold text-gray-800">
+                      {selectedRequest.sezZone || "MIHAN SEZ"}
+                    </span>
                   </div>
                   <div>
-                    <span className="text-gray-500 block font-medium">Employee Headcount:</span>
-                    <span className="font-semibold text-gray-800">{selectedRequest.employeeBand || '50-200 Employees'}</span>
+                    <span className="text-gray-500 block font-medium">
+                      Employee Headcount:
+                    </span>
+                    <span className="font-semibold text-gray-800">
+                      {selectedRequest.employeeBand || "50-200 Employees"}
+                    </span>
                   </div>
                   <div>
-                    <span className="text-gray-500 block font-medium">Official Website:</span>
+                    <span className="text-gray-500 block font-medium">
+                      Official Website:
+                    </span>
                     <a
-                      href={selectedRequest.website || '#'}
+                      href={selectedRequest.website || "#"}
                       target="_blank"
                       rel="noreferrer"
                       className="font-semibold text-blue-600 hover:underline flex items-center gap-1"
                     >
-                      <span>{selectedRequest.website || 'N/A'}</span>
-                      <Icon icon="solar:square-share-line-bold" className="w-3 h-3" />
+                      <span>{selectedRequest.website || "N/A"}</span>
+                      <Icon
+                        icon="solar:square-share-line-bold"
+                        className="w-3 h-3"
+                      />
                     </a>
                   </div>
                 </div>
 
                 {selectedRequest.businessFocus && (
                   <div>
-                    <span className="text-gray-500 block font-medium">Core Business Focus:</span>
-                    <p className="font-semibold text-gray-800">{selectedRequest.businessFocus}</p>
+                    <span className="text-gray-500 block font-medium">
+                      Core Business Focus:
+                    </span>
+                    <p className="font-semibold text-gray-800">
+                      {selectedRequest.businessFocus}
+                    </p>
                   </div>
                 )}
 
                 {selectedRequest.overview && (
                   <div>
-                    <span className="text-gray-500 block font-medium">Company Overview:</span>
-                    <p className="text-gray-700 leading-relaxed font-sans mt-0.5">{selectedRequest.overview}</p>
+                    <span className="text-gray-500 block font-medium">
+                      Company Overview:
+                    </span>
+                    <p className="text-gray-700 leading-relaxed font-sans mt-0.5">
+                      {selectedRequest.overview}
+                    </p>
                   </div>
                 )}
 
                 {selectedRequest.address && (
                   <div>
-                    <span className="text-gray-500 block font-medium">Facility Address:</span>
+                    <span className="text-gray-500 block font-medium">
+                      Facility Address:
+                    </span>
                     <p className="text-gray-800">{selectedRequest.address}</p>
                   </div>
                 )}
@@ -289,45 +382,67 @@ export const VerificationRequests: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <span className="text-gray-500 block font-medium">Requester Name:</span>
-                    <span className="font-bold text-gray-900">{selectedRequest.requesterName}</span>
+                    <span className="text-gray-500 block font-medium">
+                      Requester Name:
+                    </span>
+                    <span className="font-bold text-gray-900">
+                      {selectedRequest.requesterName}
+                    </span>
                   </div>
                   <div>
-                    <span className="text-gray-500 block font-medium">Designation:</span>
-                    <span className="font-semibold text-gray-800">{selectedRequest.designation || 'Authorized Signatory'}</span>
+                    <span className="text-gray-500 block font-medium">
+                      Designation:
+                    </span>
+                    <span className="font-semibold text-gray-800">
+                      {selectedRequest.designation || "Authorized Signatory"}
+                    </span>
                   </div>
                   <div>
-                    <span className="text-gray-500 block font-medium">Corporate Email:</span>
-                    <a href={`mailto:${selectedRequest.requesterEmail}`} className="font-semibold text-blue-600 hover:underline">
+                    <span className="text-gray-500 block font-medium">
+                      Corporate Email:
+                    </span>
+                    <a
+                      href={`mailto:${selectedRequest.requesterEmail}`}
+                      className="font-semibold text-blue-600 hover:underline"
+                    >
                       {selectedRequest.requesterEmail}
                     </a>
                   </div>
                   <div>
-                    <span className="text-gray-500 block font-medium">GSTIN / Corporate CIN:</span>
-                    <span className="font-mono font-bold text-gray-800">{selectedRequest.gstCin}</span>
+                    <span className="text-gray-500 block font-medium">
+                      GSTIN / Corporate CIN:
+                    </span>
+                    <span className="font-mono font-bold text-gray-800">
+                      {selectedRequest.gstCin}
+                    </span>
                   </div>
                 </div>
 
                 <div className="pt-2 border-t border-gray-200/70 flex items-center justify-between gap-2">
                   <div>
-                    <span className="text-gray-500 block font-medium">Uploaded Proof Document:</span>
-                    <span className="font-semibold text-[#0B5D3B]">{selectedRequest.documentName}</span>
+                    <span className="text-gray-500 block font-medium">
+                      Uploaded Proof Document:
+                    </span>
+                    <span className="font-semibold text-[#0B5D3B]">
+                      {selectedRequest.documentName}
+                    </span>
                   </div>
                   <button
-                    onClick={() => showToast(`Previewing ${selectedRequest.documentName}...`, 'info')}
+                    onClick={() =>
+                      showToast(
+                        `Previewing ${selectedRequest.documentName}...`,
+                        "info",
+                      )
+                    }
                     className="px-3 py-1.5 bg-emerald-100 hover:bg-emerald-200 text-[#0B5D3B] font-bold text-xs rounded-xl flex items-center gap-1 cursor-pointer transition-colors"
                   >
-                    <Icon icon="solar:file-download-bold" className="w-4 h-4 text-[#0B5D3B]" />
+                    <Icon
+                      icon="solar:file-download-bold"
+                      className="w-4 h-4 text-[#0B5D3B]"
+                    />
                     <span>Download Proof</span>
                   </button>
                 </div>
-
-                {selectedRequest.notes && (
-                  <div className="bg-white p-3 rounded-xl border border-gray-200 text-gray-600 font-mono text-[11px]">
-                    <span className="font-bold text-gray-700 block mb-0.5">Submission Notes:</span>
-                    {selectedRequest.notes}
-                  </div>
-                )}
               </div>
             </div>
 
@@ -348,7 +463,10 @@ export const VerificationRequests: React.FC = () => {
                   }}
                   className="px-4 py-2 bg-rose-100 hover:bg-rose-200 text-rose-800 font-bold rounded-xl transition-all cursor-pointer flex items-center gap-1.5"
                 >
-                  <Icon icon="solar:close-circle-bold" className="w-4 h-4 text-rose-600" />
+                  <Icon
+                    icon="solar:close-circle-bold"
+                    className="w-4 h-4 text-rose-600"
+                  />
                   <span>Reject Claim</span>
                 </button>
 
@@ -359,7 +477,10 @@ export const VerificationRequests: React.FC = () => {
                   }}
                   className="px-5 py-2 bg-[#0B5D3B] hover:bg-[#07472d] text-white font-bold rounded-xl shadow-md transition-all cursor-pointer flex items-center gap-1.5"
                 >
-                  <Icon icon="solar:check-circle-bold" className="w-4 h-4 text-white" />
+                  <Icon
+                    icon="solar:check-circle-bold"
+                    className="w-4 h-4 text-white"
+                  />
                   <span>Approve Claim</span>
                 </button>
               </div>

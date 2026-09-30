@@ -5,6 +5,7 @@ import { useAuth, DEMO_USERS } from "../../context/AuthContext";
 import { useToast } from "../../context/ToastContext";
 import { useNavigate } from "react-router-dom";
 import type { UserRole } from "../../types";
+import AppLogo from "../../assets/app_logo.webp";
 
 export const LoginModal: React.FC = () => {
   const { isOpen, modalType, closeModal } = useModal();
@@ -12,10 +13,14 @@ export const LoginModal: React.FC = () => {
   const { showToast } = useToast();
   const navigate = useNavigate();
 
+  const [activeTab, setActiveTab] = useState<"login" | "register">("login");
   const [selectedRole, setSelectedRole] = useState<UserRole>("jobseeker");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("aarav.d@gmail.com");
   const [password, setPassword] = useState("••••••••");
+  const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
+  const [agreedTerms, setAgreedTerms] = useState(true);
 
   if (!isOpen || modalType !== "login") return null;
 
@@ -25,39 +30,34 @@ export const LoginModal: React.FC = () => {
     email: string;
     icon: string;
     path: string;
-    badgeColor: string;
   }[] = [
     {
       role: "jobseeker",
-      title: "Job Seeker View",
+      title: "Job Seeker",
       email: DEMO_USERS.jobseeker.email,
-      icon: "solar:user-bold-duotone",
+      icon: "solar:user-bold",
       path: "/user/dashboard",
-      badgeColor: "bg-[#0B5D3B]/10 text-[#0B5D3B] border-[#0B5D3B]/20",
     },
     {
       role: "company",
-      title: "Enterprise Company",
+      title: "Company",
       email: DEMO_USERS.company.email,
-      icon: "solar:buildings-bold-duotone",
+      icon: "solar:buildings-bold",
       path: "/company/dashboard",
-      badgeColor: "bg-[#F28C28]/10 text-[#F28C28] border-[#F28C28]/20",
     },
     {
       role: "institute",
-      title: "Institute Academy",
+      title: "Institute",
       email: DEMO_USERS.institute.email,
-      icon: "solar:ruler-cross-pen-bold-duotone",
+      icon: "solar:ruler-cross-pen-bold",
       path: "/institute/dashboard",
-      badgeColor: "bg-blue-50 text-blue-700 border-blue-200",
     },
     {
       role: "admin",
-      title: "Admin Intelligence",
+      title: "Admin",
       email: DEMO_USERS.admin.email,
-      icon: "solar:shield-check-bold-duotone",
+      icon: "solar:shield-check-bold",
       path: "/admin/dashboard",
-      badgeColor: "bg-purple-50 text-purple-700 border-purple-200",
     },
   ];
 
@@ -66,10 +66,9 @@ export const LoginModal: React.FC = () => {
     setEmail(preset.email);
     setPassword("demoPass123");
 
-    // Perform instant demo login
     const loggedInUser = login(preset.email, "demoPass123", preset.role);
     showToast(
-      `Welcome back, ${loggedInUser.name}! Switched to ${preset.title}.`,
+      `Welcome back, ${loggedInUser.name}! Switched to ${preset.title} Portal.`,
       "success",
     );
     closeModal();
@@ -83,170 +82,318 @@ export const LoginModal: React.FC = () => {
       return;
     }
 
+    if (activeTab === "register" && !agreedTerms) {
+      showToast("Please accept the Terms of Service to register.", "error");
+      return;
+    }
+
     const loggedInUser = login(email, password, selectedRole);
     const targetPreset = demoPresets.find((p) => p.role === loggedInUser.role);
-    showToast(
-      `Sign in successful! Welcome back, ${loggedInUser.name}.`,
-      "success",
-    );
+    const welcomeMsg =
+      activeTab === "register"
+        ? `Account created successfully! Welcome to Nagpur Hub, ${name || loggedInUser.name}.`
+        : `Sign in successful! Welcome back, ${loggedInUser.name}.`;
+
+    showToast(welcomeMsg, "success");
     closeModal();
     navigate(targetPreset ? targetPreset.path : "/user/dashboard");
   };
 
+  const handleSocialLogin = (provider: string) => {
+    const loggedInUser = login("aarav.d@gmail.com", "socialPass", "jobseeker");
+    showToast(
+      `Signed in with ${provider}! Welcome back, ${loggedInUser.name}.`,
+      "success",
+    );
+    closeModal();
+    navigate("/user/dashboard");
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-[#E5E9E6] overflow-hidden animate-in zoom-in-95 duration-200">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-[#0B5D3B] via-[#087F5B] to-[#0B5D3B] text-white p-6 relative">
+      {/* Modal Container */}
+      <div className="bg-white border border-[#E5E9E6] max-w-md w-full rounded-3xl p-6 sm:p-7 shadow-2xl relative overflow-hidden animate-in zoom-in-95 duration-200 text-[#1F2937]">
+        {/* TOP HEADER & BRANDING */}
+        <div className="flex items-center justify-between gap-3 pb-3 border-b border-gray-100 relative z-10">
+          <div className="flex items-center gap-3">
+            <img
+              src={AppLogo}
+              alt="Nagpur Hub"
+              className="w-20 h-20 object-contain"
+            />
+            <div>
+              <h2 className="font-extrabold text-2xl text-[#0B5D3B] leading-tight font-sans tracking-tight">
+                NAGPUR
+              </h2>
+              <span className="text-xs font-medium text-[#F28C28] block leading-none font-sans">
+                Industrial Ecosystem
+              </span>
+            </div>
+          </div>
+
           <button
             onClick={closeModal}
-            className="absolute top-4 right-4 p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            className="p-1.5 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
+            aria-label="Close modal"
           >
-            <Icon icon="solar:close-circle-bold" className="w-5 h-5" />
+            <Icon icon="akar-icons:cross" className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* SEGMENTED TAB SWITCHER */}
+        <div className="bg-[#F5F8F6] p-1.5 rounded-2xl border border-[#E5E9E6] grid grid-cols-2 gap-1.5 my-4 relative z-10">
+          <button
+            type="button"
+            onClick={() => setActiveTab("login")}
+            className={`py-2.5 px-3 rounded-xl text-sm font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              activeTab === "login"
+                ? "bg-[#0B5D3B] text-white shadow-xs"
+                : "text-gray-600 hover:text-[#0B5D3B]"
+            }`}
+          >
+            <Icon
+              icon="basil:user-solid"
+              className={`w-5 h-5 ${activeTab === "login" ? "text-white" : "text-gray-500"}`}
+            />
+            <span>Login</span>
           </button>
 
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
-              <Icon icon="solar:user-bold" className="w-5 h-5" />
-            </div>
-            <div>
-              <h3 className="font-bold text-lg font-display leading-tight">
-                Sign In to Nagpur Portal
-              </h3>
-              <p className="text-xs text-emerald-100">
-                Access your dashboard, profile, and ecosystem tools
-              </p>
-            </div>
+          <button
+            type="button"
+            onClick={() => setActiveTab("register")}
+            className={`py-2.5 px-3 rounded-xl text-sm font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              activeTab === "register"
+                ? "bg-[#0B5D3B] text-white shadow-xs"
+                : "text-gray-600 hover:text-[#0B5D3B]"
+            }`}
+          >
+            <Icon
+              icon="basil:user-plus-solid"
+              className={`w-5 h-5 ${activeTab === "register" ? "text-white" : "text-gray-500"}`}
+            />
+            <span>Register</span>
+          </button>
+        </div>
+
+        {/* WELCOME HEADING */}
+        <div className="mb-4 relative z-10">
+          <h3 className="text-xl sm:text-2xl font-bold text-[#1F2937] tracking-tight font-sans">
+            {activeTab === "login" ? "Welcome Back" : "Create Account"}
+          </h3>
+          <p className="text-xs text-gray-500 mt-1 leading-relaxed font-sans">
+            {activeTab === "login"
+              ? "Access your account to explore opportunities, connect with businesses and stay updated."
+              : "Register your account to unlock job alerts, company insights and ecosystem tools."}
+          </p>
+        </div>
+
+        {/* QUICK DEMO PRESETS BAR */}
+        <div className="mb-4 p-2 bg-[#F5F8F6] rounded-xl border border-[#E5E9E6] flex items-center justify-between gap-1 flex-wrap relative z-10">
+          <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider px-1 font-sans">
+            Demo Presets:
+          </span>
+          <div className="flex items-center gap-1 flex-wrap">
+            {demoPresets.map((preset) => (
+              <button
+                key={preset.role}
+                type="button"
+                onClick={() => handlePresetSelect(preset)}
+                className={`px-2 py-1 rounded-lg text-[10px] font-semibold transition-all cursor-pointer flex items-center gap-1 ${
+                  selectedRole === preset.role
+                    ? "bg-[#0B5D3B] text-white shadow-2xs"
+                    : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
+                }`}
+              >
+                <Icon icon={preset.icon} className="w-3 h-3" />
+                <span>{preset.title}</span>
+              </button>
+            ))}
           </div>
         </div>
 
-        <div className="p-6 space-y-6">
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+        {/* FORM */}
+        <form onSubmit={handleSubmit} className="space-y-3.5 relative z-10">
+          {activeTab === "register" && (
             <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-1">
-                Email Address
-              </label>
               <div className="relative">
                 <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@company.com"
-                  className="w-full pl-9 pr-4 py-2.5 text-xs bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0B5D3B] focus:bg-white text-gray-800 transition-all"
-                  required
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Full Name"
+                  className="w-full bg-[#F5F8F6] border border-[#E5E9E6] rounded-xl pl-10 pr-4 py-2.5 text-xs text-[#1F2937] placeholder-gray-400 focus:outline-none focus:border-[#0B5D3B] focus:bg-white focus:ring-2 focus:ring-[#0B5D3B]/10 transition-all"
+                  required={activeTab === "register"}
                 />
                 <Icon
-                  icon="solar:letter-bold"
-                  className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                  icon="solar:user-linear"
+                  className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                 />
               </div>
             </div>
+          )}
 
-            <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-1">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full pl-9 pr-4 py-2.5 text-xs bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0B5D3B] focus:bg-white text-gray-800 transition-all"
-                  required
-                />
-                <Icon
-                  icon="solar:lock-password-bold"
-                  className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                />
-              </div>
+          {/* Email Address */}
+          <div>
+            <div className="relative">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email Address"
+                className="w-full bg-[#F5F8F6] border border-[#E5E9E6] rounded-xl pl-10 pr-4 py-3 text-xs text-[#1F2937] placeholder-gray-400 focus:outline-none focus:border-[#0B5D3B] focus:bg-white focus:ring-2 focus:ring-[#0B5D3B]/10 transition-all"
+                required
+              />
+              <Icon
+                icon="solar:letter-linear"
+                className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
+              />
             </div>
+          </div>
 
-            <div className="flex items-center justify-between text-xs pt-1">
-              <label className="flex items-center gap-2 cursor-pointer text-gray-600">
+          {/* Password */}
+          <div>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                className="w-full bg-[#F5F8F6] border border-[#E5E9E6] rounded-xl pl-10 pr-10 py-3 text-xs text-[#1F2937] placeholder-gray-400 focus:outline-none focus:border-[#0B5D3B] focus:bg-white focus:ring-2 focus:ring-[#0B5D3B]/10 transition-all"
+                required
+              />
+              <Icon
+                icon="solar:lock-password-linear"
+                className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 cursor-pointer"
+              >
+                <Icon
+                  icon={
+                    showPassword
+                      ? "solar:eye-linear"
+                      : "solar:eye-closed-linear"
+                  }
+                  className="w-4 h-4"
+                />
+              </button>
+            </div>
+          </div>
+
+          {/* Option Row */}
+          {activeTab === "login" ? (
+            <div className="flex items-center justify-between text-xs pt-0.5">
+              <label className="flex items-center gap-2 cursor-pointer text-gray-600 font-medium">
                 <input
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="rounded border-gray-300 text-[#0B5D3B] focus:ring-[#0B5D3B]"
                 />
-                <span>Remember me on this browser</span>
+                <span>Remember me</span>
               </label>
               <a
                 href="#forgot"
-                onClick={(e) => e.preventDefault()}
-                className="text-[#0B5D3B] font-semibold hover:underline"
+                onClick={(e) => {
+                  e.preventDefault();
+                  showToast("Password reset link sent to " + email, "info");
+                }}
+                className="text-[#0B5D3B] font-semibold hover:underline text-xs"
               >
-                Forgot Password?
+                Forgot password?
               </a>
             </div>
-
-            <button
-              type="submit"
-              className="w-full py-3 bg-[#0B5D3B] hover:bg-[#07472d] text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 mt-2"
-            >
-              <Icon icon="solar:login-2-bold" className="w-4 h-4" />
-              <span>Sign In & Open Dashboard</span>
-            </button>
-          </form>
-
-          <div className="relative flex items-center justify-center">
-            <div className="border-t border-gray-200 w-full" />
-            <span className="bg-white px-3 text-[11px] font-semibold text-gray-400 uppercase tracking-wider absolute">
-              or sign in with credentials
-            </span>
-          </div>
-
-          {/* Quick Demo User Switcher Buttons */}
-          <div className="space-y-2">
-            <label className="text-xs font-bold uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
-              <Icon
-                icon="solar:stars-minimalistic-bold"
-                className="w-4 h-4 text-[#F28C28]"
-              />
-              <span>Demo Quick Login (Select a Profile)</span>
-            </label>
-            <div className="grid grid-cols-2 gap-2.5">
-              {demoPresets.map((preset) => {
-                const isSelected = selectedRole === preset.role;
-                return (
-                  <button
-                    key={preset.role}
-                    type="button"
-                    onClick={() => handlePresetSelect(preset)}
-                    className={`p-3 rounded-2xl border text-left transition-all group flex flex-col justify-between ${
-                      isSelected
-                        ? "border-[#0B5D3B] bg-[#0B5D3B]/5 shadow-sm ring-2 ring-[#0B5D3B]/30"
-                        : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between gap-1 mb-1">
-                      <div className="flex items-center gap-2">
-                        <div
-                          className={`p-1.5 rounded-lg ${preset.badgeColor}`}
-                        >
-                          <Icon icon={preset.icon} className="w-4 h-4" />
-                        </div>
-                        <span className="text-xs font-bold text-[#1F2937] leading-tight">
-                          {preset.title}
-                        </span>
-                      </div>
-                      {isSelected && (
-                        <Icon
-                          icon="solar:check-circle-bold"
-                          className="w-4 h-4 text-[#0B5D3B]"
-                        />
-                      )}
-                    </div>
-                    <span className="text-[10px] text-gray-500 font-mono truncate">
-                      {preset.email}
-                    </span>
-                  </button>
-                );
-              })}
+          ) : (
+            <div className="pt-0.5">
+              <label className="flex items-center gap-2 cursor-pointer text-gray-600 text-xs font-medium">
+                <input
+                  type="checkbox"
+                  checked={agreedTerms}
+                  onChange={(e) => setAgreedTerms(e.target.checked)}
+                  className="rounded border-gray-300 text-[#0B5D3B] focus:ring-[#0B5D3B]"
+                />
+                <span>I agree to the Terms of Service & Privacy Policy</span>
+              </label>
             </div>
-          </div>
+          )}
+
+          {/* Primary Submit Button */}
+          <button
+            type="submit"
+            className="w-full py-3 bg-[#0B5D3B] hover:bg-[#07472d] text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-[#0B5D3B]/20 transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
+          >
+            <span>{activeTab === "login" ? "Login" : "Register"}</span>
+            <Icon
+              icon="solar:alt-arrow-right-linear"
+              className="w-4 h-4 text-white"
+            />
+          </button>
+        </form>
+
+        {/* OR DIVIDER */}
+        <div className="relative flex items-center justify-center my-4 relative z-10">
+          <div className="border-t border-gray-200 w-full" />
+          <span className="bg-white px-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest absolute">
+            OR
+          </span>
+        </div>
+
+        {/* SOCIAL LOGINS */}
+        <div className="space-y-2 relative z-10">
+          <button
+            type="button"
+            onClick={() => handleSocialLogin("Google")}
+            className="w-full bg-white hover:bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-xs font-semibold text-[#1F2937] flex items-center justify-center gap-2.5 transition-all shadow-2xs cursor-pointer"
+          >
+            <Icon icon="logos:google-icon" className="w-4 h-4" />
+            <span>Continue with Google</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleSocialLogin("LinkedIn")}
+            className="w-full bg-white hover:bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-xs font-semibold text-[#1F2937] flex items-center justify-center gap-2.5 transition-all shadow-2xs cursor-pointer"
+          >
+            <Icon icon="logos:linkedin-icon" className="w-4 h-4" />
+            <span>Continue with LinkedIn</span>
+          </button>
+        </div>
+
+        {/* BOTTOM SWITCH ACCOUNT PROMPT */}
+        <div className="text-center mt-5 text-xs text-gray-500 font-medium relative z-10">
+          {activeTab === "login" ? (
+            <p className="flex items-center justify-center gap-1.5">
+              <span>Don't have an account?</span>
+              <button
+                type="button"
+                onClick={() => setActiveTab("register")}
+                className="text-[#0B5D3B] font-bold hover:underline flex items-center gap-0.5 cursor-pointer"
+              >
+                <span>Register</span>
+                <Icon
+                  icon="solar:alt-arrow-right-linear"
+                  className="w-3.5 h-3.5"
+                />
+              </button>
+            </p>
+          ) : (
+            <p className="flex items-center justify-center gap-1.5">
+              <span>Already have an account?</span>
+              <button
+                type="button"
+                onClick={() => setActiveTab("login")}
+                className="text-[#0B5D3B] font-bold hover:underline flex items-center gap-0.5 cursor-pointer"
+              >
+                <span>Login</span>
+                <Icon
+                  icon="solar:alt-arrow-right-linear"
+                  className="w-3.5 h-3.5"
+                />
+              </button>
+            </p>
+          )}
         </div>
       </div>
     </div>

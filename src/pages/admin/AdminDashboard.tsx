@@ -10,17 +10,25 @@ import type { VerificationRequest } from "../../types";
 
 export const AdminDashboard: React.FC = () => {
   const { showToast } = useToast();
-  const { verificationRequests, approveVerificationRequest, rejectVerificationRequest } = useVerification();
+  const {
+    verificationRequests,
+    approveVerificationRequest,
+    rejectVerificationRequest,
+  } = useVerification();
 
-  const [selectedRequest, setSelectedRequest] = useState<VerificationRequest | null>(null);
+  const [selectedRequest, setSelectedRequest] =
+    useState<VerificationRequest | null>(null);
 
   const pendingVerifications = verificationRequests.filter(
-    (v) => v.status === "Pending"
+    (v) => v.status === "Pending",
   );
 
   const handleApprove = (req: VerificationRequest) => {
     approveVerificationRequest(req.id);
-    showToast(`Claim for "${req.companyName}" Approved! Official badge assigned.`, "success");
+    showToast(
+      `Claim for "${req.companyName}" Approved! Official badge assigned.`,
+      "success",
+    );
   };
 
   const handleReject = (req: VerificationRequest) => {
@@ -32,7 +40,7 @@ export const AdminDashboard: React.FC = () => {
     <div className="space-y-6">
       <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-tech font-bold uppercase text-[#F28C28] bg-[#F28C28]/10 px-2.5 py-0.5 rounded">
+          <span className="text-[10px] font-sans font-bold uppercase text-[#F28C28] bg-[#F28C28]/10 px-2.5 py-0.5 rounded">
             System Administration
           </span>
           <h1 className="text-2xl font-bold text-[#1F2937] font-sans mt-0.5">
@@ -105,7 +113,10 @@ export const AdminDashboard: React.FC = () => {
                     title="Click to view full company details"
                   >
                     <span>{req.companyName}</span>
-                    <Icon icon="solar:square-arrow-out-up-right-bold" className="w-3.5 h-3.5 text-[#0B5D3B]" />
+                    <Icon
+                      icon="solar:square-arrow-out-up-right-bold"
+                      className="w-3.5 h-3.5 text-[#0B5D3B]"
+                    />
                   </button>
                   <p className="text-xs text-gray-500">
                     Requester: {req.requesterName} ({req.requesterEmail})
@@ -155,7 +166,7 @@ export const AdminDashboard: React.FC = () => {
                 <span className="font-bold text-[#1F2937]">{log.action}</span>
                 <span className="text-gray-500 ml-2">{log.target}</span>
               </div>
-              <span className="text-gray-400 font-tech">{log.timestamp}</span>
+              <span className="text-gray-400 font-sans">{log.timestamp}</span>
             </div>
           ))}
         </div>
@@ -172,26 +183,68 @@ export const AdminDashboard: React.FC = () => {
               >
                 <Icon icon="solar:close-circle-bold" className="w-5 h-5" />
               </button>
-              <h3 className="font-bold text-xl font-display">{selectedRequest.companyName}</h3>
-              <p className="text-xs text-emerald-100 mt-0.5">Claim Registration Details • Status: {selectedRequest.status}</p>
+              <h3 className="font-bold text-xl font-display">
+                {selectedRequest.companyName}
+              </h3>
+              <p className="text-xs text-emerald-100 mt-0.5">
+                Claim Registration Details • Status: {selectedRequest.status}
+              </p>
             </div>
 
             <div className="p-6 overflow-y-auto space-y-4 flex-1 text-xs">
               <div className="bg-[#F5F8F6] p-4 rounded-2xl border border-gray-200 space-y-2">
-                <h4 className="font-bold text-xs uppercase tracking-wider text-[#0B5D3B]">Company Info</h4>
-                <p><span className="text-gray-500 font-medium">Industry:</span> {selectedRequest.industry || 'IT & Services'}</p>
-                <p><span className="text-gray-500 font-medium">SEZ Zone:</span> {selectedRequest.sezZone || 'MIHAN SEZ'}</p>
-                <p><span className="text-gray-500 font-medium">Website:</span> {selectedRequest.website || 'N/A'}</p>
-                <p><span className="text-gray-500 font-medium">Headcount:</span> {selectedRequest.employeeBand || '50-200'}</p>
-                {selectedRequest.overview && <p><span className="text-gray-500 font-medium">Overview:</span> {selectedRequest.overview}</p>}
+                <h4 className="font-bold text-xs uppercase tracking-wider text-[#0B5D3B]">
+                  Company Info
+                </h4>
+                <p>
+                  <span className="text-gray-500 font-medium">Industry:</span>{" "}
+                  {selectedRequest.industry || "IT & Services"}
+                </p>
+                <p>
+                  <span className="text-gray-500 font-medium">SEZ Zone:</span>{" "}
+                  {selectedRequest.sezZone || "MIHAN SEZ"}
+                </p>
+                <p>
+                  <span className="text-gray-500 font-medium">Website:</span>{" "}
+                  {selectedRequest.website || "N/A"}
+                </p>
+                <p>
+                  <span className="text-gray-500 font-medium">Headcount:</span>{" "}
+                  {selectedRequest.employeeBand || "50-200"}
+                </p>
+                {selectedRequest.overview && (
+                  <p>
+                    <span className="text-gray-500 font-medium">Overview:</span>{" "}
+                    {selectedRequest.overview}
+                  </p>
+                )}
               </div>
 
               <div className="bg-[#F5F8F6] p-4 rounded-2xl border border-gray-200 space-y-2">
-                <h4 className="font-bold text-xs uppercase tracking-wider text-[#0B5D3B]">Representative & Proof</h4>
-                <p><span className="text-gray-500 font-medium">Requester:</span> {selectedRequest.requesterName} ({selectedRequest.designation})</p>
-                <p><span className="text-gray-500 font-medium">Email:</span> {selectedRequest.requesterEmail}</p>
-                <p><span className="text-gray-500 font-medium">GSTIN / CIN:</span> <span className="font-mono">{selectedRequest.gstCin}</span></p>
-                <p><span className="text-gray-500 font-medium">Proof Document:</span> {selectedRequest.documentName}</p>
+                <h4 className="font-bold text-xs uppercase tracking-wider text-[#0B5D3B]">
+                  Representative & Proof
+                </h4>
+                <p>
+                  <span className="text-gray-500 font-medium">Requester:</span>{" "}
+                  {selectedRequest.requesterName} ({selectedRequest.designation}
+                  )
+                </p>
+                <p>
+                  <span className="text-gray-500 font-medium">Email:</span>{" "}
+                  {selectedRequest.requesterEmail}
+                </p>
+                <p>
+                  <span className="text-gray-500 font-medium">
+                    GSTIN / CIN:
+                  </span>{" "}
+                  <span className="font-mono">{selectedRequest.gstCin}</span>
+                </p>
+                <p>
+                  <span className="text-gray-500 font-medium">
+                    Proof Document:
+                  </span>{" "}
+                  {selectedRequest.documentName}
+                </p>
               </div>
             </div>
 

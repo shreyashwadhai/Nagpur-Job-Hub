@@ -40,7 +40,7 @@ export const AIInsightsCard: React.FC = () => {
             </p>
           </div>
         </div>
-        <span className="px-3 py-1 rounded-full bg-white/10 text-white text-[10px] font-tech font-bold uppercase tracking-wider">
+        <span className="px-3 py-1 rounded-full bg-white/10 text-white text-[10px] font-sans font-bold uppercase tracking-wider">
           LIVE MODEL V2.4
         </span>
       </div>

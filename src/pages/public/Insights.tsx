@@ -92,7 +92,7 @@ export const Insights: React.FC = () => {
                 Growth momentum across Nagpur industrial nodes
               </p>
             </div>
-            <span className="text-xs font-bold text-[#0B5D3B] bg-[#0B5D3B]/10 px-2.5 py-1 rounded-md font-tech">
+            <span className="text-xs font-bold text-[#0B5D3B] bg-[#0B5D3B]/10 px-2.5 py-1 rounded-md font-sans">
               +24.8% Year on year
             </span>
           </div>
@@ -133,7 +133,7 @@ export const Insights: React.FC = () => {
                 Distribution of companies across Nagpur industrial zones
               </p>
             </div>
-            <span className="text-xs font-bold text-[#F28C28] bg-[#F28C28]/10 px-2.5 py-1 rounded-md font-tech">
+            <span className="text-xs font-bold text-[#F28C28] bg-[#F28C28]/10 px-2.5 py-1 rounded-md font-sans">
               MIHAN Leading
             </span>
           </div>

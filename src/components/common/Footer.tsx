@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
                 <span className="font-sans font-extrabold text-lg text-white tracking-wide block leading-tight">
                   NAGPUR INDUSTRIAL ECOSYSTEM
                 </span>
-                <span className="block text-[11px] font-tech text-[#FF9F43]">
+                <span className="block text-[11px] font-sans text-[#FF9F43]">
                   Digital Source of Truth • Vidarbha Enterprise Intelligence
                 </span>
               </div>

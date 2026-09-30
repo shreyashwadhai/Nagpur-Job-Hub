@@ -44,7 +44,7 @@ export const IndustryDetail: React.FC = () => {
               <Icon icon={industry.icon} className="w-8 h-8" />
             </div>
             <div>
-              <span className="px-2.5 py-0.5 rounded text-[10px] font-bold font-tech uppercase bg-[#F28C28]/10 text-[#F28C28]">
+              <span className="px-2.5 py-0.5 rounded text-[10px] font-bold font-sans uppercase bg-[#F28C28]/10 text-[#F28C28]">
                 {industry.growthRate}
               </span>
               <h1 className="text-2xl sm:text-4xl font-bold text-[#1F2937] font-sans mt-1">
@@ -55,19 +55,19 @@ export const IndustryDetail: React.FC = () => {
 
           <div className="grid grid-cols-3 gap-4 bg-[#F5F8F6] p-4 rounded-2xl border border-gray-200 text-center text-xs">
             <div>
-              <span className="block font-bold text-lg font-tech text-[#1F2937]">
+              <span className="block font-bold text-lg font-sans text-[#1F2937]">
                 {industry.totalCompanies}
               </span>
               <span className="text-[10px] text-gray-400">Companies</span>
             </div>
             <div>
-              <span className="block font-bold text-lg font-tech text-[#0B5D3B]">
+              <span className="block font-bold text-lg font-sans text-[#0B5D3B]">
                 {industry.totalJobs}
               </span>
               <span className="text-[10px] text-gray-400">Jobs</span>
             </div>
             <div>
-              <span className="block font-bold text-lg font-tech text-[#F28C28]">
+              <span className="block font-bold text-lg font-sans text-[#F28C28]">
                 {(industry.totalEmployment / 1000).toFixed(1)}k
               </span>
               <span className="text-[10px] text-gray-400">Workforce</span>

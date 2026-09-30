@@ -19,12 +19,28 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { label: "Home", path: "/", icon: "solar:home-2-bold-duotone" },
-    { label: "Companies", path: "/companies", icon: "solar:buildings-bold-duotone" },
+    {
+      label: "Companies",
+      path: "/companies",
+      icon: "solar:buildings-bold-duotone",
+    },
     { label: "Jobs", path: "/jobs", icon: "solar:case-round-bold-duotone" },
     { label: "News", path: "/news", icon: "solar:document-text-bold-duotone" },
-    { label: "Insights", path: "/insights", icon: "solar:chart-2-bold-duotone" },
-    { label: "Industries", path: "/industries", icon: "solar:box-minimalistic-bold-duotone" },
-    { label: "Skills", path: "/skills", icon: "solar:ruler-cross-pen-bold-duotone" },
+    {
+      label: "Insights",
+      path: "/insights",
+      icon: "solar:chart-2-bold-duotone",
+    },
+    {
+      label: "Industries",
+      path: "/industries",
+      icon: "solar:box-minimalistic-bold-duotone",
+    },
+    {
+      label: "Skills",
+      path: "/skills",
+      icon: "solar:ruler-cross-pen-bold-duotone",
+    },
     { label: "Map", path: "/map", icon: "solar:map-point-bold-duotone" },
   ];
 
@@ -236,7 +252,7 @@ export const Navbar: React.FC = () => {
                     <span className="text-xs font-semibold block text-[#1F2937] leading-none">
                       {user.name}
                     </span>
-                    <span className="text-[10px] uppercase font-tech text-[#0B5D3B] font-bold">
+                    <span className="text-[10px] uppercase font-sans text-[#0B5D3B] font-bold">
                       {role}
                     </span>
                   </div>
@@ -247,7 +263,7 @@ export const Navbar: React.FC = () => {
                 </button>
 
                 {isRoleMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-[#E5E9E6] p-3 z-50 animate-in fade-in slide-in-from-top-2">
+                  <div className="absolute right-0 mt-2 w-fit bg-white rounded-2xl shadow-xl border border-[#E5E9E6] p-3 z-50 animate-in fade-in slide-in-from-top-2">
                     <div className="pb-3 border-b border-gray-100 mb-2">
                       <div className="flex items-center gap-3">
                         <img
@@ -262,8 +278,8 @@ export const Navbar: React.FC = () => {
                           <p className="text-[11px] text-gray-500 truncate">
                             {user.email}
                           </p>
-                          <span className="inline-block mt-1 text-[10px] font-tech uppercase font-bold text-[#0B5D3B] bg-[#0B5D3B]/10 px-2 py-0.5 rounded-md">
-                            {role} Account
+                          <span className="flex flex-col md:flex-row items-center gap-1 mt-1 text-[10px] font-sans uppercase font-bold text-[#0B5D3B] bg-[#0B5D3B]/10 px-2 py-0.5 rounded-md">
+                            {role} <span>Account</span>
                           </span>
                         </div>
                       </div>
@@ -287,7 +303,7 @@ export const Navbar: React.FC = () => {
                           icon="solar:widget-bold-duotone"
                           className="w-4 h-4 text-[#0B5D3B]"
                         />
-                        <span>Go to Active Dashboard</span>
+                        <span>Dashboard</span>
                       </Link>
 
                       <button

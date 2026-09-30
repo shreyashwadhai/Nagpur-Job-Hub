@@ -20,7 +20,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-[#E5E9E6] shadow-sm">
         <div>
           {badge && (
-            <span className="inline-block text-[11px] font-tech font-bold uppercase tracking-wider text-[#F28C28] bg-[#F28C28]/10 border border-[#F28C28]/20 px-2.5 py-0.5 rounded-md mb-2">
+            <span className="inline-block text-[11px] font-sans font-bold uppercase tracking-wider text-[#F28C28] bg-[#F28C28]/10 border border-[#F28C28]/20 px-2.5 py-0.5 rounded-md mb-2">
               {badge}
             </span>
           )}

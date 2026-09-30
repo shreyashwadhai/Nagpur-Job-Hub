@@ -38,7 +38,7 @@ export const Skills: React.FC = () => {
               Empirical skill alignment index (Score out of 100)
             </p>
           </div>
-          <span className="text-xs font-bold text-[#F28C28] bg-[#F28C28]/10 px-3 py-1 rounded-full font-tech">
+          <span className="text-xs font-bold text-[#F28C28] bg-[#F28C28]/10 px-3 py-1 rounded-full font-sans">
             Highest Gap: Data & AI
           </span>
         </div>

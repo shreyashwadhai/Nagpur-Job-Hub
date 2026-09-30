@@ -44,7 +44,7 @@ export const JobDetail: React.FC = () => {
               className="w-16 h-16 rounded-2xl object-cover border-2 border-gray-100 shadow-md"
             />
             <div>
-              <span className="px-2.5 py-0.5 rounded text-[10px] font-bold font-tech uppercase bg-[#0B5D3B]/10 text-[#0B5D3B]">
+              <span className="px-2.5 py-0.5 rounded text-[10px] font-bold font-sans uppercase bg-[#0B5D3B]/10 text-[#0B5D3B]">
                 {job.workMode} Position
               </span>
               <h1 className="text-2xl sm:text-3xl font-bold text-[#1F2937] font-sans mt-1">
@@ -101,7 +101,7 @@ export const JobDetail: React.FC = () => {
             <span className="text-gray-400 block text-[10px] font-bold uppercase">
               Salary Band
             </span>
-            <span className="font-extrabold text-[#0B5D3B] font-tech text-sm">
+            <span className="font-extrabold text-[#0B5D3B] font-sans text-sm">
               {job.salaryRange}
             </span>
           </div>

@@ -375,7 +375,7 @@ export const Home: React.FC = () => {
       <section className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 overflow-hidden">
         <div className="flex items-end justify-between">
           <div>
-            <span className="text-xs font-tech font-bold uppercase text-[#0B5D3B]">
+            <span className="text-xs font-sans font-bold uppercase text-[#0B5D3B]">
               Talent & Recruitment
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1F2937] font-sans">
@@ -404,7 +404,7 @@ export const Home: React.FC = () => {
       <section className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 overflow-hidden">
         <div className="flex items-end justify-between">
           <div>
-            <span className="text-xs font-tech font-bold uppercase text-[#F28C28]">
+            <span className="text-xs font-sans font-bold uppercase text-[#F28C28]">
               Curated Directory
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1F2937] font-sans">
@@ -433,7 +433,7 @@ export const Home: React.FC = () => {
       <section className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex items-end justify-between">
           <div>
-            <span className="text-xs font-tech font-bold uppercase text-[#F28C28]">
+            <span className="text-xs font-sans font-bold uppercase text-[#F28C28]">
               Sector Clusters
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1F2937] font-sans">
@@ -460,7 +460,7 @@ export const Home: React.FC = () => {
       <section className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex items-end justify-between">
           <div>
-            <span className="text-xs font-tech font-bold uppercase text-[#0B5D3B]">
+            <span className="text-xs font-sans font-bold uppercase text-[#0B5D3B]">
               Intelligence & News
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1F2937] font-sans">
@@ -487,7 +487,7 @@ export const Home: React.FC = () => {
       <section className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gradient-to-r from-[#0B5D3B] via-[#087F5B] to-[#0B5D3B] text-white p-8 sm:p-12 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
           <div className="space-y-3 z-10">
-            <span className="text-xs font-tech font-bold uppercase px-3 py-1 rounded bg-[#F28C28] text-white">
+            <span className="text-xs font-sans font-bold uppercase px-3 py-1 rounded bg-[#F28C28] text-white">
               Civic Enterprise Network
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold font-sans leading-tight">
