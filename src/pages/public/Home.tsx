@@ -10,7 +10,6 @@ import {
   CompanyCard,
   IndustryCard,
   JobCard,
-  KPICard,
   NewsCard,
 } from "../../components/ui/Cards";
 import { AIInsightsCard } from "../../components/ai/AIInsightsCard";

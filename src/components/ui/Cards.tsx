@@ -305,15 +305,12 @@ export const IndustryCard: React.FC<{ industry: Industry }> = ({
 }) => (
   <Link
     to={`/industries/${industry.id}`}
-    className="bg-white rounded-2xl border border-[#E5E9E6] p-6 shadow-soft hover:shadow-xl hover:border-[#F28C28] transition-all group"
+    className="bg-white rounded-2xl border border-[#E5E9E6] p-5 shadow-soft hover:shadow-xl hover:border-[#F28C28] transition-all group"
   >
     <div className="flex items-start justify-between mb-4">
-      <div className="w-12 h-12 rounded-2xl bg-[#0B5D3B]/10 text-[#0B5D3B] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#F28C28] group-hover:text-white transition-all shadow-sm">
-        <Icon icon={industry.icon} className="w-6 h-6" />
+      <div className="w-10 h-10 rounded-2xl bg-[#0B5D3B]/10 text-[#0B5D3B] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#F28C28] group-hover:text-white transition-all shadow-sm">
+        <Icon icon={industry.icon} className="w-5 h-5" />
       </div>
-      <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-[#0B5D3B]/10 text-[#0B5D3B]">
-        <StatCounter value={industry.growthRate} />
-      </span>
     </div>
 
     <h3 className="font-bold text-lg text-[#1F2937] group-hover:text-[#F28C28] transition-colors mb-2">
@@ -322,26 +319,5 @@ export const IndustryCard: React.FC<{ industry: Industry }> = ({
     <p className="text-xs text-gray-500 leading-relaxed line-clamp-2 mb-4">
       {industry.description}
     </p>
-
-    <div className="grid grid-cols-3 gap-2 py-3 border-t border-b border-gray-100 text-center text-xs">
-      <div>
-        <span className="block font-bold text-[#1F2937] font-tech">
-          <StatCounter value={industry.totalCompanies} />
-        </span>
-        <span className="text-[10px] text-gray-400">Companies</span>
-      </div>
-      <div>
-        <span className="block font-bold text-[#0B5D3B] font-tech">
-          <StatCounter value={industry.totalJobs} />
-        </span>
-        <span className="text-[10px] text-gray-400">Open Jobs</span>
-      </div>
-      <div>
-        <span className="block font-bold text-[#F28C28] font-tech">
-          <StatCounter value={`${(industry.totalEmployment / 1000).toFixed(1)}k`} />
-        </span>
-        <span className="text-[10px] text-gray-400">Workforce</span>
-      </div>
-    </div>
   </Link>
 );

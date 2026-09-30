@@ -21,7 +21,7 @@ export const SavedJobs: React.FC = () => {
       </div>
 
       {savedJobs.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {savedJobs.map((j) => (
             <JobCard key={j.id} job={j} />
           ))}

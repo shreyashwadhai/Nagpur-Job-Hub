@@ -11,7 +11,7 @@ export const Sidebar: React.FC = () => {
     { label: 'Overview Dashboard', path: '/user/dashboard', icon: 'solar:widget-bold-duotone' },
     { label: 'Saved Opportunities', path: '/user/saved-jobs', icon: 'solar:bookmark-bold-duotone' },
     { label: 'Job Alerts', path: '/user/alerts', icon: 'solar:bell-bold-duotone' },
-    { label: 'Explore Directory', path: '/companies', icon: 'solar:buildings-bold-duotone' },
+    // { label: 'Explore Directory', path: '/companies', icon: 'solar:buildings-bold-duotone' },
   ];
 
   const companyNav = [
@@ -44,9 +44,9 @@ export const Sidebar: React.FC = () => {
   const panelTitle = role === 'admin' ? 'Admin Intelligence' : role === 'company' ? 'Company Enterprise' : role === 'institute' ? 'Institute Academy' : 'Job Seeker Portal';
 
   return (
-    <aside className="w-64 bg-white border-r border-[#E5E9E6] hidden md:flex flex-col min-h-[calc(100vh-4rem)]">
+    <aside className="w-64 bg-white border-r border-[#E5E9E6] hidden md:flex flex-col min-h-[calc(100vh-4rem)] rounded-2xl">
       {/* Panel Header Badge */}
-      <div className="p-4 border-b border-[#E5E9E6]">
+      <div className="p-4 border-b border-[#E5E9E6] ">
         <span className="text-[10px] font-tech font-bold uppercase tracking-wider text-[#F28C28] bg-[#F28C28]/10 px-2.5 py-1 rounded-md block w-fit mb-1">
           {panelTitle}
         </span>

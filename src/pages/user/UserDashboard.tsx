@@ -107,7 +107,7 @@ export const UserDashboard: React.FC = () => {
         <h3 className="font-bold text-lg text-[#1F2937] font-sans">
           Recommended Opportunities for You
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockJobs.slice(0, 4).map((j) => (
             <JobCard key={j.id} job={j} />
           ))}

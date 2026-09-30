@@ -9,7 +9,7 @@ import AppLogo from "../../assets/app_logo.webp";
 export const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { role, setRole, user } = useAuth();
+  const { role, setRole, user, isAuthenticated, logout } = useAuth();
   const { openModal } = useModal();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -212,93 +212,117 @@ export const Navbar: React.FC = () => {
               )}
             </div>
 
-            {/* Role Switcher & User Profile Menu */}
-            <div className="relative">
+            {/* Role Switcher & User Profile Menu / Sign In Button */}
+            {!isAuthenticated ? (
               <button
-                onClick={() => setIsRoleMenuOpen(!isRoleMenuOpen)}
-                className="flex items-center gap-2 pl-2 pr-3 py-1 rounded-xl bg-[#F5F8F6] hover:bg-gray-200/70 border border-[#E5E9E6] transition-all"
+                onClick={() => openModal("login")}
+                className="px-4 py-2 bg-[#0B5D3B] hover:bg-[#07472d] text-white font-bold text-xs rounded-xl shadow-sm shadow-[#0B5D3B]/20 hover:scale-105 transition-all flex items-center gap-1.5 cursor-pointer"
               >
-                <img
-                  src={user.avatar}
-                  alt={user.name}
-                  className="w-7 h-7 rounded-lg object-cover ring-2 ring-[#0B5D3B]/20"
-                />
-                <div className="text-left hidden sm:block">
-                  <span className="text-xs font-semibold block text-[#1F2937] leading-none">
-                    {user.name}
-                  </span>
-                  <span className="text-[10px] uppercase font-tech text-[#0B5D3B] font-bold">
-                    {role}
-                  </span>
-                </div>
-                <Icon
-                  icon="solar:alt-arrow-down-linear"
-                  className="w-3.5 h-3.5 text-gray-500"
-                />
+                <Icon icon="solar:user-bold" className="w-4 h-4" />
+                <span>Sign In</span>
               </button>
-
-              {isRoleMenuOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-[#E5E9E6] p-2 z-50">
-                  <div className="px-3 py-2 border-b border-gray-100 mb-1">
-                    <p className="text-xs font-bold text-[#1F2937]">
-                      Demo Role Switcher
-                    </p>
-                    <p className="text-[11px] text-gray-500">
-                      Switch panels instantly to test role permissions.
-                    </p>
+            ) : (
+              <div className="relative">
+                <button
+                  onClick={() => setIsRoleMenuOpen(!isRoleMenuOpen)}
+                  className="flex items-center gap-2 pl-2 pr-3 py-1 rounded-xl bg-[#F5F8F6] hover:bg-gray-200/70 border border-[#E5E9E6] transition-all"
+                >
+                  <img
+                    src={user.avatar}
+                    alt={user.name}
+                    className="w-7 h-7 rounded-lg object-cover ring-2 ring-[#0B5D3B]/20"
+                  />
+                  <div className="text-left hidden sm:block">
+                    <span className="text-xs font-semibold block text-[#1F2937] leading-none">
+                      {user.name}
+                    </span>
+                    <span className="text-[10px] uppercase font-tech text-[#0B5D3B] font-bold">
+                      {role}
+                    </span>
                   </div>
+                  <Icon
+                    icon="solar:alt-arrow-down-linear"
+                    className="w-3.5 h-3.5 text-gray-500"
+                  />
+                </button>
 
-                  {roleOptions.map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => {
-                        setRole(opt.value);
-                        setIsRoleMenuOpen(false);
-                        navigate(opt.path);
-                      }}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors ${
-                        role === opt.value
-                          ? "bg-[#0B5D3B] text-white"
-                          : "text-gray-700 hover:bg-gray-100"
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <Icon icon={opt.icon} className="w-4 h-4" />
-                        <span>{opt.label}</span>
-                      </div>
-                      {role === opt.value && (
+                {isRoleMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-[#E5E9E6] p-2 z-50 animate-in fade-in slide-in-from-top-2">
+                    <div className="px-3 py-2 border-b border-gray-100 mb-1">
+                      <p className="text-xs font-bold text-[#1F2937]">
+                        Demo Role Switcher
+                      </p>
+                      <p className="text-[11px] text-gray-500">
+                        Switch panels instantly to test role permissions.
+                      </p>
+                    </div>
+
+                    {roleOptions.map((opt) => (
+                      <button
+                        key={opt.value}
+                        onClick={() => {
+                          setRole(opt.value);
+                          setIsRoleMenuOpen(false);
+                          navigate(opt.path);
+                        }}
+                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors ${
+                          role === opt.value
+                            ? "bg-[#0B5D3B] text-white"
+                            : "text-gray-700 hover:bg-gray-100"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <Icon icon={opt.icon} className="w-4 h-4" />
+                          <span>{opt.label}</span>
+                        </div>
+                        {role === opt.value && (
+                          <Icon
+                            icon="solar:check-read-bold"
+                            className="w-4 h-4 text-white"
+                          />
+                        )}
+                      </button>
+                    ))}
+
+                    <div className="border-t border-gray-100 mt-2 pt-1 space-y-1">
+                      <Link
+                        to={
+                          role === "admin"
+                            ? "/admin/dashboard"
+                            : role === "company"
+                              ? "/company/dashboard"
+                              : role === "institute"
+                                ? "/institute/dashboard"
+                                : "/user/dashboard"
+                        }
+                        onClick={() => setIsRoleMenuOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-[#F28C28] hover:bg-[#F28C28]/10 transition-colors"
+                      >
                         <Icon
-                          icon="solar:check-read-bold"
-                          className="w-4 h-4 text-white"
+                          icon="solar:widget-bold-duotone"
+                          className="w-4 h-4"
                         />
-                      )}
-                    </button>
-                  ))}
+                        Go to Active Dashboard
+                      </Link>
 
-                  <div className="border-t border-gray-100 mt-2 pt-1">
-                    <Link
-                      to={
-                        role === "admin"
-                          ? "/admin/dashboard"
-                          : role === "company"
-                            ? "/company/dashboard"
-                            : role === "institute"
-                              ? "/institute/dashboard"
-                              : "/user/dashboard"
-                      }
-                      onClick={() => setIsRoleMenuOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-[#F28C28] hover:bg-[#F28C28]/10 transition-colors"
-                    >
-                      <Icon
-                        icon="solar:widget-bold-duotone"
-                        className="w-4 h-4"
-                      />
-                      Go to Active Dashboard
-                    </Link>
+                      <button
+                        onClick={() => {
+                          logout();
+                          setIsRoleMenuOpen(false);
+                        }}
+                        className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-rose-600 hover:bg-rose-50 transition-colors text-left"
+                      >
+                        <Icon
+                          icon="solar:logout-3-bold"
+                          className="w-4 h-4 text-rose-600"
+                        />
+                        Sign Out
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
 
             {/* Mobile Hamburger Menu Toggle */}
             <button

@@ -13,7 +13,8 @@ export type ModalType =
   | 'user-details'
   | 'filter-modal'
   | 'quick-apply'
-  | 'post-course';
+  | 'post-course'
+  | 'login';
 
 interface ModalContextType {
   modalType: ModalType | null;

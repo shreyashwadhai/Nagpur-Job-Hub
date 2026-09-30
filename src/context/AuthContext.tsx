@@ -1,9 +1,59 @@
 import React, { createContext, useContext, useState } from 'react';
 import type { UserProfile, UserRole } from '../types';
 
+export const DEMO_USERS: Record<UserRole, UserProfile> = {
+  jobseeker: {
+    id: 'usr-1',
+    name: 'Aarav Deshmukh',
+    email: 'aarav.d@gmail.com',
+    role: 'jobseeker',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
+    savedJobIds: ['job-101', 'job-102'],
+    appliedJobIds: ['job-102'],
+    jobAlerts: [
+      { id: 'alt-1', keyword: 'React Developer', location: 'MIHAN SEZ', frequency: 'Instant' },
+      { id: 'alt-2', keyword: 'Aerospace Engineering', location: 'Nagpur', frequency: 'Daily' }
+    ]
+  },
+  company: {
+    id: 'usr-2',
+    name: 'InfoCepts HR Director',
+    email: 'careers@infocepts.com',
+    role: 'company',
+    companyId: 'infocepts-nagpur',
+    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&auto=format&fit=crop&q=80',
+    savedJobIds: [],
+    appliedJobIds: [],
+    jobAlerts: []
+  },
+  institute: {
+    id: 'usr-3',
+    name: 'VNIT Nagpur Coordinator',
+    email: 'placements@vnit.ac.in',
+    role: 'institute',
+    avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=120&auto=format&fit=crop&q=80',
+    savedJobIds: [],
+    appliedJobIds: [],
+    jobAlerts: []
+  },
+  admin: {
+    id: 'usr-4',
+    name: 'System Administrator',
+    email: 'admin@nagpur-ecosystem.gov.in',
+    role: 'admin',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&auto=format&fit=crop&q=80',
+    savedJobIds: [],
+    appliedJobIds: [],
+    jobAlerts: []
+  }
+};
+
 interface AuthContextType {
   user: UserProfile;
   role: UserRole;
+  isAuthenticated: boolean;
+  login: (email: string, password?: string, targetRole?: UserRole) => UserProfile;
+  logout: () => void;
   setRole: (role: UserRole) => void;
   saveJob: (jobId: string) => void;
   unsaveJob: (jobId: string) => void;
@@ -14,33 +64,39 @@ interface AuthContextType {
   removeJobAlert: (alertId: string) => void;
 }
 
-const defaultUser: UserProfile = {
-  id: 'usr-1',
-  name: 'Aarav Deshmukh',
-  email: 'aarav.d@gmail.com',
-  role: 'jobseeker',
-  avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
-  savedJobIds: ['job-101', 'job-102'],
-  appliedJobIds: ['job-102'],
-  jobAlerts: [
-    { id: 'alt-1', keyword: 'React Developer', location: 'MIHAN SEZ', frequency: 'Instant' },
-    { id: 'alt-2', keyword: 'Aerospace Engineering', location: 'Nagpur', frequency: 'Daily' }
-  ]
-};
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<UserProfile>(defaultUser);
+  const [user, setUser] = useState<UserProfile>(DEMO_USERS.jobseeker);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+
+  const login = (email: string, _password?: string, targetRole?: UserRole): UserProfile => {
+    // Determine user profile based on targetRole or email
+    let matchedUser = DEMO_USERS.jobseeker;
+    if (targetRole && DEMO_USERS[targetRole]) {
+      matchedUser = DEMO_USERS[targetRole];
+    } else if (email.includes('infocepts')) {
+      matchedUser = DEMO_USERS.company;
+    } else if (email.includes('vnit') || email.includes('institute')) {
+      matchedUser = DEMO_USERS.institute;
+    } else if (email.includes('admin') || email.includes('gov')) {
+      matchedUser = DEMO_USERS.admin;
+    }
+
+    setUser(matchedUser);
+    setIsAuthenticated(true);
+    return matchedUser;
+  };
+
+  const logout = () => {
+    setIsAuthenticated(false);
+  };
 
   const setRole = (newRole: UserRole) => {
-    setUser((prev) => ({
-      ...prev,
-      role: newRole,
-      name: newRole === 'admin' ? 'System Administrator' : newRole === 'company' ? 'InfoCepts HR Director' : 'Aarav Deshmukh',
-      email: newRole === 'admin' ? 'admin@nagpur-ecosystem.gov.in' : newRole === 'company' ? 'careers@infocepts.com' : 'aarav.d@gmail.com',
-      companyId: newRole === 'company' ? 'infocepts-nagpur' : undefined
-    }));
+    if (DEMO_USERS[newRole]) {
+      setUser(DEMO_USERS[newRole]);
+      setIsAuthenticated(true);
+    }
   };
 
   const saveJob = (jobId: string) => {
@@ -88,6 +144,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         user,
         role: user.role,
+        isAuthenticated,
+        login,
+        logout,
         setRole,
         saveJob,
         unsaveJob,
