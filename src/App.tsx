@@ -40,6 +40,9 @@ import { CompanyVerification } from './pages/company/CompanyVerification';
 // Institute Panel Pages
 import { InstituteDashboard } from './pages/institute/InstituteDashboard';
 import { InstituteCourses } from './pages/institute/InstituteCourses';
+import { InstituteInternships } from './pages/institute/InstituteInternships';
+import { InstituteNews } from './pages/institute/InstituteNews';
+import { InstituteProfile } from './pages/institute/InstituteProfile';
 
 // Admin Panel Pages
 import { AdminDashboard } from './pages/admin/AdminDashboard';
@@ -99,8 +102,9 @@ export const App: React.FC = () => {
               <Route path="/institute" element={<DashboardLayout />}>
                 <Route path="dashboard" element={<InstituteDashboard />} />
                 <Route path="courses" element={<InstituteCourses />} />
-                <Route path="internships" element={<InstituteCourses />} />
-                <Route path="mous" element={<InstituteDashboard />} />
+                <Route path="internships" element={<InstituteInternships />} />
+                <Route path="news" element={<InstituteNews />} />
+                <Route path="profile" element={<InstituteProfile />} />
               </Route>
 
               {/* Admin Panel Layout */}

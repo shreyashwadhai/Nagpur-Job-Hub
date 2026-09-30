@@ -30,7 +30,6 @@ export const DashboardLayout: React.FC = () => {
           <Outlet />
         </main>
       </div>
-      <Footer />
       <ModalManager />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useAuth } from "../../context/AuthContext";
@@ -16,6 +16,31 @@ export const Navbar: React.FC = () => {
   const [isRoleMenuOpen, setIsRoleMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
+
+  const notifRef = useRef<HTMLDivElement>(null);
+  const roleMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        notifRef.current &&
+        !notifRef.current.contains(event.target as Node)
+      ) {
+        setIsNotifOpen(false);
+      }
+      if (
+        roleMenuRef.current &&
+        !roleMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsRoleMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const navLinks = [
     { label: "Home", path: "/", icon: "solar:home-2-bold-duotone" },
@@ -163,7 +188,7 @@ export const Navbar: React.FC = () => {
             </form>
 
             {/* Notifications Dropdown */}
-            <div className="relative">
+            <div className="relative" ref={notifRef}>
               <button
                 onClick={() => setIsNotifOpen(!isNotifOpen)}
                 className="p-2 rounded-xl text-[#1F2937] hover:bg-gray-100 relative transition-colors"
@@ -238,7 +263,7 @@ export const Navbar: React.FC = () => {
                 <span>Sign In</span>
               </button>
             ) : (
-              <div className="relative">
+              <div className="relative" ref={roleMenuRef}>
                 <button
                   onClick={() => setIsRoleMenuOpen(!isRoleMenuOpen)}
                   className="flex items-center gap-2 pl-2 pr-3 py-1 rounded-xl bg-[#F5F8F6] hover:bg-gray-200/70 border border-[#E5E9E6] transition-all"

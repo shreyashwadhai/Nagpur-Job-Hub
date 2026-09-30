@@ -83,7 +83,7 @@ export const ClaimCompanyModal: React.FC = () => {
       designation: formData.designation.trim() || 'Authorized Representative',
       gstCin: formData.gstCin.trim() || '27AAFCB1290K1Z4 / U72900MH2024PTC100000',
       documentName: formData.documentName.trim() || 'Company_Registration_Document.pdf',
-      notes: `Claim & registration form submitted for ${formData.companyName}. Pending Admin Review.`,
+      notes: `Claim & registration form submitted for ${formData.companyName}. Pending Review.`,
       industry: formData.industry,
       sezZone: formData.sezZone,
       website: formData.website || `https://${companyId}.com`,

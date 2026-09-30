@@ -71,9 +71,14 @@ export const Sidebar: React.FC = () => {
       icon: "solar:case-round-bold-duotone",
     },
     {
-      label: "Industry & Campus MoUs",
-      path: "/institute/mous",
+      label: "Post News & Updates",
+      path: "/institute/news",
       icon: "solar:document-text-bold-duotone",
+    },
+    {
+      label: "Institute Profile",
+      path: "/institute/profile",
+      icon: "solar:buildings-bold-duotone",
     },
   ];
 
