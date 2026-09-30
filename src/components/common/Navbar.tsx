@@ -247,44 +247,29 @@ export const Navbar: React.FC = () => {
                 </button>
 
                 {isRoleMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-[#E5E9E6] p-2 z-50 animate-in fade-in slide-in-from-top-2">
-                    <div className="px-3 py-2 border-b border-gray-100 mb-1">
-                      <p className="text-xs font-bold text-[#1F2937]">
-                        Demo Role Switcher
-                      </p>
-                      <p className="text-[11px] text-gray-500">
-                        Switch panels instantly to test role permissions.
-                      </p>
+                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-[#E5E9E6] p-3 z-50 animate-in fade-in slide-in-from-top-2">
+                    <div className="pb-3 border-b border-gray-100 mb-2">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={user.avatar}
+                          alt={user.name}
+                          className="w-10 h-10 rounded-xl object-cover ring-2 ring-[#0B5D3B]/20 flex-shrink-0"
+                        />
+                        <div className="overflow-hidden min-w-0">
+                          <p className="text-xs font-bold text-[#1F2937] truncate">
+                            {user.name}
+                          </p>
+                          <p className="text-[11px] text-gray-500 truncate">
+                            {user.email}
+                          </p>
+                          <span className="inline-block mt-1 text-[10px] font-tech uppercase font-bold text-[#0B5D3B] bg-[#0B5D3B]/10 px-2 py-0.5 rounded-md">
+                            {role} Account
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
-                    {roleOptions.map((opt) => (
-                      <button
-                        key={opt.value}
-                        onClick={() => {
-                          setRole(opt.value);
-                          setIsRoleMenuOpen(false);
-                          navigate(opt.path);
-                        }}
-                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors ${
-                          role === opt.value
-                            ? "bg-[#0B5D3B] text-white"
-                            : "text-gray-700 hover:bg-gray-100"
-                        }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <Icon icon={opt.icon} className="w-4 h-4" />
-                          <span>{opt.label}</span>
-                        </div>
-                        {role === opt.value && (
-                          <Icon
-                            icon="solar:check-read-bold"
-                            className="w-4 h-4 text-white"
-                          />
-                        )}
-                      </button>
-                    ))}
-
-                    <div className="border-t border-gray-100 mt-2 pt-1 space-y-1">
+                    <div className="space-y-1">
                       <Link
                         to={
                           role === "admin"
@@ -296,13 +281,13 @@ export const Navbar: React.FC = () => {
                                 : "/user/dashboard"
                         }
                         onClick={() => setIsRoleMenuOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-[#F28C28] hover:bg-[#F28C28]/10 transition-colors"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-[#0B5D3B] hover:bg-[#0B5D3B]/10 transition-colors"
                       >
                         <Icon
                           icon="solar:widget-bold-duotone"
-                          className="w-4 h-4"
+                          className="w-4 h-4 text-[#0B5D3B]"
                         />
-                        Go to Active Dashboard
+                        <span>Go to Active Dashboard</span>
                       </Link>
 
                       <button
@@ -316,7 +301,7 @@ export const Navbar: React.FC = () => {
                           icon="solar:logout-3-bold"
                           className="w-4 h-4 text-rose-600"
                         />
-                        Sign Out
+                        <span>Sign Out</span>
                       </button>
                     </div>
                   </div>

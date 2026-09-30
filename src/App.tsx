@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ModalProvider } from './context/ModalContext';
 import { ToastProvider } from './context/ToastContext';
+import { VerificationProvider } from './context/VerificationContext';
 
 import { PublicLayout, DashboardLayout } from './components/layout/Layouts';
 
@@ -55,7 +56,8 @@ export const App: React.FC = () => {
     <AuthProvider>
       <ModalProvider>
         <ToastProvider>
-          <BrowserRouter>
+          <VerificationProvider>
+            <BrowserRouter>
             <Routes>
               {/* Public Website Layout */}
               <Route element={<PublicLayout />}>
@@ -117,10 +119,11 @@ export const App: React.FC = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
-        </ToastProvider>
-      </ModalProvider>
-    </AuthProvider>
-  );
+        </VerificationProvider>
+      </ToastProvider>
+    </ModalProvider>
+  </AuthProvider>
+);
 };
 
 export default App;
