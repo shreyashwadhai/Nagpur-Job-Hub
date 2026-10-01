@@ -94,6 +94,16 @@ export const Sidebar: React.FC = () => {
       icon: "solar:buildings-bold-duotone",
     },
     {
+      label: "Institute Moderation",
+      path: "/admin/institutes",
+      icon: "solar:ruler-cross-pen-bold-duotone",
+    },
+    {
+      label: "Jobseekers Directory",
+      path: "/admin/users",
+      icon: "solar:users-group-two-rounded-bold-duotone",
+    },
+    {
       label: "Verification Claims",
       path: "/admin/verification",
       icon: "solar:shield-check-bold-duotone",
@@ -107,11 +117,6 @@ export const Sidebar: React.FC = () => {
       label: "News Moderation",
       path: "/admin/news",
       icon: "solar:document-text-bold-duotone",
-    },
-    {
-      label: "User Directory",
-      path: "/admin/users",
-      icon: "solar:users-group-two-rounded-bold-duotone",
     },
     {
       label: "Data Feeds & Scrapers",

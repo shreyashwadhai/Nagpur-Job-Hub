@@ -16,7 +16,7 @@ export const ClaimCompanyModal: React.FC = () => {
   const [formData, setFormData] = useState({
     companyName: '',
     industry: 'IT & Software Services',
-    sezZone: 'MIHAN SEZ' as const,
+    sezZone: 'MIHAN SEZ' as Company['sezZone'],
     website: '',
     employeeBand: '50-200',
     businessFocus: '',
@@ -34,7 +34,7 @@ export const ClaimCompanyModal: React.FC = () => {
         ...prev,
         companyName: company.name || '',
         industry: company.industry || 'IT & Software Services',
-        sezZone: company.sezZone || 'MIHAN SEZ',
+        sezZone: (company.sezZone || 'MIHAN SEZ') as Company['sezZone'],
         website: company.website || '',
         employeeBand: company.employeeBand || '50-200',
         businessFocus: company.businessFocus || '',
@@ -45,7 +45,7 @@ export const ClaimCompanyModal: React.FC = () => {
       setFormData({
         companyName: '',
         industry: 'IT & Software Services',
-        sezZone: 'MIHAN SEZ',
+        sezZone: 'MIHAN SEZ' as Company['sezZone'],
         website: '',
         employeeBand: '50-200',
         businessFocus: '',

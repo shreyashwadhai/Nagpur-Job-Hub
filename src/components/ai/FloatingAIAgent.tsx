@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useModal } from '../../context/ModalContext';
 
 export const FloatingAIAgent: React.FC = () => {
+  const location = useLocation();
   const { openModal, isOpen, modalType } = useModal();
   const [_isHovered, setIsHovered] = useState(false);
   const [showGreeting, setShowGreeting] = useState(false);
+
+  // Hide floating buttons on all dashboard pages (user, company, institute, admin)
+  const isDashboard =
+    location.pathname.startsWith('/user') ||
+    location.pathname.startsWith('/company') ||
+    location.pathname.startsWith('/institute') ||
+    location.pathname.startsWith('/admin') ||
+    location.pathname.includes('/dashboard');
 
   // Show a friendly pop-up greeting bubble after 3 seconds on first load
   useEffect(() => {
@@ -17,6 +27,10 @@ export const FloatingAIAgent: React.FC = () => {
   }, []);
 
   const isModalOpen = isOpen && modalType === 'ask-ecosystem';
+
+  if (isDashboard) {
+    return null;
+  }
 
   return (
     <>

@@ -3,13 +3,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useAuth } from "../../context/AuthContext";
 import { useModal } from "../../context/ModalContext";
-import type { UserRole } from "../../types";
 import AppLogo from "../../assets/app_logo.webp";
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { role, setRole, user, isAuthenticated, logout } = useAuth();
+  const { role, user, isAuthenticated, logout } = useAuth();
   const { openModal } = useModal();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -76,37 +75,6 @@ export const Navbar: React.FC = () => {
     }
   };
 
-  const roleOptions: {
-    label: string;
-    value: UserRole;
-    icon: string;
-    path: string;
-  }[] = [
-    {
-      label: "Job Seeker View",
-      value: "jobseeker",
-      icon: "solar:user-bold",
-      path: "/user/dashboard",
-    },
-    {
-      label: "Company Portal",
-      value: "company",
-      icon: "solar:buildings-bold",
-      path: "/company/dashboard",
-    },
-    {
-      label: "Institute Portal",
-      value: "institute",
-      icon: "solar:ruler-cross-pen-bold",
-      path: "/institute/dashboard",
-    },
-    {
-      label: "Admin Intelligence",
-      value: "admin",
-      icon: "solar:shield-check-bold",
-      path: "/admin/dashboard",
-    },
-  ];
 
   return (
     <header className="sticky top-0 z-40 bg-white/75 backdrop-blur-md border-b border-[#E5E9E6] shadow-sm">

@@ -3,7 +3,7 @@ import { mockJobs } from "../../data/mockJobs";
 import { mockCompanies } from "../../data/mockCompanies";
 import { useToast } from "../../context/ToastContext";
 import { Icon } from "@iconify/react";
-import type { Job, WorkMode } from "../../types";
+import type { Job, WorkMode, Company } from "../../types";
 
 export const CompanyJobs: React.FC = () => {
   const company = mockCompanies[0];
@@ -21,7 +21,7 @@ export const CompanyJobs: React.FC = () => {
     experience: "3 - 5 Years",
     workMode: "On-site" as WorkMode,
     salaryRange: "₹8 - 14 LPA",
-    sezZone: company.sezZone || "MIHAN SEZ",
+    sezZone: (company.sezZone || "MIHAN SEZ") as Company["sezZone"],
     skills: "React, Node.js, PostgreSQL",
     description: "",
     requirements: "Degree in Computer Science, 3+ years experience with React and Node.js.",
@@ -37,7 +37,7 @@ export const CompanyJobs: React.FC = () => {
       experience: "3 - 5 Years",
       workMode: "On-site",
       salaryRange: "₹8 - 14 LPA",
-      sezZone: company.sezZone || "MIHAN SEZ",
+      sezZone: (company.sezZone || "MIHAN SEZ") as Company["sezZone"],
       skills: "React, Node.js, PostgreSQL",
       description: "We are hiring for a key engineering position at our facility in MIHAN SEZ Nagpur.",
       requirements: "Degree in CS/IT, strong software design principles.",
@@ -55,7 +55,7 @@ export const CompanyJobs: React.FC = () => {
       experience: job.experience,
       workMode: job.workMode,
       salaryRange: job.salaryRange,
-      sezZone: job.sezZone,
+      sezZone: job.sezZone as Company["sezZone"],
       skills: job.skills.join(", "),
       description: job.description,
       requirements: job.requirements.join("\n"),
@@ -326,7 +326,7 @@ export const CompanyJobs: React.FC = () => {
                   <label className="block font-bold text-gray-700 mb-1">SEZ Zone / Location</label>
                   <select
                     value={jobFormData.sezZone}
-                    onChange={(e) => setJobFormData({ ...jobFormData, sezZone: e.target.value })}
+                    onChange={(e) => setJobFormData({ ...jobFormData, sezZone: e.target.value as Company["sezZone"] })}
                     className="w-full px-3.5 py-2.5 bg-[#F5F8F6] border border-gray-200 rounded-xl focus:outline-none focus:border-[#0B5D3B]"
                   >
                     <option value="MIHAN SEZ">MIHAN SEZ</option>

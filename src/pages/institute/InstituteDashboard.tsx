@@ -15,7 +15,6 @@ import {
 import { Line, Bar, Doughnut, Pie } from "react-chartjs-2";
 import { KPICard } from "../../components/ui/Cards";
 import { Icon } from "@iconify/react";
-import { useModal } from "../../context/ModalContext";
 
 // Register Chart.js modules
 ChartJS.register(
@@ -32,7 +31,6 @@ ChartJS.register(
 );
 
 export const InstituteDashboard: React.FC = () => {
-  const { openModal } = useModal();
 
   // Chart Data 1: Monthly Campus Drives & Placements (Line)
   const lineChartData = {

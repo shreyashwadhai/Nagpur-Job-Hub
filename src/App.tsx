@@ -51,6 +51,7 @@ import { VerificationRequests } from './pages/admin/VerificationRequests';
 import { AdminJobs } from './pages/admin/AdminJobs';
 import { AdminNews } from './pages/admin/AdminNews';
 import { AdminUsers } from './pages/admin/AdminUsers';
+import { AdminInstitutes } from './pages/admin/AdminInstitutes';
 import { DataSources } from './pages/admin/DataSources';
 import { AuditLogs } from './pages/admin/AuditLogs';
 
@@ -115,6 +116,7 @@ export const App: React.FC = () => {
                 <Route path="jobs" element={<AdminJobs />} />
                 <Route path="news" element={<AdminNews />} />
                 <Route path="users" element={<AdminUsers />} />
+                <Route path="institutes" element={<AdminInstitutes />} />
                 <Route path="data-sources" element={<DataSources />} />
                 <Route path="audit-logs" element={<AuditLogs />} />
               </Route>
