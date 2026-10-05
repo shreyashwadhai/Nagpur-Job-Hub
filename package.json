@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",
+    "@types/aos": "^3.0.8",
+    "aos": "^2.3.4",
     "autoprefixer": "^10.6.0",
     "chart.js": "^4.5.1",
     "clsx": "^2.1.1",

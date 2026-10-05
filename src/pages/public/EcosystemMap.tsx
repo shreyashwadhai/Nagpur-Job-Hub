@@ -21,7 +21,7 @@ export const EcosystemMap: React.FC = () => {
       />
 
       {/* LAYER CONTROLS */}
-      <div className="bg-white p-4 rounded-2xl border border-[#E5E9E6] shadow-sm flex flex-wrap items-center gap-3 text-xs font-semibold">
+      <div className="bg-white p-4 rounded-2xl border border-[#E5E9E6] shadow-sm flex flex-wrap items-center gap-3 text-xs font-semibold" data-aos="fade-up">
         <span className="text-gray-500 font-bold uppercase text-[10px]">
           Toggle Layers:
         </span>
@@ -72,7 +72,9 @@ export const EcosystemMap: React.FC = () => {
         </label>
       </div>
 
-      <MapboxMap companies={mockCompanies} height="650px" />
+      <div data-aos="zoom-in">
+        <MapboxMap companies={mockCompanies} height="650px" />
+      </div>
     </div>
   );
 };

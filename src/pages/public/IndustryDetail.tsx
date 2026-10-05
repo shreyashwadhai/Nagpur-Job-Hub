@@ -37,7 +37,7 @@ export const IndustryDetail: React.FC = () => {
       <Breadcrumb />
 
       {/* Header Banner */}
-      <div className="bg-white rounded-3xl border border-[#E5E9E6] p-6 sm:p-8 shadow-soft space-y-6">
+      <div className="bg-white rounded-3xl border border-[#E5E9E6] p-6 sm:p-8 shadow-soft space-y-6" data-aos="fade-down">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-2xl bg-[#0B5D3B]/10 text-[#0B5D3B] flex items-center justify-center">
@@ -81,7 +81,7 @@ export const IndustryDetail: React.FC = () => {
       </div>
 
       {/* HISTORICAL GROWTH CHART */}
-      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm space-y-4">
+      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm space-y-4" data-aos="fade-up">
         <h3 className="font-bold text-lg text-[#1F2937] font-sans">
           Historical Growth Trajectory (2021-2025)
         </h3>
@@ -110,26 +110,26 @@ export const IndustryDetail: React.FC = () => {
       </div>
 
       {/* MAJOR COMPANIES IN THIS SECTOR */}
-      <div className="space-y-4">
+      <div className="space-y-4" data-aos="fade-up">
         <h3 className="font-bold text-xl text-[#1F2937] font-sans">
           Major Employers in {industry.name}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {industryCompanies.map((c) => (
-            <CompanyCard key={c.id} company={c} />
+          {industryCompanies.map((c, idx) => (
+            <CompanyCard key={c.id} company={c} index={idx} />
           ))}
         </div>
       </div>
 
       {/* OPEN POSITIONS */}
       {industryJobs.length > 0 && (
-        <div className="space-y-4">
+        <div className="space-y-4" data-aos="fade-up">
           <h3 className="font-bold text-xl text-[#1F2937] font-sans">
             Open Positions in Sector
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {industryJobs.map((j) => (
-              <JobCard key={j.id} job={j} />
+            {industryJobs.map((j, idx) => (
+              <JobCard key={j.id} job={j} index={idx} />
             ))}
           </div>
         </div>

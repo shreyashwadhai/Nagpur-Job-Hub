@@ -35,7 +35,7 @@ export const JobDetail: React.FC = () => {
       <Breadcrumb />
 
       {/* Header Banner */}
-      <div className="bg-white rounded-3xl border border-[#E5E9E6] p-6 sm:p-8 shadow-soft relative overflow-hidden">
+      <div className="bg-white rounded-3xl border border-[#E5E9E6] p-6 sm:p-8 shadow-soft relative overflow-hidden" data-aos="fade-down">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center gap-5">
             <img

@@ -28,7 +28,7 @@ export const Skills: React.FC = () => {
       />
 
       {/* SKILL DEMAND VS SUPPLY CHART */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E5E9E6] shadow-soft space-y-4">
+      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E5E9E6] shadow-soft space-y-4" data-aos="fade-up">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="font-bold text-lg text-[#1F2937] font-sans">
@@ -69,9 +69,11 @@ export const Skills: React.FC = () => {
 
       {/* SKILL METRICS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {mockSkills.map((skill) => (
+        {mockSkills.map((skill, idx) => (
           <div
             key={skill.id}
+            data-aos="fade-up"
+            data-aos-delay={idx * 80}
             className="bg-white p-5 rounded-2xl border border-[#E5E9E6] shadow-soft space-y-3"
           >
             <div className="flex items-center justify-between">
@@ -107,14 +109,16 @@ export const Skills: React.FC = () => {
       </div>
 
       {/* ACADEMIC INSTITUTIONS DIRECTORY */}
-      <div className="space-y-6">
+      <div className="space-y-6" data-aos="fade-up">
         <h3 className="font-bold text-2xl text-[#1F2937] font-sans">
           Nagpur Academic & Technical Institutes
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {mockInstitutions.map((inst) => (
+          {mockInstitutions.map((inst, idx) => (
             <div
               key={inst.id}
+              data-aos="zoom-in"
+              data-aos-delay={idx * 100}
               className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-soft space-y-4"
             >
               <div className="flex items-start justify-between">
@@ -145,8 +149,8 @@ export const Skills: React.FC = () => {
                   Key Enterprise MoUs & R&D Labs
                 </span>
                 <ul className="space-y-1 text-xs text-gray-700">
-                  {inst.keyMoUs.map((mou, idx) => (
-                    <li key={idx} className="flex items-center gap-1.5">
+                  {inst.keyMoUs.map((mou, i) => (
+                    <li key={i} className="flex items-center gap-1.5">
                       <Icon
                         icon="solar:check-circle-bold"
                         className="w-3.5 h-3.5 text-[#0B5D3B]"

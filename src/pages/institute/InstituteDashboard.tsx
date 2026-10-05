@@ -170,7 +170,7 @@ export const InstituteDashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm" data-aos="fade-down">
         <div>
           <span className="text-xs font-sans font-bold uppercase tracking-wider text-[#F28C28] bg-[#F28C28]/10 px-2.5 py-1 rounded-md inline-block mb-1">
             Institute Management Portal
@@ -186,34 +186,38 @@ export const InstituteDashboard: React.FC = () => {
       </div>
 
       {/* KPI Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-aos="fade-up">
         <KPICard
           title="Active Degree & Courses"
           value="18"
           icon="solar:ruler-cross-pen-bold-duotone"
+          index={0}
         />
         <KPICard
           title="Enrolled Students"
           value="2,480"
           change="+18.5% YoY"
           icon="solar:users-group-two-rounded-bold-duotone"
+          index={1}
         />
         <KPICard
           title="Active Campus MoUs"
           value="14"
           change="Verified"
           icon="solar:verified-check-bold-duotone"
+          index={2}
         />
         <KPICard
           title="Placement Success Rate"
           value="89.6%"
           change="+4.2% MoM"
           icon="solar:graph-up-bold-duotone"
+          index={3}
         />
       </div>
 
       {/* CHARTS GRID 1 (Line & Bar) */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6" data-aos="fade-up">
         <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-base text-[#1F2937] flex items-center gap-2">
@@ -252,7 +256,7 @@ export const InstituteDashboard: React.FC = () => {
       </div>
 
       {/* CHARTS GRID 2 (Doughnut & Pie) */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6" data-aos="fade-up">
         <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-base text-[#1F2937] flex items-center gap-2">

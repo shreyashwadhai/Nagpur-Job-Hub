@@ -89,12 +89,12 @@ export const Sidebar: React.FC = () => {
       icon: "solar:widget-bold-duotone",
     },
     {
-      label: "Company Moderation",
+      label: "Companies",
       path: "/admin/companies",
       icon: "solar:buildings-bold-duotone",
     },
     {
-      label: "Institute Moderation",
+      label: "Institutes",
       path: "/admin/institutes",
       icon: "solar:ruler-cross-pen-bold-duotone",
     },
@@ -109,12 +109,12 @@ export const Sidebar: React.FC = () => {
       icon: "solar:shield-check-bold-duotone",
     },
     {
-      label: "Jobs Moderation",
+      label: "Jobs List",
       path: "/admin/jobs",
       icon: "solar:case-round-bold-duotone",
     },
     {
-      label: "News Moderation",
+      label: "Add News",
       path: "/admin/news",
       icon: "solar:document-text-bold-duotone",
     },
@@ -148,7 +148,7 @@ export const Sidebar: React.FC = () => {
           : "Job Seeker Portal";
 
   return (
-    <aside className="w-64 bg-white border-r border-[#E5E9E6] hidden md:flex flex-col min-h-[calc(100vh-4rem)] rounded-2xl">
+    <aside className="w-64 bg-white border-r border-[#E5E9E6] hidden md:flex flex-col min-h-[calc(100vh-4rem)] rounded-2xl" data-aos="fade-right">
       {/* Panel Header Badge */}
       <div className="p-4 border-b border-[#E5E9E6] ">
         <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#F28C28] bg-[#F28C28]/10 px-2.5 py-1 rounded-md block w-fit mb-1">

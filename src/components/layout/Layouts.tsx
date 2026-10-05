@@ -8,7 +8,7 @@ import { ModalManager } from '../modals/ModalManager';
 
 export const PublicLayout: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-[#F5F8F6]">
+    <div className="min-h-screen flex flex-col bg-[#F5F8F6] pt-16">
       <Navbar />
       <main className="flex-1">
         <Outlet />
@@ -21,7 +21,7 @@ export const PublicLayout: React.FC = () => {
 
 export const DashboardLayout: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-[#F5F8F6]">
+    <div className="min-h-screen flex flex-col bg-[#F5F8F6] pt-16">
       <Navbar />
       <div className="flex flex-1 max-w-8xl w-full mx-auto px-4 sm:px-6 lg:px-6 py-2 gap-6">
         <Sidebar />

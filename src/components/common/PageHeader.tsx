@@ -15,7 +15,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   actions,
 }) => {
   return (
-    <div className="mb-8">
+    <div className="mb-8" data-aos="fade-down">
       <Breadcrumb />
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-[#E5E9E6] shadow-sm">
         <div>

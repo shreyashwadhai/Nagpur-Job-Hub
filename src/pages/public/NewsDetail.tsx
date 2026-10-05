@@ -15,7 +15,7 @@ export const NewsDetail: React.FC = () => {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-6">
       <Breadcrumb />
 
-      <div className="bg-white rounded-3xl border border-[#E5E9E6] p-6 sm:p-10 shadow-soft space-y-6">
+      <div className="bg-white rounded-3xl border border-[#E5E9E6] p-6 sm:p-10 shadow-soft space-y-6" data-aos="fade-up">
         <div className="space-y-3">
           <div className="flex items-center gap-3 flex-wrap">
             <ImpactBadge impact={news.nagpurImpact} />

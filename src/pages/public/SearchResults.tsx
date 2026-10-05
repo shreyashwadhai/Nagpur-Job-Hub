@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { mockCompanies } from "../../data/mockCompanies";
 import { mockJobs } from "../../data/mockJobs";
@@ -7,6 +7,7 @@ import { mockIndustries } from "../../data/mockIndustries";
 import { CompanyCard, JobCard, NewsCard } from "../../components/ui/Cards";
 import { PageHeader } from "../../components/common/PageHeader";
 import { Icon } from "@iconify/react";
+import { refreshAOS } from "../../components/common/AOSInit";
 
 export const SearchResults: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -56,6 +57,10 @@ export const SearchResults: React.FC = () => {
     matchedNews.length +
     matchedIndustries.length;
 
+  useEffect(() => {
+    refreshAOS(50);
+  }, [activeTab, query]);
+
   return (
     <div className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-6">
       <PageHeader
@@ -65,10 +70,10 @@ export const SearchResults: React.FC = () => {
       />
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 border-b border-[#E5E9E6] pb-2 overflow-x-auto">
+      <div className="flex items-center gap-2 border-b border-[#E5E9E6] pb-2 overflow-x-auto" data-aos="fade-up">
         <button
           onClick={() => setActiveTab("all")}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
             activeTab === "all"
               ? "bg-[#0B5D3B] text-white"
               : "text-gray-600 hover:bg-gray-100"
@@ -78,7 +83,7 @@ export const SearchResults: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab("companies")}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
             activeTab === "companies"
               ? "bg-[#0B5D3B] text-white"
               : "text-gray-600 hover:bg-gray-100"
@@ -88,7 +93,7 @@ export const SearchResults: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab("jobs")}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
             activeTab === "jobs"
               ? "bg-[#0B5D3B] text-white"
               : "text-gray-600 hover:bg-gray-100"
@@ -98,7 +103,7 @@ export const SearchResults: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab("news")}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
             activeTab === "news"
               ? "bg-[#0B5D3B] text-white"
               : "text-gray-600 hover:bg-gray-100"
@@ -112,13 +117,13 @@ export const SearchResults: React.FC = () => {
       <div className="space-y-8">
         {(activeTab === "all" || activeTab === "companies") &&
           matchedCompanies.length > 0 && (
-            <div className="space-y-4">
+            <div className="space-y-4" data-aos="fade-up">
               <h3 className="font-bold text-lg text-[#1F2937]">
                 Matched Companies
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {matchedCompanies.map((c) => (
-                  <CompanyCard key={c.id} company={c} />
+                {matchedCompanies.map((c, idx) => (
+                  <CompanyCard key={c.id} company={c} index={idx} />
                 ))}
               </div>
             </div>
@@ -126,13 +131,13 @@ export const SearchResults: React.FC = () => {
 
         {(activeTab === "all" || activeTab === "jobs") &&
           matchedJobs.length > 0 && (
-            <div className="space-y-4">
+            <div className="space-y-4" data-aos="fade-up">
               <h3 className="font-bold text-lg text-[#1F2937]">
                 Matched Openings
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {matchedJobs.map((j) => (
-                  <JobCard key={j.id} job={j} />
+                {matchedJobs.map((j, idx) => (
+                  <JobCard key={j.id} job={j} index={idx} />
                 ))}
               </div>
             </div>
@@ -140,20 +145,20 @@ export const SearchResults: React.FC = () => {
 
         {(activeTab === "all" || activeTab === "news") &&
           matchedNews.length > 0 && (
-            <div className="space-y-4">
+            <div className="space-y-4" data-aos="fade-up">
               <h3 className="font-bold text-lg text-[#1F2937]">
                 Matched News Coverage
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {matchedNews.map((n) => (
-                  <NewsCard key={n.id} news={n} />
+                {matchedNews.map((n, idx) => (
+                  <NewsCard key={n.id} news={n} index={idx} />
                 ))}
               </div>
             </div>
           )}
 
         {totalResults === 0 && (
-          <div className="bg-white p-12 text-center rounded-3xl border border-gray-200 space-y-2">
+          <div className="bg-white p-12 text-center rounded-3xl border border-gray-200 space-y-2" data-aos="fade-up">
             <Icon
               icon="solar:magnifer-bug-bold"
               className="w-12 h-12 text-[#F28C28] mx-auto"

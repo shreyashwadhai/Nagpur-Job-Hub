@@ -13,7 +13,7 @@ export const CompanyDashboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" data-aos="fade-down">
         <div className="flex items-center gap-4">
           <img
             src={company.logo}
@@ -35,34 +35,37 @@ export const CompanyDashboard: React.FC = () => {
 
         <button
           onClick={() => openModal("claim-company", company)}
-          className="px-4 py-2 bg-[#F28C28] hover:bg-[#FF9F43] text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-1.5"
+          className="px-4 py-2 bg-[#F28C28] hover:bg-[#FF9F43] text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
         >
           <Icon icon="solar:shield-check-bold" className="w-4 h-4" />
           <span>Verification Status</span>
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4" data-aos="fade-up">
         <KPICard
           title="Profile Views"
           value="4,820"
           change="+28%"
           icon="solar:eye-bold-duotone"
+          index={0}
         />
         <KPICard
           title="Active Job Postings"
           value={activeJobs.length}
           icon="solar:case-round-bold-duotone"
+          index={1}
         />
         <KPICard
           title="Total Candidate Applications"
           value="342"
           change="+14%"
           icon="solar:users-group-two-rounded-bold-duotone"
+          index={2}
         />
       </div>
 
-      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm space-y-4">
+      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm space-y-4" data-aos="fade-up">
         <h3 className="font-bold text-lg text-[#1F2937] font-sans">
           Active Postings in Nagpur
         </h3>

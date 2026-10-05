@@ -77,12 +77,14 @@ export const Insights: React.FC = () => {
       />
 
       {/* AI KEY INSIGHTS */}
-      <AIInsightsCard />
+      <div data-aos="fade-up">
+        <AIInsightsCard />
+      </div>
 
       {/* CHARTS GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Chart 1: Company Additions & Job Growth */}
-        <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-soft space-y-4">
+        <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-soft space-y-4" data-aos="fade-up" data-aos-delay="0">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-bold text-lg text-[#1F2937] font-sans">
@@ -123,7 +125,7 @@ export const Insights: React.FC = () => {
         </div>
 
         {/* Chart 2: MIHAN vs Non-MIHAN Zone Distribution */}
-        <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-soft space-y-4">
+        <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-soft space-y-4" data-aos="fade-up" data-aos-delay="100">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-bold text-lg text-[#1F2937] font-sans">
@@ -163,7 +165,7 @@ export const Insights: React.FC = () => {
         </div>
 
         {/* Chart 3: Sector Breakdown Pie */}
-        <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-soft space-y-4">
+        <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-soft space-y-4" data-aos="fade-up" data-aos-delay="150">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-bold text-lg text-[#1F2937] font-sans">
@@ -199,7 +201,7 @@ export const Insights: React.FC = () => {
         </div>
 
         {/* Chart 4: Hiring Momentum Line */}
-        <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-soft space-y-4">
+        <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-soft space-y-4" data-aos="fade-up" data-aos-delay="200">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-bold text-lg text-[#1F2937] font-sans">

@@ -89,7 +89,7 @@ export const AdminDashboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm flex items-center justify-between">
+      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm flex items-center justify-between" data-aos="fade-down">
         <div>
           <span className="text-[10px] font-sans font-bold uppercase text-[#F28C28] bg-[#F28C28]/10 px-2.5 py-0.5 rounded">
             System Administration
@@ -108,31 +108,35 @@ export const AdminDashboard: React.FC = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4" data-aos="fade-up">
         <KPICard
           title="Total Entities"
           value={mockCompanies.length}
           icon="solar:buildings-bold-duotone"
+          index={0}
         />
         <KPICard
           title="Pending Verifications"
           value={pendingVerifications.length}
           icon="solar:clock-circle-bold-duotone"
+          index={1}
         />
         <KPICard
           title="Active Job Feeds"
           value="3,690"
           icon="solar:case-round-bold-duotone"
+          index={2}
         />
         <KPICard
           title="Scraper Health"
           value="100%"
           icon="solar:server-bold-duotone"
+          index={3}
         />
       </div>
 
       {/* QUICK SECTION NAVIGATION HUB */}
-      <div className="bg-white p-5 rounded-3xl border border-[#E5E9E6] shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="bg-white p-5 rounded-3xl border border-[#E5E9E6] shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4" data-aos="fade-up">
         <span className="text-xs font-bold text-[#1F2937] uppercase tracking-wider flex items-center gap-1.5">
           <Icon icon="solar:tuning-square-2-bold" className="w-4 h-4 text-[#F28C28]" />
           <span>Governance Quick Portals:</span>
@@ -163,7 +167,7 @@ export const AdminDashboard: React.FC = () => {
       </div>
 
       {/* 2-COLUMN SECTION: LEFT PIE CHART & RIGHT PENDING CLAIMS */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6" data-aos="fade-up">
         {/* Left Side: Registered Users Pie Chart */}
         <div className="lg:col-span-5 bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm flex flex-col justify-between space-y-4">
           <div className="flex items-center justify-between">

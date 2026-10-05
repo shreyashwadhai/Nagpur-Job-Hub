@@ -13,8 +13,8 @@ export const IndustryDirectory: React.FC = () => {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {mockIndustries.map((ind) => (
-          <IndustryCard key={ind.id} industry={ind} />
+        {mockIndustries.map((ind, idx) => (
+          <IndustryCard key={ind.id} industry={ind} index={idx} />
         ))}
       </div>
     </div>

@@ -1,9 +1,10 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { mockNews } from "../../data/mockNews";
 import { NewsCard } from "../../components/ui/Cards";
 import { PageHeader } from "../../components/common/PageHeader";
 import { useModal } from "../../context/ModalContext";
+import { refreshAOS } from "../../components/common/AOSInit";
 
 export const News: React.FC = () => {
   const { openModal } = useModal();
@@ -30,6 +31,10 @@ export const News: React.FC = () => {
     });
   }, [searchQuery, selectedTheme]);
 
+  useEffect(() => {
+    refreshAOS(100);
+  }, [filteredNews]);
+
   return (
     <div className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-8">
       <PageHeader
@@ -39,7 +44,7 @@ export const News: React.FC = () => {
         actions={
           <button
             onClick={() => openModal("submit-update")}
-            className="px-4 py-2 bg-[#F28C28] hover:bg-[#FF9F43] text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-1.5"
+            className="px-4 py-2 bg-[#F28C28] hover:bg-[#FF9F43] text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <Icon icon="solar:document-add-bold" className="w-4 h-4" />
             <span>Submit News Release</span>
@@ -48,7 +53,7 @@ export const News: React.FC = () => {
       />
 
       {/* FILTER BAR */}
-      <div className="bg-white p-5 rounded-2xl border border-[#E5E9E6] shadow-sm space-y-4">
+      <div className="bg-white p-5 rounded-2xl border border-[#E5E9E6] shadow-sm space-y-4" data-aos="fade-up">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="relative w-full sm:w-80">
             <input
@@ -85,8 +90,8 @@ export const News: React.FC = () => {
 
       {/* NEWS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {filteredNews.map((n) => (
-          <NewsCard key={n.id} news={n} />
+        {filteredNews.map((n, idx) => (
+          <NewsCard key={n.id} news={n} index={idx} />
         ))}
       </div>
     </div>

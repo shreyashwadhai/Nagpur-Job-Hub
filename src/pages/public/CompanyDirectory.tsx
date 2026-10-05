@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { mockCompanies } from "../../data/mockCompanies";
@@ -6,6 +6,7 @@ import { CompanyCard } from "../../components/ui/Cards";
 import { MapboxMap } from "../../components/map/MapboxMap";
 import { PageHeader } from "../../components/common/PageHeader";
 import { useModal } from "../../context/ModalContext";
+import { refreshAOS } from "../../components/common/AOSInit";
 
 export const CompanyDirectory: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -63,6 +64,10 @@ export const CompanyDirectory: React.FC = () => {
     });
   }, [searchQuery, selectedSez, selectedIndustry, selectedVerif]);
 
+  useEffect(() => {
+    refreshAOS(100);
+  }, [filteredCompanies, viewMode]);
+
   return (
     <div className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
       <PageHeader
@@ -72,7 +77,7 @@ export const CompanyDirectory: React.FC = () => {
         actions={
           <button
             onClick={() => openModal("submit-update")}
-            className="px-4 py-2 bg-[#F28C28] hover:bg-[#FF9F43] text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-1.5"
+            className="px-4 py-2 bg-[#F28C28] hover:bg-[#FF9F43] text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <Icon icon="solar:add-circle-bold" className="w-4 h-4" />
             <span>Submit Missing Company</span>
@@ -81,7 +86,7 @@ export const CompanyDirectory: React.FC = () => {
       />
 
       {/* FILTER CONTROL BAR */}
-      <div className="bg-white p-4 rounded-2xl border border-[#E5E9E6] shadow-sm mb-6 space-y-4">
+      <div className="bg-white p-4 rounded-2xl border border-[#E5E9E6] shadow-sm mb-6 space-y-4" data-aos="fade-up">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Keyword Input */}
           <div className="relative w-full md:w-80">
@@ -212,12 +217,12 @@ export const CompanyDirectory: React.FC = () => {
       {viewMode === "list" ? (
         filteredCompanies.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCompanies.map((c) => (
-              <CompanyCard key={c.id} company={c} />
+            {filteredCompanies.map((c, idx) => (
+              <CompanyCard key={c.id} company={c} index={idx} />
             ))}
           </div>
         ) : (
-          <div className="bg-white p-12 text-center rounded-3xl border border-[#E5E9E6] space-y-3">
+          <div className="bg-white p-12 text-center rounded-3xl border border-[#E5E9E6] space-y-3" data-aos="fade-up">
             <Icon
               icon="solar:magnifer-bug-bold-duotone"
               className="w-12 h-12 text-[#F28C28] mx-auto"
@@ -232,10 +237,12 @@ export const CompanyDirectory: React.FC = () => {
         )
       ) : (
         <div className="space-y-4">
-          <MapboxMap companies={filteredCompanies} height="600px" />
+          <div data-aos="fade-up">
+            <MapboxMap companies={filteredCompanies} height="600px" />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {filteredCompanies.map((c) => (
-              <CompanyCard key={c.id} company={c} />
+            {filteredCompanies.map((c, idx) => (
+              <CompanyCard key={c.id} company={c} index={idx} />
             ))}
           </div>
         </div>

@@ -15,7 +15,7 @@ export const About: React.FC = () => {
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <div className="lg:col-span-7 space-y-4">
+        <div className="lg:col-span-7 space-y-4" data-aos="fade-right">
           <h2 className="text-3xl font-extrabold text-[#1F2937] font-sans">
             Empowering Vidarbha’s Industrial Transformation
           </h2>
@@ -35,7 +35,7 @@ export const About: React.FC = () => {
           <div className="pt-2">
             <button
               onClick={() => openModal("claim-company")}
-              className="px-5 py-3 rounded-2xl bg-[#0B5D3B] hover:bg-[#087F5B] text-white font-bold text-xs shadow-md transition-all flex items-center gap-2"
+              className="px-5 py-3 rounded-2xl bg-[#0B5D3B] hover:bg-[#087F5B] text-white font-bold text-xs shadow-md transition-all flex items-center gap-2 cursor-pointer"
             >
               <Icon icon="solar:shield-check-bold" className="w-4 h-4" />
               <span>Claim Enterprise Entity</span>
@@ -43,7 +43,7 @@ export const About: React.FC = () => {
           </div>
         </div>
 
-        <div className="lg:col-span-5 bg-gradient-to-br from-[#0B5D3B] to-[#087F5B] text-white p-8 rounded-3xl shadow-xl space-y-4">
+        <div className="lg:col-span-5 bg-gradient-to-br from-[#0B5D3B] to-[#087F5B] text-white p-8 rounded-3xl shadow-xl space-y-4" data-aos="fade-left">
           <Icon icon="solar:city-bold" className="w-12 h-12 text-[#FF9F43]" />
           <h3 className="font-bold text-xl font-sans">
             Governance & Telemetry Standards

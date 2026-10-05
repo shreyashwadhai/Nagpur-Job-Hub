@@ -77,15 +77,15 @@ export const Navbar: React.FC = () => {
 
 
   return (
-    <header className="sticky top-0 z-40 bg-white/75 backdrop-blur-md border-b border-[#E5E9E6] shadow-sm">
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="fixed top-0 left-0 right-0 z-[9999] w-full bg-white/90 backdrop-blur-md border-b border-[#E5E9E6] shadow-sm" style={{ zIndex: 9999 }}>
+      <div className="max-w-348 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           {/* Logo Branding */}
           <Link
             to="/"
             className="flex items-center gap-2.5 flex-shrink-0 group"
           >
-            <img src={AppLogo} alt="" className="w-20 h-16" />
+            <img src={AppLogo} alt="" className="w-16 h-14" />
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-sans font-extrabold text-[1.6rem] text-[#094e31] tracking-tight leading-none">

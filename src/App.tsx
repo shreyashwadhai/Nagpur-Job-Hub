@@ -55,6 +55,8 @@ import { AdminInstitutes } from './pages/admin/AdminInstitutes';
 import { DataSources } from './pages/admin/DataSources';
 import { AuditLogs } from './pages/admin/AuditLogs';
 
+import { AOSInit } from './components/common/AOSInit';
+
 export const App: React.FC = () => {
   return (
     <AuthProvider>
@@ -62,7 +64,8 @@ export const App: React.FC = () => {
         <ToastProvider>
           <VerificationProvider>
             <BrowserRouter>
-            <Routes>
+              <AOSInit />
+              <Routes>
               {/* Public Website Layout */}
               <Route element={<PublicLayout />}>
                 <Route path="/" element={<Home />} />

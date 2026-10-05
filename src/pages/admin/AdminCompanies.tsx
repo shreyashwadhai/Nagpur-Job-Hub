@@ -23,14 +23,14 @@ export const AdminCompanies: React.FC = () => {
   const [compName, setCompName] = useState("");
   const [compIndustry, setCompIndustry] = useState("IT & Software Services");
   const [compSez, setCompSez] = useState<'MIHAN SEZ' | 'Hingna MIDC' | 'Butibori Industrial Area' | 'IT Park Parsodi' | 'Kalmeshwar' | 'Central Nagpur'>('MIHAN SEZ');
-  const [compLocation, setCompLocation] = useState("MIHAN SEZ, Nagpur");
+  const [compLocation, _setCompLocation] = useState("MIHAN SEZ, Nagpur");
   const [compHeadcount, setCompHeadcount] = useState("50-200");
   const [compEntryYear, setCompEntryYear] = useState<number>(2024);
   const [compBusinessFocus, setCompBusinessFocus] = useState("");
   const [compOverview, setCompOverview] = useState("");
   const [compWebsite, setCompWebsite] = useState("https://");
   const [compEmail, setCompEmail] = useState("");
-  const [compPhone, setCompPhone] = useState("+91 712 ");
+  const [compPhone, _setCompPhone] = useState("+91 712 ");
   const [compLeaderName, setCompLeaderName] = useState("");
   const [compLeaderTitle, setCompLeaderTitle] = useState("Managing Director");
   const [compVerificationStatus, setCompVerificationStatus] = useState<'verified' | 'estimated' | 'pending'>('verified');

@@ -1,9 +1,10 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { mockJobs } from "../../data/mockJobs";
 import { JobCard } from "../../components/ui/Cards";
 import { PageHeader } from "../../components/common/PageHeader";
 import { useModal } from "../../context/ModalContext";
+import { refreshAOS } from "../../components/common/AOSInit";
 
 export const Jobs: React.FC = () => {
   const { openModal } = useModal();
@@ -31,6 +32,10 @@ export const Jobs: React.FC = () => {
     });
   }, [searchQuery, selectedSez, selectedMode, fresherOnly]);
 
+  useEffect(() => {
+    refreshAOS(100);
+  }, [filteredJobs]);
+
   return (
     <div className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-8">
       <PageHeader
@@ -40,7 +45,7 @@ export const Jobs: React.FC = () => {
         actions={
           <button
             onClick={() => openModal("ask-ecosystem")}
-            className="px-4 py-2 bg-[#F28C28] hover:bg-[#FF9F43] text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-1.5"
+            className="px-4 py-2 bg-[#F28C28] hover:bg-[#FF9F43] text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <Icon icon="solar:stars-minimalistic-bold" className="w-4 h-4" />
             <span>Ask AI Job Match</span>
@@ -49,7 +54,7 @@ export const Jobs: React.FC = () => {
       />
 
       {/* FILTER BAR */}
-      <div className="bg-white p-5 rounded-2xl border border-[#E5E9E6] shadow-sm space-y-4">
+      <div className="bg-white p-5 rounded-2xl border border-[#E5E9E6] shadow-sm space-y-4" data-aos="fade-up">
         <div className="flex flex-col md:flex-row items-center gap-4">
           <div className="relative w-full md:w-96">
             <input
@@ -117,14 +122,14 @@ export const Jobs: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredJobs.map((j) => (
-            <JobCard key={j.id} job={j} />
+          {filteredJobs.map((j, idx) => (
+            <JobCard key={j.id} job={j} index={idx} />
           ))}
         </div>
       </div>
 
       {/* CAREER INSIGHTS SECTION */}
-      <div className="bg-gradient-to-r from-[#0B5D3B] to-[#087F5B] text-white p-8 rounded-3xl shadow-xl space-y-6">
+      <div className="bg-gradient-to-r from-[#0B5D3B] to-[#087F5B] text-white p-8 rounded-3xl shadow-xl space-y-6" data-aos="zoom-in">
         <div className="flex items-center justify-between border-b border-white/10 pb-4">
           <div>
             <h3 className="font-bold text-xl font-sans">

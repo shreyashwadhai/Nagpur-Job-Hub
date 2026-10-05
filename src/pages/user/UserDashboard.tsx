@@ -14,7 +14,7 @@ export const UserDashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" data-aos="fade-down">
         <div className="flex items-center gap-4">
           <img
             src={user.avatar}
@@ -44,26 +44,29 @@ export const UserDashboard: React.FC = () => {
       </div>
 
       {/* KPI Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4" data-aos="fade-up">
         <KPICard
           title="Applied Opportunities"
           value={appliedJobs.length}
           icon="solar:case-bold-duotone"
+          index={0}
         />
         <KPICard
           title="Saved Opportunities"
           value={savedJobs.length}
           icon="solar:bookmark-bold-duotone"
+          index={1}
         />
         <KPICard
           title="Active Job Alerts"
           value={user.jobAlerts.length}
           icon="solar:bell-bold-duotone"
+          index={2}
         />
       </div>
 
       {/* Applied Applications Tracker */}
-      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm space-y-4">
+      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm space-y-4" data-aos="fade-up">
         <h3 className="font-bold text-lg text-[#1F2937] font-sans">
           Recent Application Submissions
         </h3>
@@ -103,13 +106,13 @@ export const UserDashboard: React.FC = () => {
       </div>
 
       {/* Recommended Jobs */}
-      <div className="space-y-4">
+      <div className="space-y-4" data-aos="fade-up">
         <h3 className="font-bold text-lg text-[#1F2937] font-sans">
           Recommended Opportunities for You
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockJobs.slice(0, 4).map((j) => (
-            <JobCard key={j.id} job={j} />
+          {mockJobs.slice(0, 4).map((j, idx) => (
+            <JobCard key={j.id} job={j} index={idx} />
           ))}
         </div>
       </div>

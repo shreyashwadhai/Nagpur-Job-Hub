@@ -130,12 +130,16 @@ export const Home: React.FC = () => {
       rgba(234,244,239,0.15) 100%
     ), url(${landingPageImg})`,
         }}
-        className="relative bg-cover bg-center bg-no-repeat py-32"
+        className="relative bg-cover bg-center bg-no-repeat py-36"
       >
         <div className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Hero Content */}
-            <div className="lg:col-span-6 space-y-2">
+            <div
+              className="lg:col-span-6 space-y-2"
+              data-aos="fade-right"
+              data-aos-duration="900"
+            >
               {/* Sub-header text badge */}
               <div className="text-xs font-semibold text-gray-500 tracking-wide">
                 Digital Source of Truth | Vidarbha Enterprise Intelligence
@@ -149,10 +153,12 @@ export const Home: React.FC = () => {
 
               {/* Description */}
               <p className="text-base sm:text-md text-gray-600 leading-relaxed max-w-xl font-sans">
-                A modern civic-tech and enterprise intelligence platform
+                {/* A modern civic-tech and enterprise intelligence platform
                 unifying Nagpur's industrial zones, tech campuses in MIHAN SEZ,
                 defence manufacturing, logistics, academic institutions, and
-                workforce growth.
+                workforce growth. */}
+                Connecting Industries | Creating Opportunities <br /> Enterprise
+                Intelligence | Building a Strong Nagpur
               </p>
 
               {/* Action Buttons matching screenshot */}
@@ -185,12 +191,17 @@ export const Home: React.FC = () => {
       </section>
 
       {/* FEATURED QUICK ACTION CATEGORY TILES*/}
-      <section className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 bg-white p-5 rounded-2xl">
+      <section
+        className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 bg-white p-5 rounded-2xl"
+        data-aos="fade-up"
+      >
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {exploreTiles.map((tile) => (
+          {exploreTiles.map((tile, idx) => (
             <Link
               key={tile.path}
               to={tile.path}
+              data-aos="fade-up"
+              data-aos-delay={idx * 70}
               className={`
               p-4 rounded-2xl
               bg-white
@@ -251,7 +262,10 @@ export const Home: React.FC = () => {
       </section>
 
       {/* NAGPUR INDUSTRIAL ZONES SECTION MATCHING SCREENSHOT */}
-      <section className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section
+        className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
+        data-aos="fade-up"
+      >
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
           <div>
             <div className="flex items-center gap-2">
@@ -279,10 +293,12 @@ export const Home: React.FC = () => {
 
         {/* 6 Zones Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {industrialZones.map((zone) => (
+          {industrialZones.map((zone, idx) => (
             <div
               key={zone.id}
               onClick={() => navigate(`/companies?sez=${zone.query}`)}
+              data-aos="zoom-in"
+              data-aos-delay={idx * 80}
               className="bg-white rounded-2xl border border-[#E5E9E6] shadow-sm hover:shadow-md transition-all cursor-pointer group overflow-hidden flex flex-col justify-between"
             >
               <div className="relative h-28 overflow-hidden bg-gray-100">
@@ -309,6 +325,8 @@ export const Home: React.FC = () => {
           {/* Tile 6: Interactive Geographic Map */}
           <div
             onClick={() => navigate("/map")}
+            data-aos="zoom-in"
+            data-aos-delay={400}
             className="bg-white rounded-2xl border border-[#E5E9E6] shadow-sm hover:shadow-md transition-all cursor-pointer group overflow-hidden flex flex-col justify-between"
           >
             <div className="relative h-28 bg-[#E6F4ED] flex items-center justify-center overflow-hidden">
@@ -367,12 +385,18 @@ export const Home: React.FC = () => {
       </section> */}
 
       {/* AI EXECUTIVE INSIGHTS */}
-      <section className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8">
+      <section
+        className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8"
+        data-aos="fade-up"
+      >
         <AIInsightsCard />
       </section>
 
       {/* LATEST CAREER OPPORTUNITIES */}
-      <section className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 overflow-hidden">
+      <section
+        className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 overflow-hidden"
+        data-aos="fade-up"
+      >
         <div className="flex items-end justify-between">
           <div>
             <span className="text-xs font-sans font-bold uppercase text-[#0B5D3B]">
@@ -394,14 +418,17 @@ export const Home: React.FC = () => {
         </div>
 
         <HorizontalScroller>
-          {mockJobs.map((j) => (
-            <JobCard key={j.id} job={j} />
+          {mockJobs.map((j, idx) => (
+            <JobCard key={j.id} job={j} index={idx} />
           ))}
         </HorizontalScroller>
       </section>
 
       {/* GROWING COMPANIES */}
-      <section className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 overflow-hidden">
+      <section
+        className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 overflow-hidden"
+        data-aos="fade-up"
+      >
         <div className="flex items-end justify-between">
           <div>
             <span className="text-xs font-sans font-bold uppercase text-[#F28C28]">
@@ -423,14 +450,17 @@ export const Home: React.FC = () => {
         </div>
 
         <HorizontalScroller>
-          {mockCompanies.map((c) => (
-            <CompanyCard key={c.id} company={c} />
+          {mockCompanies.map((c, idx) => (
+            <CompanyCard key={c.id} company={c} index={idx} />
           ))}
         </HorizontalScroller>
       </section>
 
       {/* KEY SECTOR DIRECTORY */}
-      <section className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section
+        className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
+        data-aos="fade-up"
+      >
         <div className="flex items-end justify-between">
           <div>
             <span className="text-xs font-sans font-bold uppercase text-[#F28C28]">
@@ -450,14 +480,17 @@ export const Home: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockIndustries.slice(0, 6).map((ind) => (
-            <IndustryCard key={ind.id} industry={ind} />
+          {mockIndustries.slice(0, 6).map((ind, idx) => (
+            <IndustryCard key={ind.id} industry={ind} index={idx} />
           ))}
         </div>
       </section>
 
       {/* NAGPUR INDUSTRY NEWS */}
-      <section className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section
+        className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
+        data-aos="fade-up"
+      >
         <div className="flex items-end justify-between">
           <div>
             <span className="text-xs font-sans font-bold uppercase text-[#0B5D3B]">
@@ -477,14 +510,17 @@ export const Home: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {mockNews.slice(0, 3).map((n) => (
-            <NewsCard key={n.id} news={n} />
+          {mockNews.slice(0, 3).map((n, idx) => (
+            <NewsCard key={n.id} news={n} index={idx} />
           ))}
         </div>
       </section>
 
       {/* CTA BANNER */}
-      <section className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8">
+      <section
+        className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8"
+        data-aos="zoom-in"
+      >
         <div className="bg-gradient-to-r from-[#0B5D3B] via-[#087F5B] to-[#0B5D3B] text-white p-8 sm:p-12 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
           <div className="space-y-3 z-10">
             <span className="text-xs font-sans font-bold uppercase px-3 py-1 rounded bg-[#F28C28] text-white">

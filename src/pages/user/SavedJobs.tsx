@@ -11,7 +11,7 @@ export const SavedJobs: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm">
+      <div className="bg-white p-6 rounded-3xl border border-[#E5E9E6] shadow-sm" data-aos="fade-down">
         <h1 className="text-2xl font-bold text-[#1F2937] font-sans">
           Saved Opportunities ({savedJobs.length})
         </h1>
@@ -22,8 +22,8 @@ export const SavedJobs: React.FC = () => {
 
       {savedJobs.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {savedJobs.map((j) => (
-            <JobCard key={j.id} job={j} />
+          {savedJobs.map((j, idx) => (
+            <JobCard key={j.id} job={j} index={idx} />
           ))}
         </div>
       ) : (

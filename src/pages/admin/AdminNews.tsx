@@ -115,7 +115,7 @@ export const AdminNews: React.FC = () => {
   const [newContent, setNewContent] = useState('');
   const [newSource, setNewSource] = useState('Nagpur Governance Press Desk');
   const [newUrl, setNewUrl] = useState('https://nagpurecosystem.org/news');
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [_imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&auto=format&fit=crop&q=80');
 
   // Handle image file selection

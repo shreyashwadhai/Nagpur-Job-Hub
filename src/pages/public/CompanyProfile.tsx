@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import {
@@ -17,6 +17,7 @@ import { JobCard, NewsCard } from "../../components/ui/Cards";
 import { VerificationBadge } from "../../components/ui/Badges";
 import { Breadcrumb } from "../../components/common/Breadcrumb";
 import { useModal } from "../../context/ModalContext";
+import { refreshAOS } from "../../components/common/AOSInit";
 
 export const CompanyProfile: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -31,12 +32,16 @@ export const CompanyProfile: React.FC = () => {
     (n) => n.companyId === company.id || n.companyName === company.name,
   );
 
+  useEffect(() => {
+    refreshAOS(50);
+  }, [activeTab]);
+
   return (
     <div className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-6">
       <Breadcrumb />
 
       {/* Profile Banner */}
-      <div className="bg-white rounded-3xl border border-[#E5E9E6] p-6 sm:p-8 shadow-soft relative overflow-hidden">
+      <div className="bg-white rounded-3xl border border-[#E5E9E6] p-6 sm:p-8 shadow-soft relative overflow-hidden" data-aos="fade-down">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center gap-5">
             <img
