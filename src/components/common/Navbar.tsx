@@ -77,7 +77,7 @@ export const Navbar: React.FC = () => {
 
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[9999] w-full bg-white/90 backdrop-blur-md border-b border-[#E5E9E6] shadow-sm" style={{ zIndex: 9999 }}>
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-[#E5E9E6] shadow-sm" style={{ zIndex: 9999 }}>
       <div className="max-w-348 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           {/* Logo Branding */}
