@@ -7,11 +7,20 @@ export const mockVerificationRequests: VerificationRequest[] = [
     companyName: 'CtrlS Edge Data Center',
     requesterName: 'Sridhar Pinnapureddy',
     requesterEmail: 'sridhar@ctrls.in',
+    designation: 'Managing Director & Founder',
     gstCin: '27AABCC8821Q1Z8 / U72900MH2022PTC388910',
     documentName: 'MIHAN_SEZ_Allotment_Letter_2024.pdf',
     submittedDate: '2026-09-12',
     status: 'Pending',
-    notes: 'Submitted land allotment proof and GST certificate for MIHAN SEZ parcel.'
+    notes: 'Submitted land allotment proof and GST certificate for MIHAN SEZ parcel.',
+    industry: 'IT & Data Centers',
+    sezZone: 'MIHAN SEZ',
+    website: 'https://www.ctrls.in',
+    employeeBand: '200-500',
+    businessFocus: 'Hyperscale Edge Data Center & Cloud Services',
+    overview: 'CtrlS operates Asia’s largest Tier 4 data center facilities, providing hyperscale cloud connectivity and disaster recovery to enterprises in MIHAN SEZ Nagpur.',
+    phone: '+91 712 281 9000',
+    address: 'Plot 14, Sector 3, MIHAN SEZ, Nagpur - 441108'
   },
   {
     id: 'verif-302',
@@ -19,11 +28,20 @@ export const mockVerificationRequests: VerificationRequest[] = [
     companyName: 'BioCrop Tech & Orange Processing',
     requesterName: 'Dr. Sunita Kulkarni',
     requesterEmail: 'skulkarni@biocropnagpur.com',
+    designation: 'Chief Technology Officer',
     gstCin: '27AAFCB1290K1Z4 / U01409MH2020PTC341100',
     documentName: 'FSSAI_BioRefinery_License_Nagpur.pdf',
     submittedDate: '2026-09-14',
     status: 'Pending',
-    notes: 'Awaiting domain email verification check.'
+    notes: 'Awaiting domain email verification check.',
+    industry: 'AgriTech & Bio-Processing',
+    sezZone: 'Kalmeshwar',
+    website: 'https://biocropnagpur.com',
+    employeeBand: '50-200',
+    businessFocus: 'Citrus bio-refinery, organic pectin extraction & cold storage',
+    overview: 'BioCrop Tech specializes in value-added processing of Vidarbha citrus produce, essential oil extraction, and zero-waste agritech solutions.',
+    phone: '+91 712 254 3311',
+    address: 'MIDC Industrial Estate, Kalmeshwar, Nagpur - 441501'
   },
   {
     id: 'verif-303',
@@ -31,11 +49,20 @@ export const mockVerificationRequests: VerificationRequest[] = [
     companyName: 'Dassault Reliance Aerospace (DRAL)',
     requesterName: 'Sampathkumar S',
     requesterEmail: 'contact@dral.in',
+    designation: 'Senior VP Corporate Affairs',
     gstCin: '27AABCD9910M1Z2 / U35301MH2017PLC291001',
     documentName: 'DGCA_Aerospace_Manufacturing_Approval.pdf',
     submittedDate: '2026-08-25',
     status: 'Approved',
-    notes: 'Verified against Ministry of Defence defence license register.'
+    notes: 'Verified against Ministry of Defence defence license register.',
+    industry: 'Defense & Aerospace',
+    sezZone: 'MIHAN SEZ',
+    website: 'https://dral.in',
+    employeeBand: '500-2000',
+    businessFocus: 'Falcon 2000 jet assembly & Rafale aero-structures manufacturing',
+    overview: 'DRAL is a premier aerospace manufacturing joint venture producing precision aero-structures and Falcon jet components in MIHAN SEZ Nagpur.',
+    phone: '+91 712 665 4000',
+    address: 'Aerospace Park, Sector 5, MIHAN SEZ, Nagpur - 441108'
   }
 ];
 

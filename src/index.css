@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "aos/dist/aos.css";
 @config "../tailwind.config.js";
 
 @theme {
@@ -16,6 +17,9 @@
 }
 
 @layer base {
+  html, body {
+    overflow-x: hidden;
+  }
   body {
     font-family: 'Inter', 'Manrope', sans-serif;
     background-color: #F5F8F6;

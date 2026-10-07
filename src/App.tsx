@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ModalProvider } from './context/ModalContext';
 import { ToastProvider } from './context/ToastContext';
+import { VerificationProvider } from './context/VerificationContext';
 
 import { PublicLayout, DashboardLayout } from './components/layout/Layouts';
 
@@ -39,6 +40,9 @@ import { CompanyVerification } from './pages/company/CompanyVerification';
 // Institute Panel Pages
 import { InstituteDashboard } from './pages/institute/InstituteDashboard';
 import { InstituteCourses } from './pages/institute/InstituteCourses';
+import { InstituteInternships } from './pages/institute/InstituteInternships';
+import { InstituteNews } from './pages/institute/InstituteNews';
+import { InstituteProfile } from './pages/institute/InstituteProfile';
 
 // Admin Panel Pages
 import { AdminDashboard } from './pages/admin/AdminDashboard';
@@ -47,16 +51,21 @@ import { VerificationRequests } from './pages/admin/VerificationRequests';
 import { AdminJobs } from './pages/admin/AdminJobs';
 import { AdminNews } from './pages/admin/AdminNews';
 import { AdminUsers } from './pages/admin/AdminUsers';
+import { AdminInstitutes } from './pages/admin/AdminInstitutes';
 import { DataSources } from './pages/admin/DataSources';
 import { AuditLogs } from './pages/admin/AuditLogs';
+
+import { AOSInit } from './components/common/AOSInit';
 
 export const App: React.FC = () => {
   return (
     <AuthProvider>
       <ModalProvider>
         <ToastProvider>
-          <BrowserRouter>
-            <Routes>
+          <VerificationProvider>
+            <BrowserRouter>
+              <AOSInit />
+              <Routes>
               {/* Public Website Layout */}
               <Route element={<PublicLayout />}>
                 <Route path="/" element={<Home />} />
@@ -97,8 +106,9 @@ export const App: React.FC = () => {
               <Route path="/institute" element={<DashboardLayout />}>
                 <Route path="dashboard" element={<InstituteDashboard />} />
                 <Route path="courses" element={<InstituteCourses />} />
-                <Route path="internships" element={<InstituteCourses />} />
-                <Route path="mous" element={<InstituteDashboard />} />
+                <Route path="internships" element={<InstituteInternships />} />
+                <Route path="news" element={<InstituteNews />} />
+                <Route path="profile" element={<InstituteProfile />} />
               </Route>
 
               {/* Admin Panel Layout */}
@@ -109,6 +119,7 @@ export const App: React.FC = () => {
                 <Route path="jobs" element={<AdminJobs />} />
                 <Route path="news" element={<AdminNews />} />
                 <Route path="users" element={<AdminUsers />} />
+                <Route path="institutes" element={<AdminInstitutes />} />
                 <Route path="data-sources" element={<DataSources />} />
                 <Route path="audit-logs" element={<AuditLogs />} />
               </Route>
@@ -117,10 +128,11 @@ export const App: React.FC = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
-        </ToastProvider>
-      </ModalProvider>
-    </AuthProvider>
-  );
+        </VerificationProvider>
+      </ToastProvider>
+    </ModalProvider>
+  </AuthProvider>
+);
 };
 
 export default App;

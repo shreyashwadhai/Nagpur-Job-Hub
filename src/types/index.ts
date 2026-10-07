@@ -135,11 +135,20 @@ export interface VerificationRequest {
   companyName: string;
   requesterName: string;
   requesterEmail: string;
+  designation?: string;
   gstCin: string;
   documentName: string;
   submittedDate: string;
   status: 'Pending' | 'Approved' | 'Rejected';
   notes?: string;
+  industry?: string;
+  sezZone?: string;
+  website?: string;
+  employeeBand?: string;
+  businessFocus?: string;
+  overview?: string;
+  phone?: string;
+  address?: string;
 }
 
 export interface CommunityContribution {

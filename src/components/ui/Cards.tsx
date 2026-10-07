@@ -8,6 +8,12 @@ import { useModal } from "../../context/ModalContext";
 import { useToast } from "../../context/ToastContext";
 import { StatCounter } from "./StatCounter";
 
+export interface CardAOSProps {
+  animation?: string;
+  index?: number;
+  delay?: number;
+}
+
 export const KPICard: React.FC<{
   title: string;
   value: string | number;
@@ -15,50 +21,62 @@ export const KPICard: React.FC<{
   isPositive?: boolean;
   icon: string;
   accentColor?: string;
-}> = ({ title, value, change, isPositive = true, icon }) => (
-  <div className="bg-white p-5 rounded-2xl border border-[#E5E9E6] shadow-soft hover:shadow-md transition-shadow relative overflow-hidden group">
-    <div className="flex items-center justify-between">
-      <div>
-        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-          {title}
-        </p>
-        <h3 className="text-2xl sm:text-3xl font-extrabold text-[#1F2937] font-tech mt-1">
-          <StatCounter value={value} />
-        </h3>
-        {change && (
-          <div className="flex items-center gap-1 mt-2 text-xs font-semibold">
-            <span
-              className={`flex items-center gap-0.5 px-2 py-0.5 rounded-full ${
-                isPositive
-                  ? "bg-[#0B5D3B]/10 text-[#0B5D3B]"
-                  : "bg-red-500/10 text-red-600"
-              }`}
-            >
-              <Icon
-                icon={
-                  isPositive ? "solar:graph-up-bold" : "solar:graph-down-bold"
-                }
-                className="w-3.5 h-3.5"
-              />
-              <StatCounter value={change} />
-            </span>
-            <span className="text-gray-400 font-normal">vs last period</span>
-          </div>
-        )}
+} & CardAOSProps> = ({ title, value, change, isPositive = true, icon, animation = "fade-up", index, delay }) => {
+  const computedDelay = delay ?? (index !== undefined ? (index % 4) * 100 : undefined);
+  return (
+    <div
+      data-aos={animation}
+      {...(computedDelay !== undefined ? { "data-aos-delay": computedDelay } : {})}
+      className="bg-white p-5 rounded-2xl border border-[#E5E9E6] shadow-soft hover:shadow-md transition-shadow relative overflow-hidden group"
+    >
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            {title}
+          </p>
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-[#1F2937] font-sans mt-1">
+            <StatCounter value={value} />
+          </h3>
+          {change && (
+            <div className="flex items-center gap-1 mt-2 text-xs font-semibold">
+              <span
+                className={`flex items-center gap-0.5 px-2 py-0.5 rounded-full ${
+                  isPositive
+                    ? "bg-[#0B5D3B]/10 text-[#0B5D3B]"
+                    : "bg-red-500/10 text-red-600"
+                }`}
+              >
+                <Icon
+                  icon={
+                    isPositive ? "solar:graph-up-bold" : "solar:graph-down-bold"
+                  }
+                  className="w-3.5 h-3.5"
+                />
+                <StatCounter value={change} />
+              </span>
+              <span className="text-gray-400 font-normal">vs last period</span>
+            </div>
+          )}
+        </div>
+        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#F5F8F6] to-gray-100 flex items-center justify-center text-[#F28C28] group-hover:scale-110 transition-transform shadow-inner">
+          <Icon icon={icon} className="w-6 h-6" />
+        </div>
       </div>
-      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#F5F8F6] to-gray-100 flex items-center justify-center text-[#F28C28] group-hover:scale-110 transition-transform shadow-inner">
-        <Icon icon={icon} className="w-6 h-6" />
-      </div>
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F28C28] to-[#0B5D3B]" />
     </div>
-    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F28C28] to-[#0B5D3B]" />
-  </div>
-);
+  );
+};
 
-export const CompanyCard: React.FC<{ company: Company }> = ({ company }) => {
+export const CompanyCard: React.FC<{ company: Company } & CardAOSProps> = ({ company, animation = "fade-up", index, delay }) => {
   const { openModal } = useModal();
+  const computedDelay = delay ?? (index !== undefined ? (index % 6) * 80 : undefined);
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E5E9E6] p-5 shadow-soft hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+    <div
+      data-aos={animation}
+      {...(computedDelay !== undefined ? { "data-aos-delay": computedDelay } : {})}
+      className="bg-white rounded-2xl border border-[#E5E9E6] p-5 shadow-soft hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+    >
       <div>
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="flex items-center gap-3">
@@ -136,11 +154,12 @@ export const CompanyCard: React.FC<{ company: Company }> = ({ company }) => {
   );
 };
 
-export const JobCard: React.FC<{ job: Job }> = ({ job }) => {
+export const JobCard: React.FC<{ job: Job } & CardAOSProps> = ({ job, animation = "fade-up", index, delay }) => {
   const { isJobSaved, saveJob, unsaveJob } = useAuth();
   const { openModal } = useModal();
   const { showToast } = useToast();
   const saved = isJobSaved(job.id);
+  const computedDelay = delay ?? (index !== undefined ? (index % 6) * 80 : undefined);
 
   const handleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -154,7 +173,11 @@ export const JobCard: React.FC<{ job: Job }> = ({ job }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E5E9E6] p-5 shadow-soft hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+    <div
+      data-aos={animation}
+      {...(computedDelay !== undefined ? { "data-aos-delay": computedDelay } : {})}
+      className="bg-white rounded-2xl border border-[#E5E9E6] p-5 shadow-soft hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+    >
       <div>
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-3">
@@ -248,100 +271,93 @@ export const JobCard: React.FC<{ job: Job }> = ({ job }) => {
   );
 };
 
-export const NewsCard: React.FC<{ news: NewsArticle }> = ({ news }) => (
-  <div className="bg-white rounded-2xl border border-[#E5E9E6] p-5 shadow-soft hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-    <div>
-      {news.image && (
-        <div className="h-40 w-full rounded-xl overflow-hidden mb-4 relative">
-          <img
-            src={news.image}
-            alt={news.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-          <div className="absolute top-3 left-3">
-            <ImpactBadge impact={news.nagpurImpact} />
+export const NewsCard: React.FC<{ news: NewsArticle } & CardAOSProps> = ({ news, animation = "fade-up", index, delay }) => {
+  const computedDelay = delay ?? (index !== undefined ? (index % 6) * 80 : undefined);
+  return (
+    <div
+      data-aos={animation}
+      {...(computedDelay !== undefined ? { "data-aos-delay": computedDelay } : {})}
+      className="bg-white rounded-2xl border border-[#E5E9E6] p-5 shadow-soft hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+    >
+      <div>
+        {news.image && (
+          <div className="h-40 w-full rounded-xl overflow-hidden mb-4 relative">
+            <img
+              src={news.image}
+              alt={news.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute top-3 left-3">
+              <ImpactBadge impact={news.nagpurImpact} />
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      <div className="flex items-center justify-between gap-2 text-xs text-gray-500 mb-2">
-        <span className="font-semibold text-[#0B5D3B]">{news.industry}</span>
-        <span>{news.date}</span>
+        <div className="flex items-center justify-between gap-2 text-xs text-gray-500 mb-2">
+          <span className="font-semibold text-[#0B5D3B]">{news.industry}</span>
+          <span>{news.date}</span>
+        </div>
+
+        <Link
+          to={`/news/${news.id}`}
+          className="font-bold text-base text-[#1F2937] hover:text-[#F28C28] transition-colors line-clamp-2 leading-snug mb-3"
+        >
+          {news.title}
+        </Link>
+
+        <div className="bg-[#F5F8F6] p-3 rounded-xl border border-gray-200/70 mb-4">
+          <div className="flex items-center gap-1.5 text-[11px] font-bold text-purple-700 mb-1">
+            <Icon icon="solar:stars-minimalistic-bold" className="w-3.5 h-3.5" />
+            <span>AI Executive Summary</span>
+          </div>
+          <p className="text-xs text-gray-700 line-clamp-3 leading-relaxed">
+            {news.aiSummary}
+          </p>
+        </div>
       </div>
 
-      <Link
-        to={`/news/${news.id}`}
-        className="font-bold text-base text-[#1F2937] hover:text-[#F28C28] transition-colors line-clamp-2 leading-snug mb-3"
-      >
-        {news.title}
-      </Link>
-
-      <div className="bg-[#F5F8F6] p-3 rounded-xl border border-gray-200/70 mb-4">
-        <div className="flex items-center gap-1.5 text-[11px] font-bold text-purple-700 mb-1">
-          <Icon icon="solar:stars-minimalistic-bold" className="w-3.5 h-3.5" />
-          <span>AI Executive Summary</span>
-        </div>
-        <p className="text-xs text-gray-700 line-clamp-3 leading-relaxed">
-          {news.aiSummary}
-        </p>
+      <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs">
+        <span className="text-gray-500 font-medium">Source: {news.source}</span>
+        <Link
+          to={`/news/${news.id}`}
+          className="text-[#0B5D3B] font-bold hover:underline flex items-center gap-1"
+        >
+          Read Full Story
+          <Icon icon="solar:alt-arrow-right-linear" className="w-3.5 h-3.5" />
+        </Link>
       </div>
     </div>
+  );
+};
 
-    <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs">
-      <span className="text-gray-500 font-medium">Source: {news.source}</span>
-      <Link
-        to={`/news/${news.id}`}
-        className="text-[#0B5D3B] font-bold hover:underline flex items-center gap-1"
-      >
-        Read Full Story
-        <Icon icon="solar:alt-arrow-right-linear" className="w-3.5 h-3.5" />
-      </Link>
-    </div>
-  </div>
-);
-
-export const IndustryCard: React.FC<{ industry: Industry }> = ({
+export const IndustryCard: React.FC<{
+  industry: Industry;
+} & CardAOSProps> = ({
   industry,
-}) => (
-  <Link
-    to={`/industries/${industry.id}`}
-    className="bg-white rounded-2xl border border-[#E5E9E6] p-6 shadow-soft hover:shadow-xl hover:border-[#F28C28] transition-all group"
-  >
-    <div className="flex items-start justify-between mb-4">
-      <div className="w-12 h-12 rounded-2xl bg-[#0B5D3B]/10 text-[#0B5D3B] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#F28C28] group-hover:text-white transition-all shadow-sm">
-        <Icon icon={industry.icon} className="w-6 h-6" />
+  animation = "fade-up",
+  index,
+  delay,
+}) => {
+  const computedDelay = delay ?? (index !== undefined ? (index % 6) * 80 : undefined);
+  return (
+    <Link
+      to={`/industries/${industry.id}`}
+      data-aos={animation}
+      {...(computedDelay !== undefined ? { "data-aos-delay": computedDelay } : {})}
+      className="bg-white rounded-2xl border border-[#E5E9E6] p-5 shadow-soft hover:shadow-xl hover:border-[#F28C28] transition-all group block"
+    >
+      <div className="flex items-start justify-between mb-4">
+        <div className="w-10 h-10 rounded-2xl bg-[#0B5D3B]/10 text-[#0B5D3B] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#F28C28] group-hover:text-white transition-all shadow-sm">
+          <Icon icon={industry.icon} className="w-5 h-5" />
+        </div>
       </div>
-      <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-[#0B5D3B]/10 text-[#0B5D3B]">
-        <StatCounter value={industry.growthRate} />
-      </span>
-    </div>
 
-    <h3 className="font-bold text-lg text-[#1F2937] group-hover:text-[#F28C28] transition-colors mb-2">
-      {industry.name}
-    </h3>
-    <p className="text-xs text-gray-500 leading-relaxed line-clamp-2 mb-4">
-      {industry.description}
-    </p>
-
-    <div className="grid grid-cols-3 gap-2 py-3 border-t border-b border-gray-100 text-center text-xs">
-      <div>
-        <span className="block font-bold text-[#1F2937] font-tech">
-          <StatCounter value={industry.totalCompanies} />
-        </span>
-        <span className="text-[10px] text-gray-400">Companies</span>
-      </div>
-      <div>
-        <span className="block font-bold text-[#0B5D3B] font-tech">
-          <StatCounter value={industry.totalJobs} />
-        </span>
-        <span className="text-[10px] text-gray-400">Open Jobs</span>
-      </div>
-      <div>
-        <span className="block font-bold text-[#F28C28] font-tech">
-          <StatCounter value={`${(industry.totalEmployment / 1000).toFixed(1)}k`} />
-        </span>
-        <span className="text-[10px] text-gray-400">Workforce</span>
-      </div>
-    </div>
-  </Link>
-);
+      <h3 className="font-bold text-lg text-[#1F2937] group-hover:text-[#F28C28] transition-colors mb-2">
+        {industry.name}
+      </h3>
+      <p className="text-xs text-gray-500 leading-relaxed line-clamp-2 mb-4">
+        {industry.description}
+      </p>
+    </Link>
+  );
+};
